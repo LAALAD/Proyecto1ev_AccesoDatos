@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
  *
  * @author adria
  */
-public class Menu {
+public class Operativa {
 
     public static ArrayList<Jugador> jugadores = new ArrayList<>();
     private static ArrayList<Torneo> torneos = new ArrayList<>();

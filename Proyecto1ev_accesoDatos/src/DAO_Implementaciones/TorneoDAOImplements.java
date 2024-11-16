@@ -406,13 +406,24 @@ public class TorneoDAOImplements implements TorneoDAO {
         return torneo;  // Devuelve el objeto Torneo deserializado (o null si no se encontró)
     }
 
+    /**
+     * Muestra los tres primeros jugadores clasificados de un torneo. Este
+     * método consulta la base de datos para obtener los jugadores con las 3
+     * mejores posiciones de un torneo que ya ha sido jugado y muestra sus
+     * estadísticas.
+     *
+     * @param torneo El torneo del que se desean mostrar los tres primeros
+     * jugadores.
+     */
     public void top3(Torneo torneo) {
 
+        // Verificar si el torneo ha sido jugado (si las inscripciones están cerradas)
         if (torneo.isInscripciones_abiertas()) {
             System.out.println("El torneo no ha sido jugado");
-            return;
+            return; // Si no ha sido jugado, termina la ejecución del método
         }
 
+        // Consulta SQL para obtener el top 3 de jugadores, ordenados por su posición
         String sql_return = "SELECT j.nombre,jxt.id_j, jxt.id_t, jxt.posicion "
                 + "FROM jugadorxtorneo jxt "
                 + "JOIN jugador j ON jxt.id_j = j.id_j "
@@ -426,7 +437,7 @@ public class TorneoDAOImplements implements TorneoDAO {
                 //no lo hago en el mismo try xq antes hay que ejecutar el ps.setInt..
                 System.out.println("Top 3 jugadores del torneo:");
 
-                // Procesar los resultados
+                // Iterar sobre los resultados y mostrar la información de cada jugador
                 while (rs.next()) {
                     String nombre = rs.getString("nombre");
                     int id_j = rs.getInt("id_j");
@@ -436,19 +447,31 @@ public class TorneoDAOImplements implements TorneoDAO {
                     System.out.println("Jugador: " + nombre + ", Jugador ID: " + id_j + ", Torneo ID: " + id_t + ", Posición: " + posicion);
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException e) {// Mostrar el error en caso de fallar la consulta SQL
             e.printStackTrace();
             System.out.println("No se ha encontrado el torneo.");
         }
 
     }
 
+    /**
+     * Muestra las estadísticas de todos los jugadores de un torneo. Este método
+     * consulta la base de datos para obtener las posiciones de todos los
+     * jugadores inscritos en un torneo que ya ha sido jugado y muestra sus
+     * estadísticas.
+     *
+     * @param torneo El torneo del que se desean mostrar las estadísticas de los
+     * jugadores.
+     */
     public void mostrarStats(Torneo torneo) {
 
+        // Verificar si el torneo ha sido jugado (si las inscripciones están cerradas)
         if (torneo.isInscripciones_abiertas()) {
             System.out.println("El torneo no ha sido jugado");
-            return;
+            return;// Si no ha sido jugado, termina la ejecución del método
         }
+
+        // Consulta SQL para obtener todas las posiciones de los jugadores en un torneo
         String sql_return = "SELECT j.nombre,jxt.id_j, jxt.id_t, jxt.posicion "
                 + "FROM jugadorxTorneo jxt "
                 + "JOIN jugador j ON jxt.id_j = j.id_j "
@@ -459,12 +482,13 @@ public class TorneoDAOImplements implements TorneoDAO {
             ps.setInt(1, torneo.getId_t());
             try (ResultSet resultSet = ps.executeQuery();) {
                 System.out.println("Estadisticas");
+                // Iterar sobre los resultados y mostrar la información de cada jugador
                 while (resultSet.next()) {
                     String nombre = resultSet.getString("nombre");
                     int id_j = resultSet.getInt("id_j");
                     int id_t = resultSet.getInt("id_t");
                     int posicion = resultSet.getInt("posicion");
-
+                    // Mostrar las estadísticas de cada jugador
                     System.out.println("Jugador: " + nombre + ", Jugador ID: " + id_j + ", Torneo ID: " + id_t + ", Posicion: " + posicion);
                 }
             }

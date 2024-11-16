@@ -1,21 +1,24 @@
 package Operativa;
 
 import IO.InicializarBBDD;
-import java.io.IOException;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 /**
- *
- * @author adria
+ * Clase principal de la aplicación que inicia la base de datos y despliega el
+ * menú de opciones.
  */
 public class main {
 
-    public static void main(String[] args){
+    /**
+     * Método principal que inicializa la base de datos y muestra el menú para
+     * interactuar con el usuario.
+     *
+     * @param args Argumentos de línea de comandos (no utilizados en este caso).
+     */
+    public static void main(String[] args) {
+        // Crear la base de datos
         InicializarBBDD.crearBBDD();
-        Menu.menu();
+        // Llamar al método de menú para que el usuario seleccione opciones
+        Operativa.menu();
     }
 
 }

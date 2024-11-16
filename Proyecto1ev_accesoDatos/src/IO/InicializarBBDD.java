@@ -2,7 +2,7 @@ package IO;
 
 import IO.ConexionBBDD;
 import java.sql.*;
-import Operativa.Menu;
+import Operativa.Operativa;
 import Modelo.Jugador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
