@@ -13,11 +13,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
+ * Clase para generar un informe en formato de texto de un torneo y sus
+ * participantes. El informe se guarda en un archivo que el usuario selecciona
+ * mediante un cuadro de diálogo.
  *
  * @author Usuario
  */
 public class GenerarInforme {
 
+    /**
+     * Abre un cuadro de diálogo para seleccionar un archivo y devuelve el
+     * archivo seleccionado.
+     *
+     * @return El archivo seleccionado por el usuario, o null si no se
+     * seleccionó ningún archivo.
+     */
     public static File seleccionarFichero() {
         // Crear una instancia de JFileChooser, que es un cuadro de diálogo estándar para seleccionar archivos o directorios.
         JFileChooser fileChooser = new JFileChooser();
@@ -37,21 +47,37 @@ public class GenerarInforme {
         }
     }
 
+    /**
+     * Genera un informe detallado de un torneo y lo guarda en un archivo
+     * seleccionado por el usuario.
+     *
+     * @param t El torneo del cual se generará el informe.
+     * @return true si el informe se generó y guardó correctamente, false si
+     * ocurrió un error.
+     */
     public static boolean generarInformeTorneo(Torneo t) {
+        // Llamamos a la función para seleccionar el archivo donde se guardará el informe.
         File f = seleccionarFichero();
-        boolean flag = true;
-        FileWriter fw = null;//FileWriter es una clase para escribir
-        try {
-            fw = new FileWriter(f);
+        boolean flag = true; // Bandera que indica si el proceso fue exitoso.
+        
+        // Usamos try-with-resources para que el FileWriter se cierre automáticamente.
+        try (FileWriter fw = new FileWriter(f);){ // Crear un FileWriter para escribir en el archivo seleccionado 
+
+            // Escribir el encabezado del informe con el nombre y la fecha del torneo.            
             fw.write("TORNEO: " + t.getNombre() + "\t" + "FECHA: " + t.getFecha());
             fw.write("\n" + "\n" + "\n");// "\n" escribe un salto de linea
             fw.write("LISTA DE PARTICIPANTES:");
             fw.write("\n" + "\n");
-            fw.write("POSICION" + "\t" + "\t" + "PJ" + "\t" + "\t" + "PG" + "\t" + "\t" + "%VICTORIAS");
+
+            // Escribir los encabezados de las columnas de la tabla de participantes.
+            fw.write("POSICION" + "\t" + "NOMBRE" + "\t" + "\t" + "PJ" + "\t" + "\t" + "PG" + "\t" + "\t" + "%VICTORIAS");
             fw.write("\n" + "\n");
+
+            // Recorrer la lista de participantes del torneo.
             int pos = 0;
             for (Jugador participante : t.getInscritos()) {
-                pos++;
+                pos++; // Incrementar la posición del participante.
+                // Escribir la información de cada participante en el archivo.
                 fw.write(pos + ".- " + "\t" + "\t" + participante.getNombre() + "\t" + "\t"
                         + +participante.getPartidasJugadasTorneo() + "\t" + "\t"
                         + +participante.getPartidasGanadasTorneo() + "\t" + "\t"
@@ -59,23 +85,17 @@ public class GenerarInforme {
                 fw.write("\n" + "\n");
             }
         } catch (IOException ex) {
+            // Manejo de excepciones si ocurre un error al abrir o escribir en el archivo.
             System.out.println("Error al abrir el fichero");
             flag = false;
             System.out.println("Error al guardar el fichero");
             return flag;
         } catch (NullPointerException ex) {
+            // Si el usuario no seleccionó ningún archivo, mostrar un mensaje.
             flag = false;
             System.out.println("No se ha seleccionado ningun fichero, el registro no se ha guardado");
             return flag;
-        } finally {
-            if (fw != null) {
-                try {
-                    fw.close();
-                } catch (IOException ex) {
-                    System.out.println("Error al cerrar el fichero");
-                }
-            }
-        }
+        } 
         System.out.println("Registro guardado");
         return flag;
     }
