@@ -205,6 +205,7 @@ public class Menu {
             System.out.println("No existen jugadores registrados");
             return;
         }
+        imprimirJugadores(jugadores);
         System.out.println("Para el jugador a eliminar...");
         Jugador eliminar = seleccionarJugador();
         jugadores.remove(eliminar);
@@ -271,11 +272,11 @@ public class Menu {
             System.out.println("No existen torneos registrados");
             return;
         }
+        imprimirTorneos(torneos);
         System.out.println("Para el torneo a eliminar: ");
         Torneo eliminar = seleccionarTorneo();
         torneos.remove(eliminar);
         t.eliminarTorneo(eliminar);
-
     }
 
     public static void buscarTorneo() { //busca en la bbdd   
@@ -397,7 +398,6 @@ public class Menu {
         Jugador seleccion_jugador = seleccionarJugador(noInscritos(seleccion_torneo));
 
         seleccion_torneo.inscribir(seleccion_jugador);
-        //t.modificarTorneo(seleccion_torneo);
     }
 
     public static void jugarTorneo() { //actualizar los datos de los jugadores inscritos
