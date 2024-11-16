@@ -41,6 +41,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             ps.setBoolean(5, t.isInscripciones_abiertas());
             // Ejecutamos la sentencia
             ps.executeUpdate();
+            serializarTorneo(t);
             // Cerrar el PreparedStatement después de su uso
             ps.close();
             return true;
@@ -93,6 +94,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             ps.setInt(6, t.getId_t());
             // Ejecutamos la sentencia
             ps.executeUpdate();
+            actualizarTorneoSerializado(t);
             // Cerrar el PreparedStatement después de su uso
             ps.close();
             return true;
@@ -122,8 +124,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             // Cerrar el PreparedStatement después de su uso
             ps.close();*/
 
-            modificarTorneo(t);
-
+            modificarTorneo(t);            
             String sqJxT = "INSERT INTO jugadorXtorneo (id_j, id_t, posicion) VALUES (?, ?, ?)";
             PreparedStatement psJxT = con.prepareStatement(sqJxT);
             t.ranking();//ordeno inscritos para guardar las posiciones
@@ -137,7 +138,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             }
             // Cerrar el PreparedStatement después de su uso
             psJxT.close();
-
+            actualizarTorneoSerializado(t);
             JugadorDAOImplements j = new JugadorDAOImplements();
             for (Jugador inscrito : t.getInscritos()) {
                 j.modificarJugador(inscrito);
@@ -233,7 +234,7 @@ public class TorneoDAOImplements implements TorneoDAO {
 
     }
 
-    public static void serializarTorneo(Torneo t) {
+    public void serializarTorneo(Torneo t) {
         // Serializar el objeto Torneo a un archivo
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -261,7 +262,7 @@ public class TorneoDAOImplements implements TorneoDAO {
 
     }
     
-    public static boolean actualizarTorneoSerializado(Torneo t) {
+    public boolean actualizarTorneoSerializado(Torneo t) {
     // Serializar el objeto Torneo a un array de bytes
     try {
         // Serializamos el objeto

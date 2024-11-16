@@ -26,8 +26,8 @@ public class Menu {
 
     private static JugadorDAOImplements j = new JugadorDAOImplements();
     private static TorneoDAOImplements t = new TorneoDAOImplements();
-    
-    public static void menuJugador(){        
+
+    public static void menuJugador() {
         String opcion = "";
         do {
             System.out.println("Elija una opcion");
@@ -63,14 +63,14 @@ public class Menu {
 
         } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 6 seguir el bucle
     }
-    
-    public static void menuTorneo(){        
+
+    public static void menuTorneo() {
         String opcion = "";
         do {
             System.out.println("Elija una opcion");
-            System.out.println("1.- Modificar Torneo");
-            System.out.println("2.- Crear Torneo");
-            System.out.println("3.- Eliminar Torneo");
+            System.out.println("1.- Crear Torneo");
+            System.out.println("2.- Eliminar Torneo");
+            System.out.println("3.- Modificar Torneo");
             System.out.println("4.- Buscar Torneo");
             System.out.println("5.- Listar Torneos");
             System.out.println("6.- Salir");
@@ -81,10 +81,10 @@ public class Menu {
                     crearTorneo();
                     break;
                 case "2":
-                    modificarTorneo();
+                    eliminarTorneo();
                     break;
                 case "3":
-                    eliminarTorneo();
+                    modificarTorneo();
                     break;
                 case "4":
                     buscarTorneo();
@@ -100,8 +100,8 @@ public class Menu {
 
         } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 6 seguir el bucle
     }
-    
-    public static void menuPartida(){
+
+    public static void menuPartida() {
         String opcion = "";
         do {
             System.out.println("Elija una opcion");
@@ -110,7 +110,7 @@ public class Menu {
             System.out.println("3.- Salir");
 
             opcion = sc.nextLine();
-            switch (opcion) {                
+            switch (opcion) {
                 case "1":
                     inscribir();
                     break;
@@ -125,7 +125,7 @@ public class Menu {
 
         } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 3 seguir el bucle
     }
-    
+
     public static void menu() {
         ConexionBBDD.getConnection();
         jugadores = j.listarJugadores();
@@ -149,8 +149,7 @@ public class Menu {
                 case "3":
                     menuPartida();
                     break;
-                case "4":                    
-                    guardarTorneosSerializados();
+                case "4":
                     ConexionBBDD.desconectarBBDD();
                     break;
                 default:
@@ -398,7 +397,7 @@ public class Menu {
         Jugador seleccion_jugador = seleccionarJugador(noInscritos(seleccion_torneo));
 
         seleccion_torneo.inscribir(seleccion_jugador);
-        t.modificarTorneo(seleccion_torneo);
+        //t.modificarTorneo(seleccion_torneo);
     }
 
     public static void jugarTorneo() { //actualizar los datos de los jugadores inscritos
@@ -414,7 +413,7 @@ public class Menu {
         } else if (selecionado.getInscritos().size() <= 1) {
             System.out.println("No hay suficientes jugadores inscritos, no se puede jugar el torneo");
         } else {
-            selecionado.jugar();            
+            selecionado.jugar();
             t.guardarTorneoJugado(selecionado);
             for (Jugador j : selecionado.getInscritos()) {
                 j.resetearPuntuacionTorneo();
@@ -488,12 +487,12 @@ public class Menu {
 
         } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
-    
-    public static void guardarTorneosSerializados (){
+
+    /*public static void guardarTorneosSerializados() {
         for (Torneo torneo : torneos) {
             TorneoDAOImplements.serializarTorneo(torneo);
         }
-    }
+    }*/
     /*
         ConexionBBDD.getConnection();
         jugadores = j.listarJugadores();
