@@ -8,6 +8,7 @@ import Modelo.Jugador;
 import Modelo.Torneo;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -167,6 +168,7 @@ public class Menu {
                     menuPartida();
                     break;
                 case "4":
+                    JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");
                     ConexionBBDD.desconectarBBDD();
                     break;
                 default:

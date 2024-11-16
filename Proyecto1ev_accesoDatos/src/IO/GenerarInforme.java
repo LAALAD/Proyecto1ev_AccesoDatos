@@ -17,29 +17,26 @@ import java.io.IOException;
  * @author Usuario
  */
 public class GenerarInforme {
-    
+
     public static File seleccionarFichero() {
+        // Crear una instancia de JFileChooser, que es un cuadro de diálogo estándar para seleccionar archivos o directorios.
         JFileChooser fileChooser = new JFileChooser();
 
-        // Establecer un filtro para archivos (por ejemplo, solo mostrar archivos .txt)
-        //FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
-        //fileChooser.setFileFilter(filter);
-        //int result;
-        //do {
-        // Mostrar el diálogo de selección de archivo (para abrir un archivo)
-        //   result = fileChooser.showOpenDialog(null);
-        // } while (result != JFileChooser.APPROVE_OPTION);
-        // Obtener el archivo seleccionado
-        //return fileChooser.getSelectedFile();
-
+        // Mostrar el cuadro de diálogo de selección de archivo. 
+        // El método showOpenDialog(null) muestra el cuadro de diálogo para abrir un archivo y no tiene un componente padre (usa null).
         int result = fileChooser.showOpenDialog(null);
+
+        // Comprobar el resultado del cuadro de diálogo.
+        // JFileChooser.APPROVE_OPTION indica que el usuario seleccionó un archivo y presionó "Aceptar".
         if (result == JFileChooser.APPROVE_OPTION) {
+            // Si el usuario seleccionó un archivo, devolverlo como un objeto File.
             return fileChooser.getSelectedFile();
         } else {
+            // Si el usuario canceló el cuadro de diálogo, devolver null.
             return null;
         }
     }
-    
+
     public static boolean generarInformeTorneo(Torneo t) {
         File f = seleccionarFichero();
         boolean flag = true;
@@ -50,15 +47,15 @@ public class GenerarInforme {
             fw.write("\n" + "\n" + "\n");// "\n" escribe un salto de linea
             fw.write("LISTA DE PARTICIPANTES:");
             fw.write("\n" + "\n");
-            fw.write("POSICION"  + "\t" + "\t" + "PJ" + "\t"+ "\t" + "PG" + "\t" + "\t" + "%VICTORIAS");
+            fw.write("POSICION" + "\t" + "\t" + "PJ" + "\t" + "\t" + "PG" + "\t" + "\t" + "%VICTORIAS");
             fw.write("\n" + "\n");
             int pos = 0;
             for (Jugador participante : t.getInscritos()) {
-                pos++;                
-                fw.write(pos + ".- " + "\t" + "\t"  + participante.getNombre()  + "\t" + "\t" +
-                        + participante.getPartidasJugadasTorneo() +  "\t" + "\t" +
-                        + participante.getPartidasGanadasTorneo() +  "\t" + "\t" +
-                        + participante.calcularWinRate());
+                pos++;
+                fw.write(pos + ".- " + "\t" + "\t" + participante.getNombre() + "\t" + "\t"
+                        + +participante.getPartidasJugadasTorneo() + "\t" + "\t"
+                        + +participante.getPartidasGanadasTorneo() + "\t" + "\t"
+                        + +participante.calcularWinRate());
                 fw.write("\n" + "\n");
             }
         } catch (IOException ex) {
@@ -81,6 +78,6 @@ public class GenerarInforme {
         }
         System.out.println("Registro guardado");
         return flag;
-    }  
-    
+    }
+
 }
