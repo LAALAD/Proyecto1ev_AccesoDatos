@@ -37,7 +37,7 @@ public class InicializarBBDD {
 
             //Crear Tablas
             s.executeUpdate("CREATE TABLE IF NOT EXISTS jugador (id_j INT, nombre VARCHAR(20), partidas_ganadas DOUBLE, partidas_jugadas DOUBLE, PRIMARY KEY(id_j))");
-            s.executeUpdate("CREATE TABLE IF NOT EXISTS torneo (id_t INT, nombre VARCHAR(20), fecha INT, num_max_jugadores INT, inscripciones_abiertas BOOLEAN, PRIMARY KEY(id_t))");
+            s.executeUpdate("CREATE TABLE IF NOT EXISTS torneo (id_t INT, nombre VARCHAR(20), fecha VARCHAR(10), num_max_jugadores INT, inscripciones_abiertas BOOLEAN, PRIMARY KEY(id_t))");
             s.executeUpdate("CREATE TABLE IF NOT EXISTS jugadorXtorneo ( id_j INT, id_t INT, posicion INT, PRIMARY KEY(id_j, id_t), FOREIGN KEY (id_j) REFERENCES jugador(id_j), FOREIGN KEY (id_t) REFERENCES torneo(id_t))");
             s.executeUpdate("CREATE TABLE IF NOT EXISTS torneoSerializado ( id_t INT,  torneo_data BLOB NOT NULL)");
 

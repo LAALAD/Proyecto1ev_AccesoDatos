@@ -181,7 +181,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         } else {
             auxSelec = "CRUZ";
         }
-        return "ID: " + id_j + "NOMBRE: " + nombre + ", partidasGanadas=" + partidasGanadas + ", partidasJugadas=" + partidasJugadas;
+        return "ID: " + id_j + " | NOMBRE: " + nombre + " | partidasGanadas=" + partidasGanadas + " | partidasJugadas=" + partidasJugadas;
 
     }
 

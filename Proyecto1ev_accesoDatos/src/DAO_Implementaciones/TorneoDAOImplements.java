@@ -31,7 +31,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             // Establecemos los parámetros
             ps.setInt(1, t.getId_t());
             ps.setString(2, t.getNombre());
-            ps.setInt(3, t.getFecha());
+            ps.setString(3, t.getFecha());
             ps.setInt(4, t.getNum_max_jugadores());
             ps.setBoolean(5, t.isInscripciones_abiertas());
             // Ejecutamos la sentencia
@@ -55,7 +55,7 @@ public class TorneoDAOImplements implements TorneoDAO {
                 // Recuperar los datos del jugador
                 int id_t = resultado.getInt("id_t");
                 String nombre = resultado.getString("nombre");
-                int fecha = resultado.getInt("fecha");
+                String fecha = resultado.getString("fecha");
                 int num_max_j = resultado.getInt("num_max_jugadores");
                 boolean i_abiertas = resultado.getBoolean("inscripciones_abiertas");
 
@@ -78,7 +78,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             // Establecemos los parámetros
             ps.setInt(1, t.getId_t());
             ps.setString(2, t.getNombre());
-            ps.setInt(3, t.getFecha());
+            ps.setString(3, t.getFecha());
             ps.setInt(4, t.getNum_max_jugadores());
             ps.setBoolean(5, t.isInscripciones_abiertas());
             ps.setInt(6, t.getId_t());
@@ -138,9 +138,7 @@ public class TorneoDAOImplements implements TorneoDAO {
             // Desactivamos el autocommit para manejar la transacción
             conn.setAutoCommit(false);
 
-            try (PreparedStatement ps_jugadorXtorneo = conn.prepareStatement(sq_jugadorxtorneo); 
-                 PreparedStatement ps_torneo = conn.prepareStatement(sq_torneo); 
-                 PreparedStatement ps_torneoSerializado = conn.prepareStatement(sq_torneoSerializado)) {
+            try (PreparedStatement ps_jugadorXtorneo = conn.prepareStatement(sq_jugadorxtorneo); PreparedStatement ps_torneo = conn.prepareStatement(sq_torneo); PreparedStatement ps_torneoSerializado = conn.prepareStatement(sq_torneoSerializado)) {
                 // Ejecutar la eliminación de registros en la tabla jugadorXtorneo
                 ps_jugadorXtorneo.setInt(1, t.getId_t());
                 ps_jugadorXtorneo.executeUpdate();
@@ -179,10 +177,10 @@ public class TorneoDAOImplements implements TorneoDAO {
         ArrayList<Torneo> torneos_salida = new ArrayList<>();
         String sq = "SELECT * FROM torneo";
         try (PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
-             ResultSet rsT = ps.executeQuery();
+            ResultSet rsT = ps.executeQuery();
 
             while (rsT.next()) {
-                torneos_salida.add(new Torneo(rsT.getInt(1), rsT.getString(2), rsT.getInt(3), rsT.getInt(4)));
+                torneos_salida.add(new Torneo(rsT.getInt(1), rsT.getString(2), rsT.getString(3), rsT.getInt(4)));
                 torneos_salida.getLast().setInscripciones_abiertas(rsT.getBoolean(5));
             }
 
@@ -198,11 +196,10 @@ public class TorneoDAOImplements implements TorneoDAO {
         String sq_torneo = "Select * from torneo";
         String sq_jugadorxtorneo = "Select * from jugadorXtorneo"; //intentar hacer todo con un slect mas complejo?
 
-        try (PreparedStatement ps_torneo = ConexionBBDD.getConnection().prepareStatement(sq_torneo); ResultSet rsT = ps_torneo.executeQuery(); 
-             PreparedStatement ps_jugadorxtorneo = ConexionBBDD.getConnection().prepareStatement(sq_jugadorxtorneo); ResultSet rsJxT = ps_jugadorxtorneo.executeQuery();) {
+        try (PreparedStatement ps_torneo = ConexionBBDD.getConnection().prepareStatement(sq_torneo); ResultSet rsT = ps_torneo.executeQuery(); PreparedStatement ps_jugadorxtorneo = ConexionBBDD.getConnection().prepareStatement(sq_jugadorxtorneo); ResultSet rsJxT = ps_jugadorxtorneo.executeQuery();) {
 
             while (rsT.next()) {
-                torneos_salida.add(new Torneo(rsT.getInt(1), rsT.getString(2), rsT.getInt(3), rsT.getInt(4)));
+                torneos_salida.add(new Torneo(rsT.getInt(1), rsT.getString(2), rsT.getString(3), rsT.getInt(4)));
                 torneos_salida.getLast().setInscripciones_abiertas(rsT.getBoolean(5));
             }
 
@@ -230,11 +227,8 @@ public class TorneoDAOImplements implements TorneoDAO {
         String sq = "INSERT INTO torneoSerializado (id_t, torneo_data) VALUES (?, ?)";
 
         try (
-        // Crear el ByteArrayOutputStream y ObjectOutputStream dentro de try-with-resources
-            ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
-            ObjectOutputStream oos = new ObjectOutputStream(bos); 
-            PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);
-            ) {
+                // Crear el ByteArrayOutputStream y ObjectOutputStream dentro de try-with-resources
+                ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos); PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
             // Serializar el objeto Torneo
             oos.writeObject(t);
             byte[] torneoSerializado = bos.toByteArray(); // Convertir el objeto en un array de bytes
@@ -242,16 +236,16 @@ public class TorneoDAOImplements implements TorneoDAO {
             // Establecer los parámetros del PreparedStatement
             ps.setInt(1, t.getId_t());
             ps.setBytes(2, torneoSerializado);
-            
+
             // Ejecutar la consulta para insertar los datos
             ps.executeUpdate();
-            
+
         } catch (IOException e) {
             // Manejar la excepción de serialización
             System.out.println("Error de serialización: " + e.getMessage());
             e.printStackTrace();
         } catch (SQLException e) {
-        // Manejar la excepción de base de datos
+            // Manejar la excepción de base de datos
             System.out.println("Error al guardar en la base de datos");
             e.printStackTrace();
         }
@@ -264,10 +258,7 @@ public class TorneoDAOImplements implements TorneoDAO {
         String sql = "UPDATE torneoSerializado SET torneo_data = ? WHERE id_t = ?";
 
         try (
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);  
-            PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sql)
-            ){
+                ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos); PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sql)) {
             // Serializamos el objeto
             oos.writeObject(t);
             byte[] torneoSerializado = bos.toByteArray(); // Array de bytes
@@ -294,6 +285,76 @@ public class TorneoDAOImplements implements TorneoDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void top3(Torneo torneo) {
+
+        if (torneo.isInscripciones_abiertas()) {
+            System.out.println("El torneo no ha sido jugado");
+            return;
+        }
+
+        String sql_return = "SELECT j.nombre,jxt.id_j, jxt.id_t, jxt.posicion "
+                + "FROM jugadorxtorneo jxt "
+                + "JOIN jugador j ON jxt.id_j = j.id_j "
+                + "WHERE jxt.id_t = ? "
+                + "ORDER BY jxt.posicion LIMIT 3;";
+
+        try (PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sql_return);) {
+            // Establecer el ID del torneo en la consulta antes del resultset
+            ps.setInt(1, torneo.getId_t());
+            try (ResultSet rs = ps.executeQuery()) {
+                //no lo hago en el mismo try xq antes hay que ejecutar el ps.setInt..
+                System.out.println("Top 3 jugadores del torneo:");
+
+                // Procesar los resultados
+                while (rs.next()) {
+                    String nombre = rs.getString("nombre");
+                    int id_j = rs.getInt("id_j");
+                    int id_t = rs.getInt("id_t");
+                    int posicion = rs.getInt("posicion");
+
+                    System.out.println("Jugador: " + nombre + ", Jugador ID: " + id_j + ", Torneo ID: " + id_t + ", Posición: " + posicion);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("No se ha encontrado el torneo.");
+        }
+
+    }
+
+    public void mostrarStats(Torneo torneo) {
+
+        if (torneo.isInscripciones_abiertas()) {
+            System.out.println("El torneo no ha sido jugado");
+            return;
+        }
+        String sql_return = "SELECT j.nombre,jxt.id_j, jxt.id_t, jxt.posicion "
+                + "FROM jugadorxTorneo jxt "
+                + "JOIN jugador j ON jxt.id_j = j.id_j "
+                + "WHERE jxt.id_t = ? "
+                + "ORDER BY jxt.posicion;";
+
+        try (PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sql_return);) {
+            ps.setInt(1, torneo.getId_t());
+            try (ResultSet resultSet = ps.executeQuery();) {
+                System.out.println("Estadisticas");
+                while (resultSet.next()) {
+                    String nombre = resultSet.getString("nombre");
+                    int id_j = resultSet.getInt("id_j");
+                    int id_t = resultSet.getInt("id_t");
+                    int posicion = resultSet.getInt("posicion");
+
+                    System.out.println("Jugador: " + nombre + ", Jugador ID: " + id_j + ", Torneo ID: " + id_t + ", Posicion: " + posicion);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("No se ha encontrrado el torneo.");
+        } 
+
     }
 
     /*

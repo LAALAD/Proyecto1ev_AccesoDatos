@@ -73,7 +73,9 @@ public class Menu {
             System.out.println("3.- Modificar Torneo");
             System.out.println("4.- Buscar Torneo");
             System.out.println("5.- Listar Torneos");
-            System.out.println("6.- Salir");
+            System.out.println("6.- Mostrar Top 3 Torneo");
+            System.out.println("7.- Mostrar Estadísticas Torneo");
+            System.out.println("8.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -93,12 +95,24 @@ public class Menu {
                     imprimirTorneos(t.listarTorneos()); //sin jugadores inscritos
                     break;
                 case "6":
+                    imprimirTorneos(jugados());
+                    if (!jugados().isEmpty()) {
+                        t.top3(seleccionarTorneo(jugados()));
+                    }
+                    break;
+                case "7":
+                    imprimirTorneos(jugados());
+                    if (!jugados().isEmpty()) {
+                        t.mostrarStats(seleccionarTorneo(jugados()));
+                    }
+                    break;
+                case "8":
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
             }
 
-        } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 6 seguir el bucle
+        } while (!opcion.equals("8")); //Mientras seleccione un numero distinto de 8 seguir el bucle
     }
 
     public static void menuPartida() {
@@ -126,7 +140,6 @@ public class Menu {
                 default:
                     System.out.println("¡Opción incorrecta!");
             }
-
         } while (!opcion.equals("4")); //Mientras seleccione un numero distinto de 3 seguir el bucle
     }
 
@@ -243,12 +256,22 @@ public class Menu {
         System.out.println(encontrado.toString());
     }
 
+    public static String asignarFecha() {
+        String fecha;
+        do {
+            System.out.println("Introduce la fecha del torneo (yyyy-mm-dd):");
+            fecha = sc.nextLine();
+        } while (!fecha.matches("\\d{4}-\\d{2}-\\d{2}"));
+        return fecha;
+    }
+
     public static void crearTorneo() {
         int id = asignarId_t();
         System.out.println("Introduce un nombre para el torneo: ");
         String nombre = sc.nextLine();
-        System.out.println("Introduce la fecha del torneo(año): ");
-        int fecha = asignarEntero();
+        //System.out.println("Introduce la fecha del torneo(año): ");
+        //int fecha = asignarEntero();
+        String fecha = asignarFecha();
         System.out.println("Introduce el numero maximo de participantes: ");
         int num_max = asignarEntero();
         Torneo nuevo = new Torneo(id, nombre, fecha, num_max);
@@ -397,17 +420,26 @@ public class Menu {
 
         imprimirTorneos(noJugados());
         Torneo seleccion_torneo = seleccionarTorneo(noJugados());
+        int plazas_disponibles = seleccion_torneo.getNum_max_jugadores() - seleccion_torneo.getInscritos().size();
         outerLoop:
         do {
             imprimirJugadores(noInscritos(seleccion_torneo));
-            System.out.println("Plazas disponibles: " + (seleccion_torneo.getNum_max_jugadores() - seleccion_torneo.getInscritos().size()));
+            System.out.println("Plazas disponibles: " + plazas_disponibles);
             Jugador seleccion_jugador = seleccionarJugador(noInscritos(seleccion_torneo));
             seleccion_torneo.inscribir(seleccion_jugador);
-            String respuesta;
-            if(noInscritos(seleccion_torneo).size() <= 0){
+            System.out.println("Inscrito jugador " + seleccion_jugador.getNombre());
+            plazas_disponibles = seleccion_torneo.getNum_max_jugadores() - seleccion_torneo.getInscritos().size();
+
+            if (plazas_disponibles <= 0) {
+                System.out.println("No quedan plazas disponibles");
+                break;
+            }
+            if (noInscritos(seleccion_torneo).size() <= 0) {
                 System.out.println("No hay más jugadores disponibles para inscribir...");
                 break;
             }
+            
+            String respuesta;
             while (true) {
                 System.out.println("¿Desea inscribir más jugadores? (s/n)");
                 respuesta = sc.nextLine();
@@ -491,6 +523,16 @@ public class Menu {
         return salida;
     }
 
+    public static ArrayList<Torneo> jugados() {
+        ArrayList<Torneo> salida = new ArrayList<>();
+        for (Torneo torneo : torneos) {
+            if (!torneo.isInscripciones_abiertas()) {
+                salida.add(torneo);
+            }
+        }
+        return salida;
+    }
+
     public static void modificarTorneo() {
         if (noJugados().isEmpty()) {
             System.out.println("No existen torneos registrados");
@@ -517,7 +559,7 @@ public class Menu {
                     break;
                 case "1":
                     System.out.println("Introduce la nueva fecha del torneo: ");
-                    modif.setFecha(asignarEntero());
+                    modif.setFecha(asignarFecha());
                     break;
                 case "2":
                     System.out.println("Introduce el nuevo numero maximo de jugadores del torneo: ");

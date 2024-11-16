@@ -16,13 +16,13 @@ public class Torneo implements Serializable {
 
     private int id_t;
     private String nombre;
-    private int fecha;
+    private String fecha;
     private int num_max_jugadores;
     private boolean inscripciones_abiertas;
     //private boolean jugado = false;
     private ArrayList<Jugador> inscritos = new ArrayList<>();
 
-    public Torneo(int id_t, String nombre, int fecha, int num_max_jugadores) {
+    public Torneo(int id_t, String nombre, String fecha, int num_max_jugadores) {
         this.id_t = id_t;
         this.nombre = nombre;
         this.fecha = fecha;
@@ -58,7 +58,7 @@ public class Torneo implements Serializable {
         return id_t;
     }
 
-    public int getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
@@ -74,7 +74,7 @@ public class Torneo implements Serializable {
         this.id_t = id_t;
     }
 
-    public void setFecha(int fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
