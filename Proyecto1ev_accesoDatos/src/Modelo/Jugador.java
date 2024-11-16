@@ -12,8 +12,9 @@ import java.util.Scanner;
  *
  * @author adria
  */
-public class Jugador implements Comparable<Jugador> , Serializable{
+public class Jugador implements Comparable<Jugador>, Serializable {
 //    private static int id_general = 0;
+
     private int id_j;
     private String nombre;
     private double partidasGanadas = 0;
@@ -21,7 +22,7 @@ public class Jugador implements Comparable<Jugador> , Serializable{
     private double partidasGanadasTorneo = 0;
     private double partidasJugadasTorneo = 0;
     //private boolean seleccion = false; //seleccion: false --> cruz / true --> cara
-    private int seleccion = 2; //seleccion: 2 --> cruz / 1 --> cara
+    private int seleccion = 0; //seleccion: 2 --> cruz / 1 --> cara
     private Item item;
 
     public Jugador(int id_j, String nombre) {
@@ -45,12 +46,12 @@ public class Jugador implements Comparable<Jugador> , Serializable{
     public void setId_j(int id_j) {
         this.id_j = id_j;
     }
-    
+
     public void setItem(Item item) {
         this.item = item;
     }
 
-    public void seleccionarCara() {
+    /*public void seleccionarCara() {
 
         Scanner sc = new Scanner(System.in);
 
@@ -58,12 +59,30 @@ public class Jugador implements Comparable<Jugador> , Serializable{
         String selec = sc.nextLine();
         if (selec.equals("1")) {
             seleccion = 1;
-        }
-        /*if (selec.equals("1")) {
-            seleccion = true;
-        }else{
-            seleccion = false;
-        }*/
+        } 
+    }*/
+    public void seleccionarCara() {
+        Scanner sc = new Scanner(System.in);
+
+        String selec = "";
+        boolean entradaValida = false;
+        do {
+            System.out.println("Seleccione Cara(1) o Cruz(2)");
+            selec = sc.nextLine();
+
+            switch (selec) {
+                case "1":
+                    entradaValida = true;
+                    seleccion = 1;
+                    break;
+                case "2":
+                    entradaValida = true;
+                    seleccion = 2;
+                    break;
+                default:
+                    System.out.println("Elija Cara(1) o Cruz(2)");
+            }
+        } while (!entradaValida);
     }
 
     public double[] obtenerPuntuacion() {//getter

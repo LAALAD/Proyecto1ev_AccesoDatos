@@ -101,6 +101,18 @@ public class Torneo implements Serializable {
         inscripciones_abiertas = false;
         ranking();
     }
+    
+    public void jugarDado() {
+        for (int i = 0; i < inscritos.size(); i++) {
+            for (int j = i + 1; j < inscritos.size(); j++) {
+                Partida.jugarDado(inscritos.get(i), inscritos.get(j));
+            }
+        }
+        //jugado = true;
+        inscripciones_abiertas = false;
+        ranking();
+    
+    }
 
     public void ranking() {
         Collections.sort(inscritos);
@@ -128,4 +140,5 @@ public class Torneo implements Serializable {
         }
         return false;
     }
+
 }

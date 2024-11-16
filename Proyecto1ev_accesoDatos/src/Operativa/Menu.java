@@ -106,8 +106,9 @@ public class Menu {
         do {
             System.out.println("Elija una opcion");
             System.out.println("1.- Inscribir Jugador a Torneo");
-            System.out.println("2.- Jugar Torneo");
-            System.out.println("3.- Salir");
+            System.out.println("2.- Jugar Torneo Moneda");
+            System.out.println("3.- Jugar Torneo Dado");
+            System.out.println("4.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -118,12 +119,15 @@ public class Menu {
                     jugarTorneo();
                     break;
                 case "3":
+                    jugarTorneoDado();
+                    break;
+                case "4":
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
             }
 
-        } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 3 seguir el bucle
+        } while (!opcion.equals("4")); //Mientras seleccione un numero distinto de 3 seguir el bucle
     }
 
     public static void menu() {
@@ -421,6 +425,28 @@ public class Menu {
         }
     }
 
+    public static void jugarTorneoDado() {
+        imprimirTorneos(noJugados());
+        if (torneos.isEmpty() || noJugados().isEmpty()) { //haria falta el || o vale con noJugados??
+            System.out.println("No hay torneos disponibles para jugar");
+            return;
+        }
+
+        Torneo selecionado = seleccionarTorneo(noJugados());
+
+        if (!selecionado.isInscripciones_abiertas()) { //seleccionado.isJugado() o guardo el atributo en  la bbdd o uso este otro
+            System.out.println("El torneo ya fue jugado");
+        } else if (selecionado.getInscritos().size() <= 1) {
+            System.out.println("No hay suficientes jugadores inscritos, no se puede jugar el torneo");
+        } else {
+            selecionado.jugarDado();
+            t.guardarTorneoJugado(selecionado);
+            for (Jugador j : selecionado.getInscritos()) {
+                j.resetearPuntuacionTorneo();
+            }
+        }
+    }
+
     public static ArrayList<Jugador> noInscritos(Torneo t) { //cambiar y no crear AL
         //ArrayList<Jugador> salida = jugadores; //asi solo le doy otra referencia no?
         //ArrayList<Jugador> salida = (ArrayList<Jugador>) jugadores.clone();
@@ -493,7 +519,7 @@ public class Menu {
             TorneoDAOImplements.serializarTorneo(torneo);
         }
     }*/
-    /*
+ /*
         ConexionBBDD.getConnection();
         jugadores = j.listarJugadores();
         torneos = t.leerBBDDTorneos(jugadores);
