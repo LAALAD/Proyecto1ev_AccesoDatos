@@ -175,14 +175,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
 
     @Override
     public String toString() {
-        String auxSelec;
-        if (seleccion == 1) {//true = 1
-            auxSelec = "CARA";
-        } else {
-            auxSelec = "CRUZ";
-        }
         return "ID: " + id_j + " | NOMBRE: " + nombre + " | partidasGanadas=" + partidasGanadas + " | partidasJugadas=" + partidasJugadas;
-
     }
 
     //Se haría con object si no hubiera implementado la interfaz indicando Jugador implements Comparable<Jugador> vs Comparable 

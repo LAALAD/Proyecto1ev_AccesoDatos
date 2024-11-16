@@ -253,15 +253,27 @@ public class Menu {
             System.out.println("No hay jugadores con el id indicado");
             return;
         }
-        System.out.println(encontrado.toString());
+        imprimirJugador(encontrado);
+    }
+
+    public static void imprimirJugador(Jugador jugador) {
+        System.out.println("+---------------------------------------+");
+        System.out.println("|         Detalles del Jugador          |");
+        System.out.println("+---------------------------------------+");
+        System.out.println("| ID del Torneo    : " + jugador.getId_j() + "\t \t \t|");
+        System.out.println("| Nombre del Torneo: " + jugador.getNombre() + "\t \t|");
+        System.out.println("| PJ               : " + jugador.getPartidasJugadas() + "\t \t|");
+        System.out.println("| PG               : " + jugador.getPartidasGanadas() + "\t \t|");
+        System.out.println("+---------------------------------------+");
+
     }
 
     public static String asignarFecha() {
         String fecha;
         do {
-            System.out.println("Introduce la fecha del torneo (yyyy-mm-dd):");
+            System.out.println("Introduce la fecha del torneo (dd-mm-yyyy):");
             fecha = sc.nextLine();
-        } while (!fecha.matches("\\d{4}-\\d{2}-\\d{2}"));
+        } while (!fecha.matches("\\d{2}-\\d{2}-\\d{4}"));//el \\Al escribir \\d, Java sabe que se refiere a la expresión regular para "dígito".
         return fecha;
     }
 
@@ -313,7 +325,18 @@ public class Menu {
         }
         System.out.println("Indica el id del torneo a buscar:");
         Torneo encontrado = t.buscarTorneo(asignarEntero());
-        System.out.println(encontrado.toString());
+        imprimirTorneo(encontrado);
+    }
+
+    public static void imprimirTorneo(Torneo torneo) {
+        System.out.println("+---------------------------------------+");
+        System.out.println("|           Detalles del Torneo         |");
+        System.out.println("+---------------------------------------+");
+        System.out.println("| ID del Torneo    : " + torneo.getId_t() + "\t \t \t|");
+        System.out.println("| Nombre del Torneo: " + torneo.getNombre() + "\t \t|");
+        System.out.println("| Fecha            : " + torneo.getFecha() + "\t \t|");
+        System.out.println("+---------------------------------------+");
+
     }
 
     public static Jugador seleccionarJugador() {//busca en memoria
@@ -391,9 +414,13 @@ public class Menu {
             System.out.println("No hay jugadores disponibles");
             return;
         }
+
+        System.out.println("|---------------------------|");
+        System.out.println("| ID \t|\t NOMBRE");
+        System.out.println("|---------------------------|");
         for (Jugador it : jugadores) {
-            System.out.print(it.toString());
-            System.out.println("");
+            System.out.println("| " + it.getId_j() + " \t|\t " + it.getNombre());
+            System.out.println("|---------------------------|");
         }
     }
 
@@ -402,9 +429,13 @@ public class Menu {
             System.out.println("No hay torneos disponibles");
             return;
         }
+
+        System.out.println("|---------------------------|");
+        System.out.println("| ID \t|\t NOMBRE");
+        System.out.println("|---------------------------|");
         for (Torneo it : torneos) {
-            System.out.print(it.toString());
-            System.out.println("");
+            System.out.println("| " + it.getId_t() + " \t|\t " + it.getNombre());
+            System.out.println("|---------------------------|");
         }
     }
 
@@ -438,7 +469,7 @@ public class Menu {
                 System.out.println("No hay más jugadores disponibles para inscribir...");
                 break;
             }
-            
+
             String respuesta;
             while (true) {
                 System.out.println("¿Desea inscribir más jugadores? (s/n)");
