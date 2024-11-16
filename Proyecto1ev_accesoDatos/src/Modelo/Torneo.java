@@ -108,7 +108,6 @@ public class Torneo implements Serializable {
                 Partida.jugarDado(inscritos.get(i), inscritos.get(j));
             }
         }
-        //jugado = true;
         inscripciones_abiertas = false;
         ranking();
     
@@ -128,7 +127,6 @@ public class Torneo implements Serializable {
             System.out.println("No hay plazas disponibles en el torneo");
         } else {
             inscritos.add(entrada);
-
         }
     }
 

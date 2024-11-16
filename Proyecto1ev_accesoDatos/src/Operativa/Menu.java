@@ -397,11 +397,30 @@ public class Menu {
 
         imprimirTorneos(noJugados());
         Torneo seleccion_torneo = seleccionarTorneo(noJugados());
+        outerLoop:
+        do {
+            imprimirJugadores(noInscritos(seleccion_torneo));
+            System.out.println("Plazas disponibles: " + (seleccion_torneo.getNum_max_jugadores() - seleccion_torneo.getInscritos().size()));
+            Jugador seleccion_jugador = seleccionarJugador(noInscritos(seleccion_torneo));
+            seleccion_torneo.inscribir(seleccion_jugador);
+            String respuesta;
+            if(noInscritos(seleccion_torneo).size() <= 0){
+                System.out.println("No hay más jugadores disponibles para inscribir...");
+                break;
+            }
+            while (true) {
+                System.out.println("¿Desea inscribir más jugadores? (s/n)");
+                respuesta = sc.nextLine();
+                if (respuesta.equalsIgnoreCase("s")) {
+                    break; // Continuar con el siguiente jugador
+                } else if (respuesta.equalsIgnoreCase("n")) {
+                    break outerLoop; // Rompe el bucle 'outerLoop' (el bucle principal)
+                } else {
+                    System.out.println("Indique s/n"); // Mensaje solo si es inválido
+                }
+            }
+        } while (true);
 
-        imprimirJugadores(noInscritos(seleccion_torneo));
-        Jugador seleccion_jugador = seleccionarJugador(noInscritos(seleccion_torneo));
-
-        seleccion_torneo.inscribir(seleccion_jugador);
     }
 
     public static void jugarTorneo() { //actualizar los datos de los jugadores inscritos

@@ -18,6 +18,7 @@ public abstract class Partida {
     public static void jugar(Jugador p1, Jugador p2) {
         //Resetear variables locales del torneo
 
+        System.out.println("==============================");
         System.out.println("Iniciando partida entre");
 
         System.out.println(p1.getNombre() + " VS " + p2.getNombre());
@@ -66,13 +67,13 @@ public abstract class Partida {
         }
 
         System.out.println("Fin de partida");
-        System.out.println("");
-        System.out.println("");
+        System.out.println("==============================");
+        
     }
 
     public static void jugarDado(Jugador p1, Jugador p2) {
         //Resetear variables locales del torneo
-
+        System.out.println("==============================");
         System.out.println("Iniciando partida entre");
 
         System.out.println(p1.getNombre() + " VS " + p2.getNombre());
@@ -121,7 +122,6 @@ public abstract class Partida {
         }
 
         System.out.println("Fin de partida");
-        System.out.println("");
-        System.out.println("");
+        System.out.println("==============================");
     }
 }
