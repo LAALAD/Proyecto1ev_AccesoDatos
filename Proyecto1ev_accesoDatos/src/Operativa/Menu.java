@@ -248,7 +248,7 @@ public class Menu {
         System.out.println("Introduce el numero maximo de participantes: ");
         int num_max = asignarEntero();
         Torneo nuevo = new Torneo(id, nombre, fecha, num_max);
-        System.out.println("¿Están abiertas las inscripciones al torneo? (s/n)");
+        /*System.out.println("¿Están abiertas las inscripciones al torneo? (s/n)");
         String respuesta;
         do {
             respuesta = sc.nextLine();
@@ -261,7 +261,7 @@ public class Menu {
                 break;
             }
             System.out.println("Indique s/n");
-        } while (true);
+        } while (true);*/
         if (t.crearTorneo(nuevo)) {
             torneos.add(nuevo);
         }

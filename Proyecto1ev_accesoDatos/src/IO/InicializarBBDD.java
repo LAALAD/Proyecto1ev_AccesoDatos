@@ -24,28 +24,27 @@ public class InicializarBBDD {
     private static final String NOMBRE_BBDD = "caravscruz";
 
     public static void crearBBDD() {
-        try {
+        String sql_create = "CREATE DATABASE IF NOT EXISTS " + NOMBRE_BBDD;
+        String sql_use = "USE " + NOMBRE_BBDD;
+        try (Statement s = ConexionBBDD.getConnection().createStatement();){
             //Crear BBDD
-            System.out.println("Creando la base de datos " + NOMBRE_BBDD + "...");
-            String sql_create = "CREATE DATABASE IF NOT EXISTS " + NOMBRE_BBDD;
-            PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sql_create);
-            ps.executeUpdate();
+            //System.out.println("Creando la base de datos " + NOMBRE_BBDD + "...");
+            s.executeUpdate(sql_create);
 
             // Seleccionar la base de datos recién creada
-            System.out.println("Usando la base de datos " + NOMBRE_BBDD + "...");
-            String sql_use = "USE " + NOMBRE_BBDD;
-            ps = ConexionBBDD.getConnection().prepareStatement(sql_use);
-            ps.executeUpdate();
+            //System.out.println("Usando la base de datos " + NOMBRE_BBDD + "...");
+            s.executeUpdate(sql_use);
 
-            //Crear Tabla
-            Statement s = ConexionBBDD.getConnection().createStatement();
+            //Crear Tablas
             s.executeUpdate("CREATE TABLE IF NOT EXISTS jugador (id_j INT, nombre VARCHAR(20), partidas_ganadas DOUBLE, partidas_jugadas DOUBLE, PRIMARY KEY(id_j))");
             s.executeUpdate("CREATE TABLE IF NOT EXISTS torneo (id_t INT, nombre VARCHAR(20), fecha INT, num_max_jugadores INT, inscripciones_abiertas BOOLEAN, PRIMARY KEY(id_t))");
             s.executeUpdate("CREATE TABLE IF NOT EXISTS jugadorXtorneo ( id_j INT, id_t INT, posicion INT, PRIMARY KEY(id_j, id_t), FOREIGN KEY (id_j) REFERENCES jugador(id_j), FOREIGN KEY (id_t) REFERENCES torneo(id_t))");
             s.executeUpdate("CREATE TABLE IF NOT EXISTS torneoSerializado ( id_t INT,  torneo_data BLOB NOT NULL)");
 
             entradasPrueba();
+            
             crearTrigger();
+            
         } catch (Exception e) {
             System.out.println(":>" + e.toString());
             e.printStackTrace();//muestra toda la info de la excepcion en rojo
@@ -84,19 +83,14 @@ public class InicializarBBDD {
                     ps_insert.setDouble(4, jugador.getPartidasJugadas());
                     ps_insert.executeUpdate();
                 } else {
-                    System.out.println("Jugador con ID " + jugador.getId_j() + " ya existe. No se inserta.");
+                    //System.out.println("Jugador con ID " + jugador.getId_j() + " ya existe. No se inserta.");
                 }
             }
 
             // Cerrar los PreparedStatement después de su uso
             ps_check.close();
             ps_insert.close();
-
-            /*String sq2 = "INSERT INTO jugador (id_j, nombre, partidas_ganadas, partidas_jugadas) VALUES (23, 'Sara', h, 10)";
-            PreparedStatement ps2 = ConexionBBDD.getConnection().prepareStatement(sq2);
             
-            ps2.executeUpdate();
-            ps2.close();*/
             ConexionBBDD.getConnection().commit();
             ConexionBBDD.getConnection().setAutoCommit(true); // si no no me guarda despues nada
         } catch (SQLException e) {
@@ -110,10 +104,8 @@ public class InicializarBBDD {
             }
         }
     }
-
-    public static void crearTrigger() {
-        try {
-            String sq = "CREATE TRIGGER IF NOT EXISTS numero_max_jugadores_positivo "
+public static void crearTrigger() {
+        String sq = "CREATE TRIGGER IF NOT EXISTS numero_max_jugadores_positivo "
                     + "BEFORE INSERT ON torneo "
                     + "FOR EACH ROW "
                     + "BEGIN "
@@ -122,10 +114,9 @@ public class InicializarBBDD {
                     + "        SET MESSAGE_TEXT = 'El número máximo de jugadores no puede ser negativo'; "
                     + "    END IF; "
                     + "END;";
-            PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);
+        try (PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
             ps.executeUpdate();
-            ps.close();
-            System.out.println("Trigger creado exitosamente.");
+            //System.out.println("Trigger creado exitosamente.");
         } catch (SQLException e) {
             System.out.println("Error al crear el trigger: " + e.getMessage());
             //e.printStackTrace();

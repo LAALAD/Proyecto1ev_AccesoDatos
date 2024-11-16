@@ -19,7 +19,7 @@ public class Torneo implements Serializable {
     private int fecha;
     private int num_max_jugadores;
     private boolean inscripciones_abiertas;
-    private boolean jugado = false;
+    //private boolean jugado = false;
     private ArrayList<Jugador> inscritos = new ArrayList<>();
 
     public Torneo(int id_t, String nombre, int fecha, int num_max_jugadores) {
@@ -38,9 +38,9 @@ public class Torneo implements Serializable {
         return nombre;
     }
 
-    public void setJugado(boolean jugado) {
+    /*public void setJugado(boolean jugado) {
         this.jugado = jugado;
-    }
+    }*/
 
     public void setInscripciones_abiertas(boolean inscripciones_abiertas) {
         this.inscripciones_abiertas = inscripciones_abiertas;
@@ -50,9 +50,9 @@ public class Torneo implements Serializable {
         return inscripciones_abiertas;
     }
 
-    public boolean isJugado() {
+    /*public boolean isJugado() {
         return jugado;
-    }
+    }*/
 
     public int getId_t() {
         return id_t;
@@ -97,7 +97,7 @@ public class Torneo implements Serializable {
                 Partida.jugar(inscritos.get(i), inscritos.get(j));
             }
         }
-        jugado = true;
+        //jugado = true;
         inscripciones_abiertas = false;
         ranking();
     }
