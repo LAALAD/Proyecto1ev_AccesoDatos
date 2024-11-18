@@ -294,7 +294,9 @@ public class TorneoDAOImplements implements TorneoDAO {
         String sq = "INSERT INTO torneoSerializado (id_t, torneo_data) VALUES (?, ?)";
 
         try (// Crear el ByteArrayOutputStream y ObjectOutputStream dentro de try-with-resources
-                ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos); PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
+                ObjectOutputStream oos = new ObjectOutputStream(bos); 
+                PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
 
             // Serializar el objeto Torneo
             oos.writeObject(t);
@@ -489,7 +491,7 @@ public class TorneoDAOImplements implements TorneoDAO {
                     int id_t = resultSet.getInt("id_t");
                     int posicion = resultSet.getInt("posicion");
                     // Mostrar las estadísticas de cada jugador
-                    System.out.println("Jugador: " + nombre + ", Jugador ID: " + id_j + ", Torneo ID: " + id_t + ", Posicion: " + posicion);
+                    System.out.println( ", Posicion: " + posicion + "Jugador: " + nombre + ", Jugador ID: " + id_j + ", Torneo ID: " + id_t  );
                 }
             }
 

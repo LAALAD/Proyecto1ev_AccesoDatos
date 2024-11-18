@@ -31,6 +31,7 @@ public class GenerarInforme {
     public static File seleccionarFichero() {
         // Crear una instancia de JFileChooser, que es un cuadro de diálogo estándar para seleccionar archivos o directorios.
         JFileChooser fileChooser = new JFileChooser();
+        //fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos de texto", "txt"));
 
         // Mostrar el cuadro de diálogo de selección de archivo. 
         // El método showOpenDialog(null) muestra el cuadro de diálogo para abrir un archivo y no tiene un componente padre (usa null).
@@ -59,9 +60,9 @@ public class GenerarInforme {
         // Llamamos a la función para seleccionar el archivo donde se guardará el informe.
         File f = seleccionarFichero();
         boolean flag = true; // Bandera que indica si el proceso fue exitoso.
-        
+
         // Usamos try-with-resources para que el FileWriter se cierre automáticamente.
-        try (FileWriter fw = new FileWriter(f);){ // Crear un FileWriter para escribir en el archivo seleccionado 
+        try (FileWriter fw = new FileWriter(f);) { // Crear un FileWriter para escribir en el archivo seleccionado 
 
             // Escribir el encabezado del informe con el nombre y la fecha del torneo.            
             fw.write("TORNEO: " + t.getNombre() + "\t" + "FECHA: " + t.getFecha());
@@ -95,7 +96,7 @@ public class GenerarInforme {
             flag = false;
             System.out.println("No se ha seleccionado ningun fichero, el registro no se ha guardado");
             return flag;
-        } 
+        }
         System.out.println("Registro guardado");
         return flag;
     }
