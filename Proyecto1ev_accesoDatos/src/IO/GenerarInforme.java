@@ -20,7 +20,6 @@ import java.io.IOException;
  * @author Usuario
  */
 public class GenerarInforme {
-
     /**
      * Abre un cuadro de diálogo para seleccionar un archivo y devuelve el
      * archivo seleccionado.
