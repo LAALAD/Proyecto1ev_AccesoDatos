@@ -22,7 +22,6 @@ public class Torneo implements Serializable {
     private boolean inscripciones_abiertas;
     //private boolean jugado = false;
     private ArrayList<Jugador> inscritos = new ArrayList<>();
-
     /**
      * Constructor de la clase Torneo. Inicializa un torneo con los datos
      * proporcionados.

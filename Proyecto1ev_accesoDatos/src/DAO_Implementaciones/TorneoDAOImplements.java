@@ -294,10 +294,12 @@ public class TorneoDAOImplements implements TorneoDAO {
         String sq = "INSERT INTO torneoSerializado (id_t, torneo_data) VALUES (?, ?)";
 
         try (// Crear el ByteArrayOutputStream y ObjectOutputStream dentro de try-with-resources
-                ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos); PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
+                ObjectOutputStream oos = new ObjectOutputStream(bos); 
+                PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sq);) {
 
-            // Serializar el objeto Torneo
-            oos.writeObject(t);
+            
+            oos.writeObject(t);// Serializar el objeto Torneo
             byte[] torneoSerializado = bos.toByteArray(); // Convertir el objeto en un array de bytes
 
             // Establecer los parámetros del PreparedStatement
@@ -369,7 +371,7 @@ public class TorneoDAOImplements implements TorneoDAO {
      * @throws IOException Si ocurre un error de entrada/salida durante el
      * proceso de deserialización o consulta de la base de datos.
      */
-    public static Torneo deserializarTorneoJugado(int idTorneo) throws IOException {
+    public static Torneo deserializarTorneoJugado(int idTorneo){
         Torneo torneo = null; // Variable para almacenar el torneo deserializado
 
         // Consulta SQL para recuperar el objeto serializado desde la base de datos
@@ -384,7 +386,9 @@ public class TorneoDAOImplements implements TorneoDAO {
                     byte[] torneoData = rs.getBytes("torneo_data"); // Recupera el array de bytes
 
                     // Deserializa el array de bytes de nuevo al objeto Torneo
-                    try (ByteArrayInputStream bis = new ByteArrayInputStream(torneoData); ObjectInputStream ois = new ObjectInputStream(bis)) {
+                    try (
+                            ByteArrayInputStream bis = new ByteArrayInputStream(torneoData);
+                            ObjectInputStream ois = new ObjectInputStream(bis)) {
 
                         torneo = (Torneo) ois.readObject();  // Convierte el array de bytes de nuevo a un objeto Torneo
                     } catch (IOException | ClassNotFoundException e) {

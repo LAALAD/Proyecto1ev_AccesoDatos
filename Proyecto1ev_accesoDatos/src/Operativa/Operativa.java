@@ -944,13 +944,9 @@ public class Operativa {
         imprimirTorneos(torneos);
         System.out.println("Para el torneo a deserializar: ");
         int id = seleccionarTorneo().getId_t();
-        try {
-            Torneo torneo = t.deserializarTorneoJugado(id);
-            System.out.println("Torneo deserializado: ");
-            imprimirTorneoCompleto(torneo);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        Torneo torneo = t.deserializarTorneoJugado(id);
+        System.out.println("Torneo deserializado: ");
+        imprimirTorneoCompleto(torneo);
     }
 
     private static void imprimirTorneoCompleto(Torneo torneo) {
