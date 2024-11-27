@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -94,7 +96,8 @@ public class Operativa {
             System.out.println("5.- Listar Torneos");
             System.out.println("6.- Mostrar Top 3 Torneo");
             System.out.println("7.- Mostrar Estadísticas Torneo");
-            System.out.println("8.- Salir");
+            System.out.println("8.- Deserializar Torneo");
+            System.out.println("9.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -126,12 +129,15 @@ public class Operativa {
                     }
                     break;
                 case "8":
+                    deserializar();
+                    break;
+                case "9":
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
             }
 
-        } while (!opcion.equals("8")); //Mientras seleccione un numero distinto de 8 seguir el bucle
+        } while (!opcion.equals("9")); //Mientras seleccione un numero distinto de 8 seguir el bucle
     }
 
     /**
@@ -901,17 +907,14 @@ public class Operativa {
 
         } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
-    
-    
-    public static Torneo deserializarTorneoJugado(int idTorneo) throws IOException {
+
+    /*public static Torneo deserializarTorneoJugado(int idTorneo) throws IOException {
         Torneo torneo = null;
 
         // Consulta SQL para recuperar el objeto serializado
         String sql = "SELECT torneo_data FROM torneoSerializado WHERE id_t = ?";
 
-        try (Connection conn = ConexionBBDD.getConnection(); // Obtiene la conexión
-                 PreparedStatement ps = conn.prepareStatement(sql)) {
-
+        try (PreparedStatement ps = ConexionBBDD.getConnection().prepareStatement(sql);) {
             ps.setInt(1, idTorneo); // Establece el parámetro
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -936,5 +939,30 @@ public class Operativa {
         }
 
         return torneo; // Devuelve el objeto Torneo deserializado
+    }*/
+    private static void deserializar() {
+        imprimirTorneos(torneos);
+        System.out.println("Para el torneo a deserializar: ");
+        int id = seleccionarTorneo().getId_t();
+        try {
+            Torneo torneo = t.deserializarTorneoJugado(id);
+            System.out.println("Torneo deserializado: ");
+            imprimirTorneoCompleto(torneo);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void imprimirTorneoCompleto(Torneo torneo) {
+        System.out.println("+---------------------------------------+");
+        System.out.println("|           Detalles del Torneo         |");
+        System.out.println("+---------------------------------------+");
+        System.out.println("| ID del Torneo    : " + torneo.getId_t() + "\t \t \t|");
+        System.out.println("| Nombre del Torneo: " + torneo.getNombre() + "\t \t|");
+        System.out.println("| Fecha            : " + torneo.getFecha() + "\t \t|");
+        System.out.println("| Inscritos            : ");
+        imprimirJugadores(torneo.getInscritos());
+        System.out.println("+---------------------------------------+");
+
     }
 }
