@@ -132,7 +132,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         String selec = "";
         boolean entradaValida = false;
         do {
-            System.out.println("Seleccione Piedra(1), Papel(2)o Tijera(3)");
+            System.out.println("Seleccione Piedra(1), Papel(2) o Tijera(3)");
             selec = sc.nextLine();
 
             switch (selec) {

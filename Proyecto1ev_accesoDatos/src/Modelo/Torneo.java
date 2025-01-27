@@ -209,6 +209,21 @@ public class Torneo implements Serializable {
         ranking();
 
     }
+    
+    
+    public void jugarPiedraPapelTijera() {
+        // Se juega una partida entre todos los pares de jugadores inscritos usando dado
+        for (int i = 0; i < inscritos.size(); i++) {
+            for (int j = i + 1; j < inscritos.size(); j++) {
+                Partida.jugarPiedraPapelTijera(inscritos.get(i), inscritos.get(j));
+            }
+        }
+        // Las inscripciones se cierran después de jugar
+        inscripciones_abiertas = false;
+        // Se genera el ranking después de las partidas
+        ranking();
+
+    }
 
     /**
      * Ordena a los jugadores inscritos en el torneo según su rendimiento en las

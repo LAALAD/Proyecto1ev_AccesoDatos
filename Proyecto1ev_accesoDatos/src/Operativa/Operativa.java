@@ -5,6 +5,7 @@ import DAO_Implementaciones.TorneoDAOImplements;
 import IO.ConexionBBDD;
 import Modelo.Jugador;
 import Modelo.Torneo;
+import VistaControlador.IniciarTorneoPPT;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -151,7 +152,8 @@ public class Operativa {
             System.out.println("1.- Inscribir Jugador a Torneo");
             System.out.println("2.- Jugar Torneo Moneda");
             System.out.println("3.- Jugar Torneo Dado");
-            System.out.println("4.- Salir");
+            System.out.println("4.- Jugar Torneo Piedra, Papel o Tijera");
+            System.out.println("5.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -165,11 +167,14 @@ public class Operativa {
                     jugarTorneoDado();
                     break;
                 case "4":
+                    jugarTorneoPiedraPapelTijera();
+                    break;
+                case "5":
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
             }
-        } while (!opcion.equals("4")); //Mientras seleccione un numero distinto de 3 seguir el bucle
+        } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 3 seguir el bucle
     }
 
     /**
@@ -785,6 +790,37 @@ public class Operativa {
             t.guardarTorneoJugado(selecionado);
             // Reinicia la puntuación de los jugadores inscritos
             for (Jugador j : selecionado.getInscritos()) {
+                j.resetearPuntuacionTorneo();
+            }
+        }
+    }
+    
+    public static void jugarTorneoPiedraPapelTijera() {
+        // Muestra los torneos no jugados
+        imprimirTorneos(noJugados());
+
+        // Verifica si hay torneos disponibles para jugar (ni torneos registrados ni torneos no jugados)
+        if (torneos.isEmpty() || noJugados().isEmpty()) {
+            System.out.println("No hay torneos disponibles para jugar");
+            return;  // Sale si no hay torneos para jugar
+        }
+
+        // Permite al usuario seleccionar un torneo que no haya sido jugado aún
+        Torneo seleccionado = seleccionarTorneo(noJugados());
+
+        if (!seleccionado.isInscripciones_abiertas()) { // Verifica si el torneo ya fue jugado o si las inscripciones están cerradas
+            System.out.println("El torneo ya fue jugado");
+        } else if (seleccionado.getInscritos().size() <= 1) {  // Si hay menos de 2 jugadores inscritos, no se puede jugar el torneo
+            System.out.println("No hay suficientes jugadores inscritos, no se puede jugar el torneo");
+        } else {
+            // Procede a jugar el torneo usando dados
+            VistaControlador.IniciarTorneoPPT ventana = new IniciarTorneoPPT(seleccionado);
+            ventana.setVisible(true);
+            seleccionado.jugarPiedraPapelTijera();
+            // Guarda el torneo como jugado en la base de datos
+            t.guardarTorneoJugado(seleccionado);
+            // Reinicia la puntuación de los jugadores inscritos
+            for (Jugador j : seleccionado.getInscritos()) {
                 j.resetearPuntuacionTorneo();
             }
         }
