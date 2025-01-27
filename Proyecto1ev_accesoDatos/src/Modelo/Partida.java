@@ -156,4 +156,58 @@ public abstract class Partida {
         System.out.println("Fin de partida");
         System.out.println("==============================");
     }
+    
+    
+    public static void jugarPiedraPapelTijera(Jugador p1, Jugador p2){
+        
+        //Resetear variables locales del torneo
+        System.out.println("==============================");
+        System.out.println("Iniciando partida entre");
+
+        System.out.println(p1.getNombre() + " VS " + p2.getNombre());
+
+        
+        p1.seleccionarPiedraPapelTijera();
+        p2.seleccionarPiedraPapelTijera();
+
+        int contp1 = 0;  // Contador de victorias del jugador 1
+        int contp2 = 0;  // Contador de victorias del jugador 2
+        int rondas = 0;  // Contador de rondas jugadas
+
+        // El juego continúa hasta que un jugador gane 2 rondas
+        while (contp1 < 2 && contp2 < 2) {
+            System.out.println("Ronda: " + rondas);
+            
+            // Se lanza la moneda y se compara si coincide con la selección de cada jugador
+            if (p1.getSeleccion() == p1.cogerMoneda().lanzar()) {
+                contp1++; // Si el jugador 1 gana, aumenta su contador
+            } else {
+                contp2++;// Si el jugador 2 gana, aumenta su contador
+            }
+            rondas++; // Incrementa el número de rondas jugadas
+        }
+                
+        // Se determina el ganador y se actualizan las puntuaciones
+        System.out.println("El ganador de la partida ha sido: ");
+        if (contp1 >= 2) { //Si ha ganado p1
+            //Actualiza puntuacion Global
+            System.out.println(p1.getNombre());
+            p1.actualizarPuntuacion(true);
+            p2.actualizarPuntuacion(false);
+            //Actualiza puntuacion Torneo
+            p1.actualizarPuntuacionTorneo(true);
+            p2.actualizarPuntuacionTorneo(false);
+        } else { //Si ha ganado p2
+            //Actualiza puntuacion Global
+            System.out.println(p2.getNombre());
+            p2.actualizarPuntuacion(true);
+            p1.actualizarPuntuacion(false);
+            //Actualiza puntuacion Torneo
+            p2.actualizarPuntuacionTorneo(true);
+            p1.actualizarPuntuacionTorneo(false);
+        }
+
+        System.out.println("Fin de partida");
+        System.out.println("==============================");
+    }
 }

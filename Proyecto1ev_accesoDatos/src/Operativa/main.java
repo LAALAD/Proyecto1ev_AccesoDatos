@@ -19,6 +19,25 @@ public class main {
         InicializarBBDD.crearBBDD();
         // Llamar al método de menú para que el usuario seleccione opciones
         Operativa.menu();
+        
+         //codigo pol 
+         /*
+        int numero = 12;
+        
+        boolean flag = true; 
+        
+        for (int i = 2; i < numero ; i++) {
+            if (numero % i == 0) {
+                System.out.println("El numero es divisible para " + i);
+                flag = false;
+            }  
+        }
+        if (flag) {
+            System.out.println("El numero " + numero + " es primo");
+        }else{
+            System.out.println("El numero " + numero + " no es primo");
+        }*/
+        
     }
 
 }
