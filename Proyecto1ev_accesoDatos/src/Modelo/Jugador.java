@@ -2,6 +2,7 @@ package Modelo;
 
 import Factory.FactoriaItems;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -27,6 +28,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     private double partidasJugadasTorneo = 0;
     private int seleccion = 0; // Selección: 2 --> cruz / 1 --> cara
     private Item item;
+    private ArrayList<Carta> mano;
 
     /**
      * Constructor de la clase Jugador.
@@ -37,6 +39,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     public Jugador(int id_j, String nombre) {
         this.id_j = id_j;
         this.nombre = nombre;
+        this.mano = new ArrayList<>();
     }
 
     /**
@@ -393,6 +396,57 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         }
 
         return 0;*/
+    }
+    
+    public void resetMano() {
+        mano.clear();
+    }
+
+    public void recibirCarta(Carta carta) {
+        mano.add(carta);
+    }
+
+    public String mostrarMano() {
+        StringBuilder sb = new StringBuilder();
+        for (Carta carta : mano) {
+            sb.append(carta.toString()).append(", ");
+        }
+        return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "Sin cartas";
+    }
+
+    public int calcularPuntaje() {
+        int puntaje = 0;
+        int ases = 0;
+
+        for (Carta carta : mano) {
+            int valor = carta.getValor();
+            if (valor == 1) { // As
+                ases++;
+                puntaje += 11;
+            } else if (valor >= 11 && valor <= 13) { // J, Q, K
+                puntaje += 10;
+            } else {
+                puntaje += valor;
+            }
+        }
+
+        // Ajustar el valor de los ases si el puntaje es mayor a 21
+        while (puntaje > 21 && ases > 0) {
+            puntaje -= 10; // Convertir un As de 11 a 1
+            ases--;
+        }
+
+        return puntaje;
+    }
+
+    public int decidir() {
+        // Lógica simple para decidir: pide carta si el puntaje es menor a 17
+        int puntajeActual = calcularPuntaje();
+        if (puntajeActual < 17) {
+            return 1; // Pedir carta
+        } else {
+            return 2; // Plantarse
+        }
     }
 
 }

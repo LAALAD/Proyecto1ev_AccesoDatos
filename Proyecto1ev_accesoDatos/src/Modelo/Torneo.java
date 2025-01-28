@@ -22,6 +22,7 @@ public class Torneo implements Serializable {
     private boolean inscripciones_abiertas;
     //private boolean jugado = false;
     private ArrayList<Jugador> inscritos = new ArrayList<>();
+
     /**
      * Constructor de la clase Torneo. Inicializa un torneo con los datos
      * proporcionados.
@@ -209,8 +210,7 @@ public class Torneo implements Serializable {
         ranking();
 
     }
-    
-    
+
     public void jugarPiedraPapelTijera() {
         // Se juega una partida entre todos los pares de jugadores inscritos usando dado
         for (int i = 0; i < inscritos.size(); i++) {
@@ -218,6 +218,18 @@ public class Torneo implements Serializable {
                 Partida.jugarPiedraPapelTijera(inscritos.get(i), inscritos.get(j));
             }
         }
+        // Las inscripciones se cierran después de jugar
+        inscripciones_abiertas = false;
+        // Se genera el ranking después de las partidas
+        ranking();
+
+    }
+
+    public void jugarBlackJack() {
+        // Se juega una partida entre todos los pares de jugadores inscritos usando dado
+
+        Partida.jugarBlackJack(inscritos);
+
         // Las inscripciones se cierran después de jugar
         inscripciones_abiertas = false;
         // Se genera el ranking después de las partidas
