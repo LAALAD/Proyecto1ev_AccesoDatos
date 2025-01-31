@@ -1,6 +1,8 @@
 package Modelo;
 
 import Modelo.Jugador;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Clase abstracta que representa una partida entre dos jugadores. Contiene
@@ -240,6 +242,95 @@ public abstract class Partida {
         }
 
         System.out.println("Fin de partida");
+        System.out.println("==============================");
+    }
+
+    public static void jugarBlackJack(ArrayList<Jugador> jugadores) {
+        // Inicializar el mazo de cartas
+        Baraja mazo = new Baraja();
+        mazo.barajar();
+
+        System.out.println("==============================");
+        System.out.println("Iniciando partida de Blackjack");
+
+        // Contadores de victorias por jugador
+        HashMap<Jugador, Integer> victorias = new HashMap<>();
+        for (Jugador jugador : jugadores) {
+            victorias.put(jugador, 0);
+        }
+
+        // El juego continúa hasta que un jugador gane 2 rondas
+        boolean partidaEnCurso = true;
+        while (partidaEnCurso) {
+            System.out.println("""
+                               Nueva ronda iniciada
+                               """);
+
+            // Repartir dos cartas iniciales a cada jugador
+            for (Jugador jugador : jugadores) {
+                jugador.resetMano();
+                jugador.recibirCarta(mazo.tomarCarta());
+                jugador.recibirCarta(mazo.tomarCarta());
+            }
+
+            // Fase de juego para cada jugador
+            for (Jugador jugador : jugadores) {
+                System.out.println(jugador.getNombre() + " comienza con: " + jugador.mostrarMano());
+
+                boolean turnoActivo = true;
+                while (turnoActivo) {
+                    int puntajeActual = jugador.calcularPuntaje();
+                    if (puntajeActual > 21) {
+                        System.out.println(jugador.getNombre() + " se ha pasado con " + puntajeActual + " puntos.");
+                        turnoActivo = false;
+                        break;
+                    }
+
+                    System.out.println(jugador.getNombre() + ", tu puntaje es " + puntajeActual);
+                    System.out.println("¿Deseas pedir carta (1) o plantarte (2)?");
+
+                    int eleccion = jugador.decidir(); // Método que cada jugador implementa para decidir
+                    if (eleccion == 1) {
+                        jugador.recibirCarta(mazo.tomarCarta());
+                        System.out.println(jugador.getNombre() + " pide carta y ahora tiene: " + jugador.mostrarMano());
+                    } else {
+                        System.out.println(jugador.getNombre() + " se planta con: " + puntajeActual + " puntos.");
+                        turnoActivo = false;
+                    }
+                }
+            }
+
+            // Determinar al ganador de la ronda
+            Jugador ganadorRonda = null;
+            int mejorPuntaje = 0;
+            for (Jugador jugador : jugadores) {
+                int puntaje = jugador.calcularPuntaje();
+                if (puntaje <= 21 && puntaje > mejorPuntaje) {
+                    ganadorRonda = jugador;
+                    mejorPuntaje = puntaje;
+                } else if (puntaje == mejorPuntaje && ganadorRonda != null) {
+                    ganadorRonda = null; // Empate
+                }
+            }
+
+            if (ganadorRonda != null) {
+                System.out.println("El ganador de esta ronda es " + ganadorRonda.getNombre() + " con " + mejorPuntaje + " puntos.");
+                victorias.put(ganadorRonda, victorias.get(ganadorRonda) + 1);
+            } else {
+                System.out.println("La ronda terminó en empate.");
+            }
+
+            // Comprobar si alguien ha ganado 2 rondas
+            for (Jugador jugador : jugadores) {
+                if (victorias.get(jugador) >= 2) {
+                    System.out.println("\nEl ganador del torneo es: " + jugador.getNombre() + "\n");
+                    partidaEnCurso = false;
+                    break;
+                }
+            }
+        }
+
+        System.out.println("Fin de la partida");
         System.out.println("==============================");
     }
 }

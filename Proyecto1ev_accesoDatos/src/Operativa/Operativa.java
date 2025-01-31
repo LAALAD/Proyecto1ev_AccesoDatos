@@ -153,7 +153,8 @@ public class Operativa {
             System.out.println("2.- Jugar Torneo Moneda");
             System.out.println("3.- Jugar Torneo Dado");
             System.out.println("4.- Jugar Torneo Piedra, Papel o Tijera");
-            System.out.println("5.- Salir");
+            System.out.println("5.- Jugar Torneo Black Jack");
+            System.out.println("6.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -170,6 +171,9 @@ public class Operativa {
                     jugarTorneoPiedraPapelTijera();
                     break;
                 case "5":
+                    jugarTorneoBlackJack();
+                    break;
+                case "6":
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
@@ -817,6 +821,37 @@ public class Operativa {
             VistaControlador.IniciarTorneoPPT ventana = new IniciarTorneoPPT(seleccionado);
             ventana.setVisible(true);
             seleccionado.jugarPiedraPapelTijera();
+            // Guarda el torneo como jugado en la base de datos
+            t.guardarTorneoJugado(seleccionado);
+            // Reinicia la puntuación de los jugadores inscritos
+            for (Jugador j : seleccionado.getInscritos()) {
+                j.resetearPuntuacionTorneo();
+            }
+        }
+    }
+    
+    public static void jugarTorneoBlackJack() {
+        // Muestra los torneos no jugados
+        imprimirTorneos(noJugados());
+
+        // Verifica si hay torneos disponibles para jugar (ni torneos registrados ni torneos no jugados)
+        if (torneos.isEmpty() || noJugados().isEmpty()) {
+            System.out.println("No hay torneos disponibles para jugar");
+            return;  // Sale si no hay torneos para jugar
+        }
+
+        // Permite al usuario seleccionar un torneo que no haya sido jugado aún
+        Torneo seleccionado = seleccionarTorneo(noJugados());
+
+        if (!seleccionado.isInscripciones_abiertas()) { // Verifica si el torneo ya fue jugado o si las inscripciones están cerradas
+            System.out.println("El torneo ya fue jugado");
+        } else if (seleccionado.getInscritos().size() <= 1) {  // Si hay menos de 2 jugadores inscritos, no se puede jugar el torneo
+            System.out.println("No hay suficientes jugadores inscritos, no se puede jugar el torneo");
+        } else {
+            // Procede a jugar el torneo usando dados
+            VistaControlador.IniciarTorneoPPT ventana = new IniciarTorneoPPT(seleccionado);
+            ventana.setVisible(true);
+            seleccionado.jugarBlackJack();
             // Guarda el torneo como jugado en la base de datos
             t.guardarTorneoJugado(seleccionado);
             // Reinicia la puntuación de los jugadores inscritos
