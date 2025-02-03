@@ -6,17 +6,8 @@ import IO.ConexionBBDD;
 import Modelo.Jugador;
 import Modelo.Torneo;
 import VistaControlador.IniciarTorneoPPT;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
