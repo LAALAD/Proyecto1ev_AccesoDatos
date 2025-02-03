@@ -407,14 +407,10 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     }
 
     public String mostrarMano() {
-        StringBuilder sb = new StringBuilder();
+        String s_mano="";
         for (Carta carta : mano) {
-            sb.append(carta.toString()).append(", ");
+            s_mano += (carta.toString())+ (", ");
         }
-<<<<<<< Updated upstream
-        return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "Sin cartas";
-=======
-        
         if (s_mano.length() > 0) {
             return s_mano.substring(0, s_mano.length() - 2); // Pone el string sin la ultima ,
         }else{
@@ -422,7 +418,6 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         }
         
         
->>>>>>> Stashed changes
     }
 
     public int calcularPuntaje() {
