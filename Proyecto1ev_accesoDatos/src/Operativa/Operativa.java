@@ -5,7 +5,7 @@ import DAO_Implementaciones.TorneoDAOImplements;
 import IO.ConexionBBDD;
 import Modelo.Jugador;
 import Modelo.Torneo;
-import VistaControlador.IniciarTorneoPPT;
+import VistaControlador.Emparejados;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -818,7 +818,7 @@ public class Operativa {
             System.out.println("No hay suficientes jugadores inscritos, no se puede jugar el torneo");
         } else {
             // Procede a jugar el torneo usando dados
-            VistaControlador.IniciarTorneoPPT ventana = new IniciarTorneoPPT(seleccionado);
+            VistaControlador.Emparejados ventana = new Emparejados(seleccionado);
             ventana.setVisible(true);
             seleccionado.jugarPiedraPapelTijera();
             // Guarda el torneo como jugado en la base de datos
@@ -849,7 +849,7 @@ public class Operativa {
             System.out.println("No hay suficientes jugadores inscritos, no se puede jugar el torneo");
         } else {
             // Procede a jugar el torneo usando dados
-            VistaControlador.IniciarTorneoPPT ventana = new IniciarTorneoPPT(seleccionado);
+            VistaControlador.Emparejados ventana = new Emparejados(seleccionado);
             ventana.setVisible(true);
             seleccionado.jugarBlackJack();
             // Guarda el torneo como jugado en la base de datos
