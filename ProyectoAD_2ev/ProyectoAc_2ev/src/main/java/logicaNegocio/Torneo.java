@@ -39,6 +39,7 @@ public class Torneo implements Serializable {
     @Basic
     private boolean inscripciones_abiertas;
     //private boolean jugado = false;
+    //private ArrayList<Jugador> inscritos = new ArrayList<>();
     
     // Relación 1:N con TorneoXJugador
     @OneToMany(mappedBy = "torneo")
@@ -140,7 +141,7 @@ public class Torneo implements Serializable {
      *
      * @return La lista de jugadores inscritos.
      */
-    public ArrayList<Jugador> getInscritos() {
+    public ArrayList<TorneoXJugador> getInscritos() {
         return inscritos;
     }
 
@@ -176,7 +177,7 @@ public class Torneo implements Serializable {
      *
      * @param inscritos La nueva lista de jugadores inscritos.
      */
-    public void setInscritos(ArrayList<Jugador> inscritos) {
+    public void setInscritos(ArrayList<TorneoXJugador> inscritos) {
         this.inscritos = inscritos;
     }
 
