@@ -1,9 +1,10 @@
-package Modelo;
+package logicaNegocio;
 
 import Factory.FactoriaItems;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -27,15 +28,18 @@ import javax.persistence.TemporalType;
  *
  * @author adria
  */
+@Entity
 public class Jugador implements Comparable<Jugador>, Serializable {
 
     // Atributos del jugador
-    
     @Id //Id -->PK
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK autogenerada por la BBDD por secuencias (auto o secuence)
     private int id_j;
+    @Basic //nombre y apellido son campos sin cosas especiales, no es necesario indicarlo.
     private String nombre;
+    @Basic //nombre y apellido son campos sin cosas especiales, no es necesario indicarlo.
     private double partidasGanadas = 0;
+    @Basic //nombre y apellido son campos sin cosas especiales, no es necesario indicarlo.
     private double partidasJugadas = 0;
     private double partidasGanadasTorneo = 0;
     private double partidasJugadasTorneo = 0;
@@ -49,8 +53,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
      * @param id_j Identificador único del jugador.
      * @param nombre Nombre del jugador.
      */
-    public Jugador(int id_j, String nombre) {
-        this.id_j = id_j;
+    public Jugador(String nombre) {
         this.nombre = nombre;
         this.mano = new ArrayList<>();
     }
