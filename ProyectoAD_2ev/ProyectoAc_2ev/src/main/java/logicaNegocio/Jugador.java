@@ -7,14 +7,7 @@ import java.util.Scanner;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  * Clase que representa a un jugador dentro de un juego. Cada jugador tiene un
@@ -41,6 +34,11 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     private double partidasGanadas = 0;
     @Basic //nombre y apellido son campos sin cosas especiales, no es necesario indicarlo.
     private double partidasJugadas = 0;
+    
+    // Relación 1:N con TorneoXJugador
+    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ArrayList<TorneoXJugador> torneos = new ArrayList<>();
+    
     private double partidasGanadasTorneo = 0;
     private double partidasJugadasTorneo = 0;
     private int seleccion = 0; // Selección: 2 --> cruz / 1 --> cara

@@ -245,11 +245,16 @@ public abstract class Partida {
         System.out.println("==============================");
     }
 
-    public static void jugarBlackJack(ArrayList<Jugador> jugadores) {
+    public static void jugarBlackJack(ArrayList<TorneoXJugador> jugadoresXt) {
         // Inicializar el mazo de cartas
         Baraja mazo = new Baraja();
         mazo.barajar();
 
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        for (TorneoXJugador j : jugadoresXt) {
+            jugadores.add(j.getJugador());
+        }
+        
         System.out.println("==============================");
         System.out.println("Iniciando partida de Blackjack");
 

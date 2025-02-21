@@ -40,11 +40,10 @@ public class Torneo implements Serializable {
     private boolean inscripciones_abiertas;
     //private boolean jugado = false;
     //private ArrayList<Jugador> inscritos = new ArrayList<>();
-    
+
     // Relación 1:N con TorneoXJugador
     @OneToMany(mappedBy = "torneo")
     private ArrayList<TorneoXJugador> inscritos = new ArrayList<>();
-
 
     /**
      * Constructor de la clase Torneo. Inicializa un torneo con los datos
@@ -203,7 +202,7 @@ public class Torneo implements Serializable {
         // Se juega una partida entre todos los pares de jugadores inscritos
         for (int i = 0; i < inscritos.size(); i++) {
             for (int j = i + 1; j < inscritos.size(); j++) {
-                Partida.jugar(inscritos.get(i), inscritos.get(j));
+                Partida.jugar(inscritos.get(i).getJugador(), inscritos.get(j).getJugador());
             }
         }
         // Las inscripciones se cierran después de jugar
@@ -224,7 +223,7 @@ public class Torneo implements Serializable {
         // Se juega una partida entre todos los pares de jugadores inscritos usando dado
         for (int i = 0; i < inscritos.size(); i++) {
             for (int j = i + 1; j < inscritos.size(); j++) {
-                Partida.jugarDado(inscritos.get(i), inscritos.get(j));
+                Partida.jugarDado(inscritos.get(i).getJugador(), inscritos.get(j).getJugador());
             }
         }
         // Las inscripciones se cierran después de jugar
@@ -238,7 +237,7 @@ public class Torneo implements Serializable {
         // Se juega una partida entre todos los pares de jugadores inscritos usando dado
         for (int i = 0; i < inscritos.size(); i++) {
             for (int j = i + 1; j < inscritos.size(); j++) {
-                Partida.jugarPiedraPapelTijera(inscritos.get(i), inscritos.get(j));
+                Partida.jugarPiedraPapelTijera(inscritos.get(i).getJugador(), inscritos.get(j).getJugador());
             }
         }
         // Las inscripciones se cierran después de jugar
@@ -266,11 +265,34 @@ public class Torneo implements Serializable {
      * de comparación definido en la clase Jugador.
      */
     public void ranking() {
+        // Creamos una lista para almacenar solo los jugadores
+        ArrayList<Jugador> participantes = new ArrayList<>();
+
+        // Extraemos a los jugadores de los objetos TorneoXJugador
+        for (TorneoXJugador torneoXJugador : inscritos) {
+            participantes.add(torneoXJugador.getJugador()); // Añadimos solo al jugador
+        }
+
+        Collections.sort(participantes);
+        Collections.reverse(participantes);
+
+        for (int i = 0; i < participantes.size(); i++) {
+            Jugador participante = participantes.get(i);
+            for (TorneoXJugador torneoXJugador : inscritos) {
+                Jugador jugador = torneoXJugador.getJugador();
+                if(participante.getId_j()== jugador.getId_j()){
+                    torneoXJugador.setPosicion(i);
+                }
+            }
+        }
+    }
+
+    /*
+    public void ranking() {
         // Se ordenan los jugadores por sus puntuaciones (de mayor a menor)
         Collections.sort(inscritos);
         Collections.reverse(inscritos);// Reversa el orden para que los mejores estén al principio
-    }
-
+    }*/
     /**
      * Permite inscribir a un jugador en el torneo. Verifica que las
      * inscripciones estén abiertas, que el jugador no esté ya inscrito y que
@@ -287,7 +309,7 @@ public class Torneo implements Serializable {
             System.out.println("No hay plazas disponibles en el torneo");
         } else {
             // Si pasa todas las verificaciones, se inscribe al jugador
-            inscritos.add(entrada);
+            //inscritos.add(entrada);
         }
     }
 
@@ -299,8 +321,9 @@ public class Torneo implements Serializable {
      */
     public boolean comprobarJugadorInscrito(Jugador entrada) {
         // Recorre la lista de jugadores inscritos y verifica si el jugador ya está en ella
-        for (Jugador it : inscritos) {
-            if (it.getId_j() == entrada.getId_j()) {
+        //for (Jugador it : inscritos) {
+        for (TorneoXJugador it : inscritos) {
+            if (it.getJugador().getId_j() == entrada.getId_j()) {
                 return true; // El jugador está inscrito
             }
         }
