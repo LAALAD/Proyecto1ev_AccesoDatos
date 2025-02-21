@@ -6,14 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Clase que representa a un jugador dentro de un juego. Cada jugador tiene un
@@ -30,9 +22,7 @@ import javax.persistence.TemporalType;
 public class Jugador implements Comparable<Jugador>, Serializable {
 
     // Atributos del jugador
-    
-    @Id //Id -->PK
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //PK autogenerada por la BBDD por secuencias (auto o secuence)
+   
     private int id_j;
     private String nombre;
     private double partidasGanadas = 0;
