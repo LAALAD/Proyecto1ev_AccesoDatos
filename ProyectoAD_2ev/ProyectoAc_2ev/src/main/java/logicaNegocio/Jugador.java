@@ -36,15 +36,23 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     private double partidasJugadas = 0;
     
     // Relación 1:N con TorneoXJugador
-    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "jugador")
     private ArrayList<TorneoXJugador> torneos = new ArrayList<>();
     
+    @Transient // no se guardará en la base de datos 
     private double partidasGanadasTorneo = 0;
+    @Transient
     private double partidasJugadasTorneo = 0;
+    @Transient
     private int seleccion = 0; // Selección: 2 --> cruz / 1 --> cara
+    @Transient
     private Item item;
+    @Transient
     private ArrayList<Carta> mano;
 
+    public Jugador() { }
+
+    
     /**
      * Constructor de la clase Jugador.
      *

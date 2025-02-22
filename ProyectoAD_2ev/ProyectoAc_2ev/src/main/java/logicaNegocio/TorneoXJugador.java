@@ -82,4 +82,10 @@ public class TorneoXJugador implements Serializable{
     public void setPosicion(int posicion) {
         this.posicion = posicion;
     }       
+
+    @Override
+    public String toString() {
+        return "TorneoXJugador{" + "id=" + id + ", torneo=" + torneo + ", jugador=" + jugador + ", posicion=" + posicion + '}';
+    }
+    
 }

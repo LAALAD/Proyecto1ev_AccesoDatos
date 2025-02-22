@@ -4,6 +4,8 @@
  */
 package logicaNegocio;
 
+import java.io.Serializable;
+
 /**
  * Clase abstracta que representa un ítem en el sistema.
  * 
@@ -14,7 +16,7 @@ package logicaNegocio;
  *
  * @author Usuario
  */
-public abstract class Item {
+public abstract class Item implements Serializable{
     
     /**
      * Método abstracto que debe ser implementado por las clases que extiendan de {@link Item}.

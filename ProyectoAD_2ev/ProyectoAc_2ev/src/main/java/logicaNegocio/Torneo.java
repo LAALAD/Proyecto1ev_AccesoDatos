@@ -45,18 +45,19 @@ public class Torneo implements Serializable {
     @OneToMany(mappedBy = "torneo")
     private ArrayList<TorneoXJugador> inscritos = new ArrayList<>();
 
+    public Torneo() {}
+
+    
     /**
      * Constructor de la clase Torneo. Inicializa un torneo con los datos
      * proporcionados.
      *
-     * @param id_t El identificador único del torneo.
      * @param nombre El nombre del torneo.
      * @param fecha La fecha en la que se celebra el torneo.
      * @param num_max_jugadores El número máximo de jugadores permitidos en el
      * torneo.
      */
-    public Torneo(int id_t, String nombre, Date fecha, int num_max_jugadores) {
-        this.id_t = id_t;
+    public Torneo( String nombre, Date fecha, int num_max_jugadores) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.num_max_jugadores = num_max_jugadores;
