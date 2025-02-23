@@ -32,6 +32,12 @@ public class ProyectoAc_2ev {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        Principal p1 = new Principal();
+        p1.setVisible(true);  
+        
+    }
+    
+    public static void iniciarApi(){
         entradasPrueba();
         menu();
     }
@@ -54,7 +60,8 @@ public class ProyectoAc_2ev {
             System.out.println("1.- Menu Jugador");
             System.out.println("2.- Menu Torneo");
             System.out.println("3.- Menu Partida");
-            System.out.println("4.- Salir");
+            System.out.println("4.- Minijuego Emparejados");
+            System.out.println("5.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -68,6 +75,9 @@ public class ProyectoAc_2ev {
                     menuPartida();
                     break;
                 case "4":
+                    
+                    break;
+                 case "5":
                     JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");
                     //ConexionBBDD.desconectarBBDD();
                     break;
@@ -75,7 +85,7 @@ public class ProyectoAc_2ev {
                     System.out.println("¡Opción incorrecta!");
             }
 
-        } while (!opcion.equals("4")); //Mientras seleccione un numero distinto de 4 seguir el bucle
+        } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
     /**
