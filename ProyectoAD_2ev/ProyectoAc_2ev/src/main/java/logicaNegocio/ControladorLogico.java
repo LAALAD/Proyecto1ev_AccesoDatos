@@ -78,4 +78,27 @@ public class ControladorLogico {
     public ArrayList<TorneoXJugador> leerTodosTorneoXJugador() {
         return controlPersis.leerTodosTorneoXJugador();
     }
+    
+    //METODOS CRUD DE DATOS PERSONALES
+    public void crearDatosPersonales(DatosPersonales datosP) {
+        controlPersis.crearDatosPersonales(datosP);
+    }
+
+    public void eliminarDatosPersonales(int id) {
+        controlPersis.eliminarDatosPersonales(id);
+    }
+
+    public void editarDatosPersonales(DatosPersonales datosP) {
+        controlPersis.editarDatosPersonales(datosP);
+        
+    }
+
+    public DatosPersonales leerDatosPersonales(int id) {
+        return controlPersis.leerDatosPersonales(id);
+    }
+
+    public ArrayList<DatosPersonales> leerTodosDatosPersonales() {
+        return controlPersis.leerTodosDatosPersonales();
+    }
+
 }

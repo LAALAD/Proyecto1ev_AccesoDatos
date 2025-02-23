@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import logicaNegocio.DatosPersonales;
 import logicaNegocio.Jugador;
 import logicaNegocio.Torneo;
 import logicaNegocio.TorneoXJugador;
@@ -15,6 +16,7 @@ public class ControladorPersitencia {
     JugadorJpaController jugJpa = new JugadorJpaController();
     TorneoJpaController torJpa = new TorneoJpaController();
     TorneoXJugadorJpaController txjJpa = new TorneoXJugadorJpaController();
+    DatosPersonalesJpaController dpJpa = new DatosPersonalesJpaController();
 
     //Jugador
     public void crearJugador(Jugador jug) {
@@ -115,6 +117,41 @@ public class ControladorPersitencia {
     public ArrayList<TorneoXJugador> leerTodosTorneoXJugador() {
         List<TorneoXJugador> aux = txjJpa.findTorneoXJugadorEntities();
         ArrayList<TorneoXJugador> sol = new ArrayList<TorneoXJugador>(aux);
+        return sol;
+    }
+    
+     
+
+    //DATOS PERSONALES
+    public void crearDatosPersonales(DatosPersonales dp) {
+        dpJpa.create(dp);
+    }
+
+    public void eliminarDatosPersonales(int id) {
+        try {
+            dpJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            System.out.println("Error al borrar el DatosPersonales: el id introducido no existe.");
+            Logger.getLogger(ControladorPersitencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editarDatosPersonales(DatosPersonales dp) {
+        try {
+            dpJpa.edit(dp);
+        } catch (Exception ex) {
+            System.out.println("Error al editar el DatosPersonales: " + ex.toString());
+            Logger.getLogger(ControladorPersitencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public DatosPersonales leerDatosPersonales(int id) {
+        return dpJpa.findDatosPersonales(id);
+    }
+
+    public ArrayList<DatosPersonales> leerTodosDatosPersonales() {
+        List<DatosPersonales> aux = dpJpa.findDatosPersonalesEntities();
+        ArrayList<DatosPersonales> sol = new ArrayList<DatosPersonales>(aux);
         return sol;
     }
 }

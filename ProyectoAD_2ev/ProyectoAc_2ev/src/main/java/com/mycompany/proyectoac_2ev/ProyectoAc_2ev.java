@@ -3,6 +3,8 @@
  */
 package com.mycompany.proyectoac_2ev;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -23,7 +25,7 @@ public class ProyectoAc_2ev {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        menu();        
+        menu();
     }
 
     /**
@@ -156,6 +158,7 @@ public class ProyectoAc_2ev {
                     if (!jugados().isEmpty()) {
                         t.mostrarStats(seleccionarTorneo(jugados()));
                     }*/
+                    //ª
                     break;
                 case "8":
                     break;
@@ -214,7 +217,66 @@ public class ProyectoAc_2ev {
         System.out.println("Introduce el nombre del jugador: ");
         String nombre = sc.nextLine();
         jugadores.add(new Jugador(nombre));
+        
+
+        //rellena la ficha si quieres, de manera opcional
+        System.out.println("Deseas rellenar la ficha del jugador s/n");
+        String opcion = sc.nextLine();
+        if (opcion.equalsIgnoreCase("s")) {
+            //rellena los datos personales del ultimo jugadore creado devolviendo un tipo de dato Datos Personales
+            jugadores.getLast().setDatosPersonales(rellenarDatosPersonales());
+        }
         control.crearJugador(jugadores.getLast());
+    }
+
+    private static DatosPersonales rellenarDatosPersonales() {
+        System.out.println("Introduce el apellido: ");
+        String apellido = sc.nextLine();
+        System.out.println("Introduce la fecha DD-MM-AAAA: ");
+        Date fecha = validarFecha();
+        System.out.println("Introduce un email: ");
+        String email = sc.nextLine();
+        System.out.println("Introduce el telefono: ");
+        String telefono = sc.nextLine();
+        DatosPersonales dp = new DatosPersonales(1, apellido, fecha, email, telefono);
+        return dp;
+    }
+
+    // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
+    private static Date validarFecha() {
+        // Declaramos una variable de tipo Date para almacenar la fecha que será validada
+        Date fecha = null;
+
+        // Creamos un objeto SimpleDateFormat que se encargará de convertir la cadena de texto en un objeto Date
+        // El formato de la fecha esperado es día/mes/año, por ejemplo: 23/02/2025
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        // Variable booleana que indica si la fecha ingresada es válida. Se inicializa como falsa.
+        boolean fechaValida = false;
+
+        // Iniciamos un bucle while que seguirá pidiendo la fecha hasta que el formato sea correcto
+        while (!fechaValida) {
+            try {
+                // Solicitamos la fecha de nacimiento al usuario
+                System.out.print("Introduce la fecha de nacimiento (dd/MM/yyyy): ");
+
+                // Leemos la entrada del usuario como una cadena de texto (String)
+                String fechaStr = sc.nextLine();
+
+                // Intentamos convertir la cadena leída en un objeto Date usando el formato esperado
+                fecha = sdf.parse(fechaStr);
+
+                // Si la conversión es exitosa, la fecha es válida y cambiamos fechaValida a true para salir del bucle
+                fechaValida = true;
+                //Si ocurre un error al intentar convertir la fecha (por ejemplo, si el formato es incorrecto),
+                // entra en el bloque catch y muestra un mensaje de error
+            } catch (ParseException e) {
+                System.out.println("Formato de fecha incorrecto. Intenta nuevamente.");
+            }
+        }
+
+        // Cuando la fecha es válida, la devolvemos
+        return fecha;
     }
 
     /**
@@ -898,7 +960,7 @@ public class ProyectoAc_2ev {
             //VistaControlador.IniciarTorneoPPT ventana = new IniciarTorneoPPT(seleccionado);
             //ventana.setVisible(true);
             seleccionado.jugarPiedraPapelTijera();
-             // Guarda el torneo como jugado en la base de datos
+            // Guarda el torneo como jugado en la base de datos
             control.editarTorneo(seleccionado);
             for (TorneoXJugador inscrito : seleccionado.getInscritos()) {
                 //control.editarTorneoXJugador(inscrito);//esto no hace falta por el orphan y el cascade de torneo

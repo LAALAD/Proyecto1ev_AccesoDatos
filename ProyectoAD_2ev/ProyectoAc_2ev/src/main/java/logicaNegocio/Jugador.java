@@ -47,6 +47,10 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TorneoXJugador> torneos = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "datos_personales_id")
+    private DatosPersonales datosPersonales;
+    
     @Transient // no se guardará en la base de datos 
     private double partidasGanadasTorneo = 0;
     @Transient
@@ -70,6 +74,8 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
+    
+    
 
     /**
      * Método que devuelve un ítem de tipo moneda utilizando la factoria de
@@ -484,5 +490,15 @@ public class Jugador implements Comparable<Jugador>, Serializable {
             return 2; // Plantarse
         }
     }
+
+    public DatosPersonales getDatosPersonales() {
+        return datosPersonales;
+    }
+
+    public void setDatosPersonales(DatosPersonales datosPersonales) {
+        this.datosPersonales = datosPersonales;
+    }
+    
+    
 
 }

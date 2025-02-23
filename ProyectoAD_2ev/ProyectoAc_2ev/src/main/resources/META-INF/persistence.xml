@@ -5,6 +5,7 @@
     <class>logicaNegocio.Jugador</class>
     <class>logicaNegocio.Torneo</class>
     <class>logicaNegocio.TorneoXJugador</class>
+    <class>logicaNegocio.DatosPersonales</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/proyecto2ev?serverTimeZone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
