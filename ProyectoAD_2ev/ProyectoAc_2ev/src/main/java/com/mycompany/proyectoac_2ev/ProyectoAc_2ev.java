@@ -3,6 +3,7 @@
  */
 package com.mycompany.proyectoac_2ev;
 
+import VistaControlador.Emparejados;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,11 +76,19 @@ public class ProyectoAc_2ev {
                     menuPartida();
                     break;
                 case "4":
-                    jugarMiniJuego();
+                    //jugarMiniJuego();
                     break;
                 case "5":
-                    JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");
-                    //ConexionBBDD.desconectarBBDD();
+                    System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
+                    String respuesta = sc.nextLine();
+                    if (respuesta.equals("s")) {
+                        //Minijuego juego = new Minijuego();
+                        //juego.setVisible(true);
+                        VistaControlador.Emparejados minijuego = new Emparejados(null);
+                        minijuego.setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");                        
+                    }
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
@@ -93,8 +102,12 @@ public class ProyectoAc_2ev {
      * eliminar, modificar, buscar y listar jugadores.
      */
     private static void jugarMiniJuego() {
-        Minijuego juego = new Minijuego();
-        juego.setVisible(true);
+        System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
+        String respuesta = sc.nextLine();
+        if (respuesta.equals("s")) {
+            Minijuego juego = new Minijuego();
+            juego.setVisible(true);
+        }
     }
 
     public static void menuJugador() {
