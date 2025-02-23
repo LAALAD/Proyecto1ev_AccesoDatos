@@ -240,18 +240,93 @@ public class ProyectoAc_2ev {
     private static DatosPersonales rellenarDatosPersonales() {
         System.out.println("Introduce el apellido: ");
         String apellido = sc.nextLine();
-        System.out.println("Introduce la fecha DD-MM-AAAA: ");
-        Date fecha = validarFecha();
+
+        Date fecha = validarFechaPasada();
+
         System.out.println("Introduce un email: ");
         String email = sc.nextLine();
+
         System.out.println("Introduce el telefono: ");
         String telefono = sc.nextLine();
         DatosPersonales dp = new DatosPersonales(1, apellido, fecha, email, telefono);
         return dp;
     }
 
+    // Método que valida el día y mes de la fecha
+    private static boolean esFechaValida(String fechaStr) {
+        // Separamos el día, mes y año
+        String[] partesFecha = fechaStr.split("/");
+
+        // Comprobamos que la fecha tenga exactamente 3 partes (dd, mm, yyyy)
+        if (partesFecha.length != 3) {
+            System.out.println("Formato incorrecto. Debe ser dd/MM/yyyy.");
+            return false;  // Fecha inválida
+        }
+
+        // Intentamos convertir los valores de día, mes y año
+        try {
+            int dia = Integer.valueOf(partesFecha[0]);
+            int mes = Integer.valueOf(partesFecha[1]);
+            int ano = Integer.valueOf(partesFecha[2]);
+
+            // Validar que el mes esté entre 1 y 12
+            if (mes < 1 || mes > 12) {
+                System.out.println("Mes inválido. El mes debe estar entre 01 y 12.");
+                return false;  // Fecha inválida
+            }
+
+            // Validar que el día esté dentro de los rangos posibles para ese mes
+            if (!esDiaValido(dia, mes, ano)) {
+                return false;  // Fecha inválida
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("El día, mes o año no es un número válido. Intenta nuevamente.");
+            return false;  // Fecha inválida
+        }
+
+        // Si pasa todas las validaciones
+        return true;
+    }
+
+    // Método auxiliar para validar el día según el mes y el año
+    private static boolean esDiaValido(int dia, int mes, int ano) {
+        // Definir los días máximos por mes
+        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        // Si es un año bisiesto, febrero tiene 29 días
+        if (esBisiesto(ano)) {
+            diasPorMes[1] = 29;  // Febrero (índice 1) tiene 29 días en años bisiestos
+        }
+
+        // Comprobar si el día es válido para el mes
+        //mes-1 porque el mes 1 enero -> es la posicion 0 del array
+        if (dia < 1 || dia > diasPorMes[mes - 1]) { // si el dia es negativo o mas de los particulares de ese mes
+            System.out.println("Día inválido. El mes " + mes + " tiene " + diasPorMes[mes - 1] + " días.");
+            return false;  // Fecha inválida
+        }
+
+        // Si el día es válido para ese mes
+        return true;
+    }
+
+    // Método para verificar si un año es bisiesto
+    private static boolean esBisiesto(int ano) {
+        if (ano % 4 == 0) {  // Verificamos si es divisible por 4
+            if (ano % 100 == 0) {  // Verificamos si es divisible por 100
+                if (ano % 400 == 0) {  // Verificamos si también es divisible por 400
+                    return true;  // Si es divisible por 400, es bisiesto
+                } else {
+                    return false;  // Si no es divisible por 400, no es bisiesto
+                }
+            }
+            return true;  // Si es divisible por 4 pero no por 100, es bisiesto
+        }
+        return false;  // Si no es divisible por 4, no es bisiesto
+    }
+
     // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
-    private static Date validarFecha() {
+    private static Date validarFechaPasada() {
         // Declaramos una variable de tipo Date para almacenar la fecha que será validada
         Date fecha = null;
 
@@ -271,11 +346,76 @@ public class ProyectoAc_2ev {
                 // Leemos la entrada del usuario como una cadena de texto (String)
                 String fechaStr = sc.nextLine();
 
+                // Llamamos al método que valida el día y mes
+                if (!esFechaValida(fechaStr)) {
+                    continue;  // Si la fecha no es válida, volvemos a pedirla
+                }
+
                 // Intentamos convertir la cadena leída en un objeto Date usando el formato esperado
                 fecha = sdf.parse(fechaStr);
 
-                // Si la conversión es exitosa, la fecha es válida y cambiamos fechaValida a true para salir del bucle
-                fechaValida = true;
+                // Obtener la fecha actual
+                Date fechaActual = new Date();
+
+                // Comprobar si la fecha ingresada es anterior a la fecha actual
+                if (fecha.before(fechaActual)) {
+                    // Si la fecha es válida (es anterior a la actual), se establece como válida
+                    fechaValida = true;
+                } else {
+                    // Si la fecha no es anterior a la actual, se informa al usuario
+                    System.out.println("La fecha ingresada no puede ser futura. Intenta nuevamente.");
+                }
+                //Si ocurre un error al intentar convertir la fecha (por ejemplo, si el formato es incorrecto),
+                // entra en el bloque catch y muestra un mensaje de error
+            } catch (ParseException e) {
+                System.out.println("Formato de fecha incorrecto. Intenta nuevamente.");
+            }
+        }
+
+        // Cuando la fecha es válida, la devolvemos
+        return fecha;
+    }
+
+    // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
+    private static Date validarFechaFutura() {
+        // Declaramos una variable de tipo Date para almacenar la fecha que será validada
+        Date fecha = null;
+
+        // Creamos un objeto SimpleDateFormat que se encargará de convertir la cadena de texto en un objeto Date
+        // El formato de la fecha esperado es día/mes/año, por ejemplo: 23/02/2025
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        // Variable booleana que indica si la fecha ingresada es válida. Se inicializa como falsa.
+        boolean fechaValida = false;
+
+        // Iniciamos un bucle while que seguirá pidiendo la fecha hasta que el formato sea correcto
+        while (!fechaValida) {
+            try {
+                // Solicitamos la fecha de nacimiento al usuario
+                System.out.print("Introduce la fecha (dd/MM/yyyy): ");
+
+                // Leemos la entrada del usuario como una cadena de texto (String)
+                String fechaStr = sc.nextLine();
+
+                // Llamamos al método que valida el día y mes
+                if (!esFechaValida(fechaStr)) {
+                    continue;  // Si la fecha no es válida, volvemos a pedirla
+                }
+
+                // Intentamos convertir la cadena leída en un objeto Date usando el formato esperado
+                fecha = sdf.parse(fechaStr);
+
+                // Obtener la fecha actual
+                Date fechaActual = new Date();
+
+                // Comprobar si la fecha ingresada es posterior a la fecha actual
+                if (fecha.after(fechaActual)) {
+                    // Si la fecha es posterior a la actual, es válida
+                    fechaValida = true;
+                } else {
+                    // Si la fecha no es posterior a la actual, mostramos un mensaje
+                    System.out.println("La fecha debe ser posterior a la fecha actual. Intenta nuevamente.");
+                }
                 //Si ocurre un error al intentar convertir la fecha (por ejemplo, si el formato es incorrecto),
                 // entra en el bloque catch y muestra un mensaje de error
             } catch (ParseException e) {
@@ -642,7 +782,7 @@ public class ProyectoAc_2ev {
 
         // Llamar a la función asignarFecha() para obtener una fecha válida.
         //Date fecha = asignarFecha();
-        Date fecha = new Date();
+        Date fecha = validarFechaFutura();
 
         // Solicitar al usuario el número máximo de participantes.
         System.out.println("Introduce el numero maximo de participantes: ");
