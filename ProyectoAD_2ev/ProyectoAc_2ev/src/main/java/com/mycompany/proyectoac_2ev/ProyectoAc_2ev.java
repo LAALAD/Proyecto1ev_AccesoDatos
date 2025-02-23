@@ -4,6 +4,7 @@
 package com.mycompany.proyectoac_2ev;
 
 import VistaControlador.Emparejados;
+import VistaControlador.Ventana_Gracias;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,13 +82,15 @@ public class ProyectoAc_2ev {
                 case "5":
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
                     String respuesta = sc.nextLine();
-                    if (respuesta.equals("s")) {
+                    if (respuesta.equalsIgnoreCase("s")) {
                         //Minijuego juego = new Minijuego();
                         //juego.setVisible(true);
                         VistaControlador.Emparejados minijuego = new Emparejados(null);
                         minijuego.setVisible(true);
-                    }else{
-                        JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");                        
+                    } else {
+                        Ventana_Gracias gracias = new Ventana_Gracias();
+                        gracias.setVisible(true);
+                        //JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");
                     }
                     break;
                 default:

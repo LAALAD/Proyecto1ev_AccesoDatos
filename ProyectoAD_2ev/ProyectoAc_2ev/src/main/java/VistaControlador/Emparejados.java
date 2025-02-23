@@ -45,7 +45,7 @@ public class Emparejados extends javax.swing.JFrame {
 
     // Inicializa las cartas con valores
     private void inicializarCartas() {
-        String[] valores = {"A", "B", "C", "D", "👻", "️💩", "☠️", "♥️"};
+        String[] valores = {"👣", "🎃", "🐙", "🌺", "👻", "️💩", "💀️", "💘️"};
         // Duplica los valores para que haya dos de cada uno
         for (String valor : valores) {
             cartasValores.add(valor);
@@ -158,7 +158,10 @@ public class Emparejados extends javax.swing.JFrame {
                 return;  // Si hay alguna carta volteada, el juego continúa
             }
         }
-        JOptionPane.showMessageDialog(this, "¡Ganaste en " + turnos + " turnos!");
+        //JOptionPane.showMessageDialog(this, "¡Ganaste en " + turnos + " turnos!");
+        
+        Ventana_Puntos puntos = new Ventana_Puntos(turnos);
+        puntos.setVisible(true);
         this.dispose();
     }
 
@@ -171,6 +174,7 @@ public class Emparejados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panel_ppal = new javax.swing.JPanel();
         c1 = new javax.swing.JButton();
@@ -191,16 +195,27 @@ public class Emparejados extends javax.swing.JFrame {
         c16 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Minijuego");
+        setBackground(new java.awt.Color(216, 194, 170));
         setMinimumSize(new java.awt.Dimension(450, 450));
         setSize(new java.awt.Dimension(450, 400));
 
-        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 12)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(216, 194, 170));
+        jPanel1.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 103, 114));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("¡ENCUENTRA LAS PAREJAS EN EL MENOR NUMERO DE MOVIMIENTOS!");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(110, 40, 625, 28);
 
+        panel_ppal.setPreferredSize(new java.awt.Dimension(400, 400));
         panel_ppal.setLayout(new java.awt.GridLayout(4, 4));
 
         c1.setBackground(new java.awt.Color(249, 232, 218));
+        c1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c1.setForeground(new java.awt.Color(35, 103, 114));
         c1.setMaximumSize(new java.awt.Dimension(50, 50));
         c1.setMinimumSize(new java.awt.Dimension(50, 50));
         c1.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -212,6 +227,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c1);
 
         c2.setBackground(new java.awt.Color(249, 232, 218));
+        c2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c2.setForeground(new java.awt.Color(35, 103, 114));
         c2.setMaximumSize(new java.awt.Dimension(50, 50));
         c2.setMinimumSize(new java.awt.Dimension(50, 50));
         c2.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -223,6 +240,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c2);
 
         c3.setBackground(new java.awt.Color(249, 232, 218));
+        c3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c3.setForeground(new java.awt.Color(35, 103, 114));
         c3.setMaximumSize(new java.awt.Dimension(50, 50));
         c3.setMinimumSize(new java.awt.Dimension(50, 50));
         c3.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -234,6 +253,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c3);
 
         c4.setBackground(new java.awt.Color(249, 232, 218));
+        c4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c4.setForeground(new java.awt.Color(35, 103, 114));
         c4.setMaximumSize(new java.awt.Dimension(50, 50));
         c4.setMinimumSize(new java.awt.Dimension(50, 50));
         c4.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -245,6 +266,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c4);
 
         c5.setBackground(new java.awt.Color(249, 232, 218));
+        c5.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c5.setForeground(new java.awt.Color(35, 103, 114));
         c5.setMaximumSize(new java.awt.Dimension(50, 50));
         c5.setMinimumSize(new java.awt.Dimension(50, 50));
         c5.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -256,6 +279,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c5);
 
         c6.setBackground(new java.awt.Color(249, 232, 218));
+        c6.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c6.setForeground(new java.awt.Color(35, 103, 114));
         c6.setMaximumSize(new java.awt.Dimension(50, 50));
         c6.setMinimumSize(new java.awt.Dimension(50, 50));
         c6.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -267,6 +292,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c6);
 
         c7.setBackground(new java.awt.Color(249, 232, 218));
+        c7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c7.setForeground(new java.awt.Color(35, 103, 114));
         c7.setMaximumSize(new java.awt.Dimension(50, 50));
         c7.setMinimumSize(new java.awt.Dimension(50, 50));
         c7.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -278,6 +305,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c7);
 
         c8.setBackground(new java.awt.Color(249, 232, 218));
+        c8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c8.setForeground(new java.awt.Color(35, 103, 114));
         c8.setMaximumSize(new java.awt.Dimension(50, 50));
         c8.setMinimumSize(new java.awt.Dimension(50, 50));
         c8.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -289,6 +318,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c8);
 
         c9.setBackground(new java.awt.Color(249, 232, 218));
+        c9.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c9.setForeground(new java.awt.Color(35, 103, 114));
         c9.setMaximumSize(new java.awt.Dimension(50, 50));
         c9.setMinimumSize(new java.awt.Dimension(50, 50));
         c9.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -300,6 +331,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c9);
 
         c10.setBackground(new java.awt.Color(249, 232, 218));
+        c10.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c10.setForeground(new java.awt.Color(35, 103, 114));
         c10.setMaximumSize(new java.awt.Dimension(50, 50));
         c10.setMinimumSize(new java.awt.Dimension(50, 50));
         c10.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -311,6 +344,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c10);
 
         c11.setBackground(new java.awt.Color(249, 232, 218));
+        c11.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c11.setForeground(new java.awt.Color(35, 103, 114));
         c11.setMaximumSize(new java.awt.Dimension(50, 50));
         c11.setMinimumSize(new java.awt.Dimension(50, 50));
         c11.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -322,6 +357,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c11);
 
         c12.setBackground(new java.awt.Color(249, 232, 218));
+        c12.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c12.setForeground(new java.awt.Color(35, 103, 114));
         c12.setMaximumSize(new java.awt.Dimension(50, 50));
         c12.setMinimumSize(new java.awt.Dimension(50, 50));
         c12.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -333,6 +370,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c12);
 
         c13.setBackground(new java.awt.Color(249, 232, 218));
+        c13.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c13.setForeground(new java.awt.Color(35, 103, 114));
         c13.setMaximumSize(new java.awt.Dimension(50, 50));
         c13.setMinimumSize(new java.awt.Dimension(50, 50));
         c13.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -344,6 +383,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c13);
 
         c14.setBackground(new java.awt.Color(249, 232, 218));
+        c14.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c14.setForeground(new java.awt.Color(35, 103, 114));
         c14.setMaximumSize(new java.awt.Dimension(50, 50));
         c14.setMinimumSize(new java.awt.Dimension(50, 50));
         c14.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -355,6 +396,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c14);
 
         c15.setBackground(new java.awt.Color(249, 232, 218));
+        c15.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c15.setForeground(new java.awt.Color(35, 103, 114));
         c15.setMaximumSize(new java.awt.Dimension(50, 50));
         c15.setMinimumSize(new java.awt.Dimension(50, 50));
         c15.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -366,6 +409,8 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.add(c15);
 
         c16.setBackground(new java.awt.Color(249, 232, 218));
+        c16.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        c16.setForeground(new java.awt.Color(35, 103, 114));
         c16.setMaximumSize(new java.awt.Dimension(50, 50));
         c16.setMinimumSize(new java.awt.Dimension(50, 50));
         c16.setPreferredSize(new java.awt.Dimension(50, 50));
@@ -376,24 +421,23 @@ public class Emparejados extends javax.swing.JFrame {
         });
         panel_ppal.add(c16);
 
+        jPanel1.add(panel_ppal);
+        panel_ppal.setBounds(106, 86, 625, 410);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(panel_ppal, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(panel_ppal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -518,6 +562,7 @@ public class Emparejados extends javax.swing.JFrame {
     private javax.swing.JButton c8;
     private javax.swing.JButton c9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel_ppal;
     // End of variables declaration//GEN-END:variables
 }
