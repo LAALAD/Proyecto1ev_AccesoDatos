@@ -101,4 +101,27 @@ public class ControladorLogico {
         return controlPersis.leerTodosDatosPersonales();
     }
 
+    //METODOS CRUD DE ARBITROS
+    public void crearArbitro(Arbitro arbitro) {
+        controlPersis.crearArbitro(arbitro);
+    }
+
+    public void eliminarArbitro(int id) {
+        controlPersis.eliminarArbitro(id);
+    }
+
+    public void editarArbitro(Arbitro arbitro) {
+        controlPersis.editarArbitro(arbitro);
+        
+    }
+
+    public Arbitro leerArbitro(int id) {
+        return controlPersis.leerArbitro(id);
+    }
+
+    public ArrayList<Arbitro> leerTodosArbitros() {
+        return controlPersis.leerTodosArbitros();
+    }
+
+    
 }

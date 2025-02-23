@@ -3,11 +3,18 @@
  */
 package com.mycompany.proyectoac_2ev;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import logicaNegocio.*;
 
@@ -25,6 +32,7 @@ public class ProyectoAc_2ev {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        entradasPrueba();
         menu();
     }
 
@@ -217,7 +225,6 @@ public class ProyectoAc_2ev {
         System.out.println("Introduce el nombre del jugador: ");
         String nombre = sc.nextLine();
         jugadores.add(new Jugador(nombre));
-        
 
         //rellena la ficha si quieres, de manera opcional
         System.out.println("Deseas rellenar la ficha del jugador s/n");
@@ -226,6 +233,7 @@ public class ProyectoAc_2ev {
             //rellena los datos personales del ultimo jugadore creado devolviendo un tipo de dato Datos Personales
             jugadores.getLast().setDatosPersonales(rellenarDatosPersonales());
         }
+
         control.crearJugador(jugadores.getLast());
     }
 
@@ -642,9 +650,29 @@ public class ProyectoAc_2ev {
 
         // Crear un nuevo objeto Torneo con los datos proporcionados.
         torneos.add(new Torneo(nombre, fecha, num_max));
+
+        outerLoop:// Etiqueta para el bucle exterior
+        do {
+            torneos.getLast().getArbitros().add(contratarArbitro());
+            // Pregunta al usuario si desea inscribir más jugadores
+            String respuesta;
+            while (true) {
+                System.out.println("¿Desea contratar más arbitros? (s/n)");
+                respuesta = sc.nextLine();
+                if (respuesta.equalsIgnoreCase("s")) {
+                    break; // Continuar con el siguiente arbitro
+                } else if (respuesta.equalsIgnoreCase("n")) {
+                    break outerLoop; // Rompe el bucle 'outerLoop' (el bucle principal)
+                } else {
+                    System.out.println("Indique s/n"); // Mensaje solo si es inválido
+                }
+            }
+        } while (true);
         control.crearTorneo(torneos.getLast());
-        // Intentar crear el torneo y verificar si la creación fue exitosa.
-        /*if (t.crearTorneo(nuevo)) {
+    }
+
+    // Intentar crear el torneo y verificar si la creación fue exitosa.
+    /*if (t.crearTorneo(nuevo)) {
             // Si se crea correctamente, agregarlo a la lista de torneos.
             torneos.add(nuevo);
             System.out.println("¡Torneo creado exitosamente!"); // Confirmar al usuario
@@ -652,6 +680,13 @@ public class ProyectoAc_2ev {
             // Si hay un error al crear el torneo, mostrar un mensaje de error.
             System.out.println("Error al crear el torneo.");
         }*/
+    private static Arbitro contratarArbitro() {
+        System.out.println("Introduce el nombre del arbitro: ");
+        String nombre = sc.nextLine();
+        System.out.println("Introduce el numero de licencia del arbitro: ");
+        int numeroLicencia = asignarEntero();
+
+        return new Arbitro(nombre, numeroLicencia);
     }
 
     /**
@@ -1025,4 +1060,46 @@ public class ProyectoAc_2ev {
         return salida;
     }
 
+    /**
+     * Inserta torneos de prueba en la base de datos.
+     */
+    public static void entradasPrueba() {
+        // Crear un EntityManagerFactory y un EntityManager
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_proyecto");
+
+        EntityManager em = emf.createEntityManager();
+
+        // Iniciar una transacción
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            // Iniciar la transacción
+            transaction.begin();
+
+            // Operaciones de base de datos
+            Torneo torneo1 = new Torneo("Campeonato Nacional", new Date(), 20);
+            Torneo torneo2 = new Torneo("Campeonato Nacional II", (new SimpleDateFormat("dd/MM/yyyy")).parse("22/2"), 9);
+            //int error=10/0;
+
+            // Guardar el torneo en la base de datos
+            em.persist(torneo1);
+            em.persist(torneo2);
+
+            // Si todo va bien, hacer commit
+            transaction.commit();
+            System.out.println("Transacción exitosa!");
+
+        } catch (Exception e) {
+            // En caso de error, hacer rollback
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            System.out.println("Error en la transacción. Se ha hecho rollback.");
+        } finally {
+            // Cerrar el EntityManager
+            em.close();
+            emf.close();
+        }
+    }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import logicaNegocio.Arbitro;
 import logicaNegocio.DatosPersonales;
 import logicaNegocio.Jugador;
 import logicaNegocio.Torneo;
@@ -17,6 +18,7 @@ public class ControladorPersitencia {
     TorneoJpaController torJpa = new TorneoJpaController();
     TorneoXJugadorJpaController txjJpa = new TorneoXJugadorJpaController();
     DatosPersonalesJpaController dpJpa = new DatosPersonalesJpaController();
+    ArbitroJpaController arbJpa = new ArbitroJpaController();
 
     //Jugador
     public void crearJugador(Jugador jug) {
@@ -152,6 +154,40 @@ public class ControladorPersitencia {
     public ArrayList<DatosPersonales> leerTodosDatosPersonales() {
         List<DatosPersonales> aux = dpJpa.findDatosPersonalesEntities();
         ArrayList<DatosPersonales> sol = new ArrayList<DatosPersonales>(aux);
+        return sol;
+    }
+    
+    
+    //ARBITROS
+    public void crearArbitro(Arbitro arbitro) {
+        arbJpa.create(arbitro);
+    }
+
+    public void eliminarArbitro(int id) {
+        try {
+            arbJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            System.out.println("Error al borrar el Arbitro: el id introducido no existe.");
+            Logger.getLogger(ControladorPersitencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editarArbitro(Arbitro arbitro) {
+        try {
+            arbJpa.edit(arbitro);
+        } catch (Exception ex) {
+            System.out.println("Error al editar el Arbitro: " + ex.toString());
+            Logger.getLogger(ControladorPersitencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Arbitro leerArbitro(int id) {
+        return arbJpa.findArbitro(id);
+    }
+
+    public ArrayList<Arbitro> leerTodosArbitros() {
+        List<Arbitro> aux = arbJpa.findArbitrosEntities();
+        ArrayList<Arbitro> sol = new ArrayList<Arbitro>(aux);
         return sol;
     }
 }

@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,9 +49,16 @@ public class Torneo implements Serializable {
     (insertar, actualizar, eliminar) a las entidades relacionadas automáticamente.
     'orphanRemoval = true' elimina automáticamente las relaciones huérfanas 
     (es decir, las entradas en TorneoXJugador) si un jugador es eliminado de la lista de inscritos.*/
-    
     @OneToMany(mappedBy = "torneo", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TorneoXJugador> inscritos = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "torneos_arbitros", // Tabla intermedia que conecta Torneo y Árbitro
+            joinColumns = @JoinColumn(name = "torneo_id"), // Columna que referencia la entidad Torneo
+            inverseJoinColumns = @JoinColumn(name = "arbitro_id") // Columna que referencia la entidad Árbitro
+    )
+    private ArrayList<Arbitro> arbitros = new ArrayList<>();
 
     public Torneo() {
     }
@@ -67,6 +77,14 @@ public class Torneo implements Serializable {
         this.fecha = fecha;
         this.num_max_jugadores = num_max_jugadores;
         this.inscripciones_abiertas = true; // Las inscripciones están abiertas por defecto
+    }
+
+    public ArrayList<Arbitro> getArbitros() {
+        return arbitros;
+    }
+
+    public void setArbitros(ArrayList<Arbitro> arbitros) {
+        this.arbitros = arbitros;
     }
 
     /**
@@ -270,7 +288,7 @@ public class Torneo implements Serializable {
      * partidas, de manera descendente (del mejor al peor), utilizando el método
      * de comparación definido en la clase Jugador.
      */
-    public void ranking() {        
+    public void ranking() {
         // Creamos una lista para almacenar solo los jugadores
         ArrayList<Jugador> participantes = new ArrayList<>();
 
@@ -282,7 +300,7 @@ public class Torneo implements Serializable {
         Collections.sort(participantes);
         System.out.println(participantes);
         Collections.reverse(participantes);
-        System.out.println("reverse "+ participantes);
+        System.out.println("reverse " + participantes);
 
         for (int i = 0; i < participantes.size(); i++) {
             Jugador participante = participantes.get(i);
