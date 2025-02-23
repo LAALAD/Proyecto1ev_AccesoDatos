@@ -42,12 +42,17 @@ public class Torneo implements Serializable {
     //private ArrayList<Jugador> inscritos = new ArrayList<>();
 
     // Relación 1:N con TorneoXJugador
-    @OneToMany(mappedBy = "torneo")
+    /*'cascade = CascadeType.ALL' propaga todas las operaciones de persistencia 
+    (insertar, actualizar, eliminar) a las entidades relacionadas automáticamente.
+    'orphanRemoval = true' elimina automáticamente las relaciones huérfanas 
+    (es decir, las entradas en TorneoXJugador) si un jugador es eliminado de la lista de inscritos.*/
+    
+    @OneToMany(mappedBy = "torneo", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TorneoXJugador> inscritos = new ArrayList<>();
 
-    public Torneo() {}
+    public Torneo() {
+    }
 
-    
     /**
      * Constructor de la clase Torneo. Inicializa un torneo con los datos
      * proporcionados.
@@ -57,7 +62,7 @@ public class Torneo implements Serializable {
      * @param num_max_jugadores El número máximo de jugadores permitidos en el
      * torneo.
      */
-    public Torneo( String nombre, Date fecha, int num_max_jugadores) {
+    public Torneo(String nombre, Date fecha, int num_max_jugadores) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.num_max_jugadores = num_max_jugadores;
@@ -265,7 +270,7 @@ public class Torneo implements Serializable {
      * partidas, de manera descendente (del mejor al peor), utilizando el método
      * de comparación definido en la clase Jugador.
      */
-    public void ranking() {
+    public void ranking() {        
         // Creamos una lista para almacenar solo los jugadores
         ArrayList<Jugador> participantes = new ArrayList<>();
 
@@ -275,17 +280,20 @@ public class Torneo implements Serializable {
         }
 
         Collections.sort(participantes);
+        System.out.println(participantes);
         Collections.reverse(participantes);
+        System.out.println("reverse "+ participantes);
 
         for (int i = 0; i < participantes.size(); i++) {
             Jugador participante = participantes.get(i);
             for (TorneoXJugador torneoXJugador : inscritos) {
                 Jugador jugador = torneoXJugador.getJugador();
-                if(participante.getId_j()== jugador.getId_j()){
-                    torneoXJugador.setPosicion(i);
+                if (participante.getId_j() == jugador.getId_j()) {
+                    torneoXJugador.setPosicion(i + 1);
                 }
             }
         }
+
     }
 
     /*
@@ -309,6 +317,7 @@ public class Torneo implements Serializable {
         } else if (inscritos.size() >= num_max_jugadores) { // Verifica si el torneo ha alcanzado el número máximo de jugadores
             System.out.println("No hay plazas disponibles en el torneo");
         } else {
+            //inscritos.add(new TorneoXJugador(this, entrada));
             // Si pasa todas las verificaciones, se inscribe al jugador
             //inscritos.add(entrada);
         }
@@ -331,4 +340,13 @@ public class Torneo implements Serializable {
         return false; // El jugador no está inscrito
     }
 
+    public void top3() {
+        System.out.println("TOP 3: ");
+        for (int i = 0; i < inscritos.size(); i++) {
+            System.out.println(inscritos.get(i).getPosicion() + ".- " + inscritos.get(i).getJugador().getNombre());
+            if (i >= 3) { //si estoy en la cuarta posicion ya no quiero mostrarlo
+                return;
+            }
+        }
+    }
 }

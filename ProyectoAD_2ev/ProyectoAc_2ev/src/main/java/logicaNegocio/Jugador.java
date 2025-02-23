@@ -34,11 +34,19 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     private double partidasGanadas = 0;
     @Basic //nombre y apellido son campos sin cosas especiales, no es necesario indicarlo.
     private double partidasJugadas = 0;
-    
-    // Relación 1:N con TorneoXJugador
-    @OneToMany(mappedBy = "jugador")
+
+    // Relación 1:N con TorneoXJugador -> Esta anotación establece la relación entre el jugador y los torneos en los que está inscrito.
+    /* 
+    'mappedBy = "jugador"' indica que esta relación es controlada por la clase TorneoXJugador,
+    y que la propiedad 'jugador' en la clase TorneoXJugador mapea la relación a la entidad Jugador.
+    - cascade = CascadeType.ALL: Propaga las operaciones de persistencia (guardar, actualizar, eliminar) 
+    a la entidad TorneoXJugador.
+    - orphanRemoval = true: Elimina automáticamente las relaciones huérfanas (cuando un jugador es removido 
+    de la lista de inscritos).
+     */
+    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TorneoXJugador> torneos = new ArrayList<>();
-    
+
     @Transient // no se guardará en la base de datos 
     private double partidasGanadasTorneo = 0;
     @Transient
@@ -48,11 +56,11 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     @Transient
     private Item item;
     @Transient
-    private ArrayList<Carta> mano;
+    private ArrayList<Carta> mano = new ArrayList<>();
 
-    public Jugador() { }
+    public Jugador() {
+    }
 
-    
     /**
      * Constructor de la clase Jugador.
      *
@@ -61,7 +69,6 @@ public class Jugador implements Comparable<Jugador>, Serializable {
      */
     public Jugador(String nombre) {
         this.nombre = nombre;
-        this.mano = new ArrayList<>();
     }
 
     /**
@@ -419,9 +426,11 @@ public class Jugador implements Comparable<Jugador>, Serializable {
 
         return 0;*/
     }
-    
+
     public void resetMano() {
-        mano.clear();
+        if (mano != null) {
+            mano.clear();
+        }
     }
 
     public void recibirCarta(Carta carta) {
@@ -429,17 +438,16 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     }
 
     public String mostrarMano() {
-        String s_mano="";
+        String s_mano = "";
         for (Carta carta : mano) {
-            s_mano += (carta.toString())+ (", ");
+            s_mano += (carta.toString()) + (", ");
         }
         if (s_mano.length() > 0) {
             return s_mano.substring(0, s_mano.length() - 2); // Pone el string sin la ultima ,
-        }else{
+        } else {
             return "Sin cartas";
         }
-        
-        
+
     }
 
     public int calcularPuntaje() {

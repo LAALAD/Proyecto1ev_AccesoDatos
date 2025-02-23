@@ -42,5 +42,6 @@ public class Baraja implements Serializable{
     public int cartasRestantes() {
         return cartas.size();
     }
+        
 }
 
