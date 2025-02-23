@@ -171,7 +171,8 @@ public class Emparejados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        panel_ppal = new javax.swing.JPanel();
         c1 = new javax.swing.JButton();
         c2 = new javax.swing.JButton();
         c3 = new javax.swing.JButton();
@@ -191,8 +192,13 @@ public class Emparejados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(450, 450));
-        setSize(new java.awt.Dimension(450, 450));
-        getContentPane().setLayout(null);
+        setSize(new java.awt.Dimension(450, 400));
+
+        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 12)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("¡ENCUENTRA LAS PAREJAS EN EL MENOR NUMERO DE MOVIMIENTOS!");
+
+        panel_ppal.setLayout(new java.awt.GridLayout(4, 4));
 
         c1.setBackground(new java.awt.Color(249, 232, 218));
         c1.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -203,6 +209,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c1ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c1);
 
         c2.setBackground(new java.awt.Color(249, 232, 218));
         c2.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -213,6 +220,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c2ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c2);
 
         c3.setBackground(new java.awt.Color(249, 232, 218));
         c3.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -223,6 +231,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c3ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c3);
 
         c4.setBackground(new java.awt.Color(249, 232, 218));
         c4.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -233,6 +242,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c4ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c4);
 
         c5.setBackground(new java.awt.Color(249, 232, 218));
         c5.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -243,6 +253,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c5ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c5);
 
         c6.setBackground(new java.awt.Color(249, 232, 218));
         c6.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -253,6 +264,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c6ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c6);
 
         c7.setBackground(new java.awt.Color(249, 232, 218));
         c7.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -263,6 +275,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c7ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c7);
 
         c8.setBackground(new java.awt.Color(249, 232, 218));
         c8.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -273,6 +286,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c8ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c8);
 
         c9.setBackground(new java.awt.Color(249, 232, 218));
         c9.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -283,6 +297,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c9ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c9);
 
         c10.setBackground(new java.awt.Color(249, 232, 218));
         c10.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -293,6 +308,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c10ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c10);
 
         c11.setBackground(new java.awt.Color(249, 232, 218));
         c11.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -303,6 +319,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c11ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c11);
 
         c12.setBackground(new java.awt.Color(249, 232, 218));
         c12.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -313,6 +330,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c12ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c12);
 
         c13.setBackground(new java.awt.Color(249, 232, 218));
         c13.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -323,6 +341,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c13ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c13);
 
         c14.setBackground(new java.awt.Color(249, 232, 218));
         c14.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -333,6 +352,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c14ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c14);
 
         c15.setBackground(new java.awt.Color(249, 232, 218));
         c15.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -343,6 +363,7 @@ public class Emparejados extends javax.swing.JFrame {
                 c15ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c15);
 
         c16.setBackground(new java.awt.Color(249, 232, 218));
         c16.setMaximumSize(new java.awt.Dimension(50, 50));
@@ -353,65 +374,27 @@ public class Emparejados extends javax.swing.JFrame {
                 c16ActionPerformed(evt);
             }
         });
+        panel_ppal.add(c16);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(c5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(c9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(c13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(c16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(panel_ppal, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(c5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(c9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(c13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addGap(26, 26, 26)
+                .addComponent(panel_ppal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(120, 90, 240, 250);
 
         pack();
         setLocationRelativeTo(null);
@@ -534,6 +517,7 @@ public class Emparejados extends javax.swing.JFrame {
     private javax.swing.JButton c7;
     private javax.swing.JButton c8;
     private javax.swing.JButton c9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel panel_ppal;
     // End of variables declaration//GEN-END:variables
 }
