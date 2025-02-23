@@ -33,11 +33,11 @@ public class ProyectoAc_2ev {
 
     public static void main(String[] args) {
         Principal p1 = new Principal();
-        p1.setVisible(true);  
-        
+        p1.setVisible(true);
+
     }
-    
-    public static void iniciarApi(){
+
+    public static void iniciarApi() {
         entradasPrueba();
         menu();
     }
@@ -75,9 +75,9 @@ public class ProyectoAc_2ev {
                     menuPartida();
                     break;
                 case "4":
-                    
+                    jugarMiniJuego();
                     break;
-                 case "5":
+                case "5":
                     JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");
                     //ConexionBBDD.desconectarBBDD();
                     break;
@@ -92,6 +92,11 @@ public class ProyectoAc_2ev {
      * Muestra el menú de opciones para gestionar los jugadores. Permite crear,
      * eliminar, modificar, buscar y listar jugadores.
      */
+    private static void jugarMiniJuego() {
+        Minijuego juego = new Minijuego();
+        juego.setVisible(true);
+    }
+
     public static void menuJugador() {
         String opcion = "";
         do {
