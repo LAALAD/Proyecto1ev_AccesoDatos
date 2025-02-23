@@ -85,9 +85,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void BotonPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPrincipalActionPerformed
         // Llamar al método de menú para que el usuario seleccione opciones
-        
-        ProyectoAc_2ev.iniciarApi();
         this.dispose();
+        ProyectoAc_2ev.iniciarApi();
+        
     }//GEN-LAST:event_BotonPrincipalActionPerformed
 
     /**
