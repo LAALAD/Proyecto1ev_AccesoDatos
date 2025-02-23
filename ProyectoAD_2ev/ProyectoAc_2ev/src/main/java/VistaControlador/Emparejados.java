@@ -45,7 +45,7 @@ public class Emparejados extends javax.swing.JFrame {
 
     // Inicializa las cartas con valores
     private void inicializarCartas() {
-        String[] valores = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        String[] valores = {"A", "B", "C", "D", "👻", "️💩", "☠️", "♥️"};
         // Duplica los valores para que haya dos de cada uno
         for (String valor : valores) {
             cartasValores.add(valor);
@@ -393,7 +393,7 @@ public class Emparejados extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
                 .addComponent(panel_ppal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
