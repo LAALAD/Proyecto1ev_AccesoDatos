@@ -193,10 +193,10 @@ public class ProyectoAc_2ev {
                     }
                     break;
                 case "7":
-                    /*imprimirTorneos(jugados());
+                    imprimirTorneos(jugados());
                     if (!jugados().isEmpty()) {
-                        t.mostrarStats(seleccionarTorneo(jugados()));
-                    }*/
+                        seleccionarTorneo(jugados()).stats();
+                    }
                     //ª
                     break;
                 case "8":

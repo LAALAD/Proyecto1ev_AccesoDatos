@@ -24,8 +24,8 @@ import javax.persistence.TemporalType;
  * @author DAM2_02
  */
 @Entity
-public class TorneoXJugador implements Serializable{
-      
+public class TorneoXJugador implements Comparable<TorneoXJugador>, Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -43,7 +43,8 @@ public class TorneoXJugador implements Serializable{
     @Basic
     private int posicion;  // Opcional: Puntos del jugador en este torneo
 
-    public TorneoXJugador() {}
+    public TorneoXJugador() {
+    }
 
     public TorneoXJugador(Torneo torneo, Jugador jugador) {
         this.torneo = torneo;
@@ -81,11 +82,27 @@ public class TorneoXJugador implements Serializable{
 
     public void setPosicion(int posicion) {
         this.posicion = posicion;
-    }       
+    }
 
     @Override
     public String toString() {
         return "TorneoXJugador{" + "id=" + id + ", torneo=" + torneo + ", jugador=" + jugador + ", posicion=" + posicion + '}';
     }
-    
+
+    @Override
+    public int compareTo(TorneoXJugador entrada) {
+        //1->mayor 0->igual -1->menor
+        if (entrada == null) {
+            throw new NullPointerException();
+        }
+
+        // Comparar por posiciones en torneo
+        if (this.posicion > entrada.posicion) { //cuando this > entrada 1
+            return 1; // this tiene mejor posicion 
+        } else if (this.posicion < entrada.posicion) {
+            return -1; // El  comparado tiene mejor posicion
+        } else {
+            return 0; // Empate
+        }
+    }
 }

@@ -360,11 +360,22 @@ public class Torneo implements Serializable {
 
     public void top3() {
         System.out.println("TOP 3: ");
+        Collections.sort(inscritos);
+        //Collections.reverse(inscritos);
         for (int i = 0; i < inscritos.size(); i++) {
-            System.out.println(inscritos.get(i).getPosicion() + ".- " + inscritos.get(i).getJugador().getNombre());
-            if (i >= 3) { //si estoy en la cuarta posicion ya no quiero mostrarlo
+            if (i > 2) {
                 return;
             }
+            System.out.println(inscritos.get(i).getPosicion() + ".- " + inscritos.get(i).getJugador().getNombre());
+        }
+    }    
+    
+    public void stats() {
+        System.out.println("ESTADISTICAS: ");
+        Collections.sort(inscritos);
+        //Collections.reverse(inscritos);
+        for (int i = 0; i < inscritos.size(); i++) {
+            System.out.println(inscritos.get(i).getPosicion() + ".- " + inscritos.get(i).getJugador().getNombre());
         }
     }
 }
