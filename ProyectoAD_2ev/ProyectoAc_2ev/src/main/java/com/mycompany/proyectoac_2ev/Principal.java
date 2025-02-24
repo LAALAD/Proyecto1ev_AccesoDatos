@@ -36,7 +36,7 @@ public class Principal extends javax.swing.JFrame {
         Pane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BotonPrincipal.setBackground(new java.awt.Color(246, 232, 198));
-        BotonPrincipal.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
+        BotonPrincipal.setFont(new java.awt.Font("Rubik", 1, 24)); // NOI18N
         BotonPrincipal.setForeground(new java.awt.Color(218, 91, 4));
         BotonPrincipal.setText("INICIAR");
         BotonPrincipal.setAlignmentY(0.0F);
@@ -54,10 +54,10 @@ public class Principal extends javax.swing.JFrame {
         Pane.add(BotonPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 180, 50));
 
         jLabel1.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Rubik", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 103, 114));
         jLabel1.setText("POLADRIJ");
-        Pane.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 220, -1));
+        Pane.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 260, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
         jLabel2.setText("jLabel2");

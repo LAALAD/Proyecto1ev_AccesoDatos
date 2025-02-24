@@ -62,7 +62,7 @@ public class ProyectoAc_2ev {
             System.out.println("1.- Menu Jugador");
             System.out.println("2.- Menu Torneo");
             System.out.println("3.- Menu Partida");
-            System.out.println("4.- Minijuego Emparejados");
+            System.out.println("4.- Guardar Jugadores Existentes");
             System.out.println("5.- Salir");
 
             opcion = sc.nextLine();
@@ -77,7 +77,7 @@ public class ProyectoAc_2ev {
                     menuPartida();
                     break;
                 case "4":
-                    //jugarMiniJuego();
+                    IO.EscribirXML.guardarJugadores(jugadores);
                     break;
                 case "5":
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");

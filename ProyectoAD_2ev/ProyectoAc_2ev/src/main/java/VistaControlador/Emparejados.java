@@ -203,12 +203,12 @@ public class Emparejados extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(216, 194, 170));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Rubik", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 103, 114));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("¡ENCUENTRA LAS PAREJAS EN EL MENOR NUMERO DE MOVIMIENTOS!");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(110, 40, 625, 28);
+        jLabel1.setBounds(110, 40, 625, 22);
 
         panel_ppal.setPreferredSize(new java.awt.Dimension(400, 400));
         panel_ppal.setLayout(new java.awt.GridLayout(4, 4));
