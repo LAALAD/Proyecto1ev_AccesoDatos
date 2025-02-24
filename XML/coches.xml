@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fichero>
+    <coches>
+        <coche marca="Volvo">
+            <matricula>1111AAAA</matricula>
+        </coche>
+    </coches>
+    <coches>
+        <coche marca="Volvo">
+            <matricula>1111AAAA</matricula>
+        </coche>
+    </coches>
+    <coches>
+        <coche marca="Volvo">
+            <matricula>1111AAAA</matricula>
+        </coche>
+    </coches>
+</fichero>
+

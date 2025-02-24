@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ListadoJugadores xmlns="myNameSpace">
+    <jugadores>
+        <jugador>
+            <id>1</id>
+            <nombre>adriana</nombre>
+            <partidasGanadas>0.0</partidasGanadas>
+            <partidasJugadas>0.0</partidasJugadas>
+        </jugador>
+        <jugador>
+            <id>2</id>
+            <nombre>alba</nombre>
+            <partidasGanadas>0.0</partidasGanadas>
+            <partidasJugadas>0.0</partidasJugadas>
+        </jugador>
+    </jugadores>
+</ListadoJugadores>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<concesionario xmlns="myNameSpace">
+    <coches>
+        <coche>
+            <matricula>1111AAAA</matricula>
+            <marca>AUDI</marca>
+            <precio>3000</precio>
+        </coche>
+    </coches>
+</concesionario>
