@@ -3,6 +3,7 @@
  */
 package com.mycompany.proyectoac_2ev;
 
+import VistaControlador.Principal;
 import VistaControlador.Emparejados;
 import VistaControlador.Ventana_Gracias;
 import java.sql.PreparedStatement;
@@ -52,6 +53,14 @@ public class ProyectoAc_2ev {
     public static void menu() {
         jugadores = control.leerTodosJugadores();
         torneos = control.leerTodosTorneos();
+        System.out.println("¿Desea añadir jugadores básicos de prueba? (s/n)");
+        String res = sc.nextLine();
+        if(res.equalsIgnoreCase("s")){
+            ArrayList <Jugador> jugadores_aux = IO.LeerXML.leerJugadores();
+            for (Jugador jugador : jugadores_aux) {
+                control.crearJugador(jugador);
+            }
+        }
         //ConexionBBDD.getConnection();
         //jugadores = j.listarJugadores();
         //torneos = t.leerBBDDTorneos(jugadores);
@@ -83,8 +92,6 @@ public class ProyectoAc_2ev {
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
                     String respuesta = sc.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
-                        //Minijuego juego = new Minijuego();
-                        //juego.setVisible(true);
                         VistaControlador.Emparejados minijuego = new Emparejados(null);
                         minijuego.setVisible(true);
                     } else {
@@ -100,18 +107,16 @@ public class ProyectoAc_2ev {
         } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
-    /**
-     * Muestra el menú de opciones para gestionar los jugadores. Permite crear,
-     * eliminar, modificar, buscar y listar jugadores.
-     */
-    private static void jugarMiniJuego() {
+    
+    
+    /*private static void jugarMiniJuego() {
         System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
         String respuesta = sc.nextLine();
         if (respuesta.equals("s")) {
             Minijuego juego = new Minijuego();
             juego.setVisible(true);
         }
-    }
+    }*/
 
     public static void menuJugador() {
         String opcion = "";
@@ -122,7 +127,8 @@ public class ProyectoAc_2ev {
             System.out.println("3.- Modificar Jugador");
             System.out.println("4.- Buscar Jugador");
             System.out.println("5.- Listar Jugadores en BBDD");
-            System.out.println("6.- Salir");
+            System.out.println("5.- Añadir Datos Personales del Jugador");
+            System.out.println("7.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -143,12 +149,17 @@ public class ProyectoAc_2ev {
                     //imprimirJugadores(j.listarJugadores());
                     break;
                 case "6":
+                    imprimirJugadores(jugadores);
+                    Jugador jugador = seleccionarJugador();
+                    jugador.setDatosPersonales(rellenarDatosPersonales());
+                    break;
+                case "7":
                     break;
                 default:
                     System.out.println("¡Opción incorrecta!");
             }
 
-        } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 6 seguir el bucle
+        } while (!opcion.equals("7")); //Mientras seleccione un numero distinto de 6 seguir el bucle
     }
 
     /**
