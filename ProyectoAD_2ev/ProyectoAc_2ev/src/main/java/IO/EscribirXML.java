@@ -19,6 +19,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import logicaNegocio.Jugador;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -81,16 +82,22 @@ public class EscribirXML {
 
             Source source = new DOMSource(doc);
             //Result result = new StreamResult(new File("myJugadores.xml")); //no es como un File, asiq se debe crear la carpeta previamente
-            Result result = new StreamResult(seleccionarFichero());
-            
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+           
+            File fichero = seleccionarFichero();
+            //este if en caso de que el usuario le de a cancelar no explote
+            if (fichero != null) {
+                Result result = new StreamResult(fichero);
 
-            //ací ce mete la zanjrí.
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Activar sangría
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // Nivel de sangría
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
 
-            transformer.transform(source, result);
-        } catch (Exception e) {
+                //ací ce mete la zanjrí.
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Activar sangría
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // Nivel de sangría
+
+                transformer.transform(source, result);
+            }
+
+        } catch (IllegalArgumentException | ParserConfigurationException | TransformerException | DOMException e) {
             e.printStackTrace();
         }
     }

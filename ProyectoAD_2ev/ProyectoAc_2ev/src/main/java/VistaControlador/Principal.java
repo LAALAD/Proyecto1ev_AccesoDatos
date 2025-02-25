@@ -5,12 +5,16 @@
 package VistaControlador;
 
 import com.mycompany.proyectoac_2ev.ProyectoAc_2ev;
+import java.awt.Color;
 
 /**
  *
  * @author paulc
  */
 public class Principal extends javax.swing.JFrame {
+
+    private int mouseX;
+    private int mouseY;
 
     /**
      * Creates new form Principal
@@ -30,10 +34,17 @@ public class Principal extends javax.swing.JFrame {
 
         Pane = new javax.swing.JPanel();
         BotonPrincipal = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        Menu = new javax.swing.JPanel();
+        PanelX = new javax.swing.JPanel();
+        TextoCerrar = new javax.swing.JLabel();
+        PanelMenos = new javax.swing.JPanel();
+        Minimizar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         Pane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -55,15 +66,118 @@ public class Principal extends javax.swing.JFrame {
         });
         Pane.add(BotonPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 180, 50));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        Pane.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, 530));
+
+        Menu.setBackground(new java.awt.Color(216, 194, 170));
+        Menu.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                MenuMouseDragged(evt);
+            }
+        });
+        Menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuMousePressed(evt);
+            }
+        });
+
+        PanelX.setBackground(new java.awt.Color(216, 194, 170));
+
+        TextoCerrar.setBackground(new java.awt.Color(255, 0, 102));
+        TextoCerrar.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        TextoCerrar.setForeground(new java.awt.Color(0, 0, 0));
+        TextoCerrar.setText("X");
+        TextoCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextoCerrarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TextoCerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TextoCerrarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelXLayout = new javax.swing.GroupLayout(PanelX);
+        PanelX.setLayout(PanelXLayout);
+        PanelXLayout.setHorizontalGroup(
+            PanelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelXLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TextoCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        PanelXLayout.setVerticalGroup(
+            PanelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TextoCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        PanelMenos.setBackground(new java.awt.Color(216, 194, 170));
+
+        Minimizar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Minimizar.setForeground(new java.awt.Color(0, 0, 0));
+        Minimizar.setText("-");
+        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MinimizarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MinimizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MinimizarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelMenosLayout = new javax.swing.GroupLayout(PanelMenos);
+        PanelMenos.setLayout(PanelMenosLayout);
+        PanelMenosLayout.setHorizontalGroup(
+            PanelMenosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMenosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Minimizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelMenosLayout.setVerticalGroup(
+            PanelMenosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMenosLayout.createSequentialGroup()
+                .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
         jLabel1.setBackground(new java.awt.Color(51, 51, 255));
         jLabel1.setFont(new java.awt.Font("Rubik", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 103, 114));
         jLabel1.setText("POLADRIJ");
-        Pane.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 260, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        Pane.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 600));
+        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
+        Menu.setLayout(MenuLayout);
+        MenuLayout.setHorizontalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addContainerGap(179, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
+                .addComponent(PanelMenos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        MenuLayout.setVerticalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(PanelMenos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelX, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+
+        Pane.add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +200,47 @@ public class Principal extends javax.swing.JFrame {
         ProyectoAc_2ev.iniciarApi();
         
     }//GEN-LAST:event_BotonPrincipalActionPerformed
+
+    private void TextoCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoCerrarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_TextoCerrarMouseClicked
+
+    private void TextoCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoCerrarMouseEntered
+        PanelX.setBackground(Color.red);
+        TextoCerrar.setForeground(Color.WHITE);
+        TextoCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_TextoCerrarMouseEntered
+
+    private void TextoCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoCerrarMouseExited
+        TextoCerrar.setForeground(Color.BLACK);
+        PanelX.setBackground(new Color(216,194,170));
+    }//GEN-LAST:event_TextoCerrarMouseExited
+
+    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
+        setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_MinimizarMouseClicked
+
+    private void MinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseEntered
+        Minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Minimizar.setForeground(Color.WHITE);
+        PanelMenos.setBackground(new Color(204, 204, 204));
+    }//GEN-LAST:event_MinimizarMouseEntered
+
+    private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
+        Minimizar.setForeground(Color.BLACK);
+        PanelMenos.setBackground(new Color(216,194,170));
+    }//GEN-LAST:event_MinimizarMouseExited
+
+    private void MenuMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuMouseDragged
+        int x = evt.getXOnScreen() - mouseX;
+        int y = evt.getYOnScreen() - mouseY;
+        this.setLocation(x, y);
+    }//GEN-LAST:event_MenuMouseDragged
+
+    private void MenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuMousePressed
+        mouseX = evt.getXOnScreen() - getLocation().x;
+        mouseY = evt.getYOnScreen() - getLocation().y;
+    }//GEN-LAST:event_MenuMousePressed
 
     /**
      * @param args the command line arguments
@@ -124,7 +279,12 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonPrincipal;
+    private javax.swing.JPanel Menu;
+    private javax.swing.JLabel Minimizar;
     private javax.swing.JPanel Pane;
+    private javax.swing.JPanel PanelMenos;
+    private javax.swing.JPanel PanelX;
+    private javax.swing.JLabel TextoCerrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

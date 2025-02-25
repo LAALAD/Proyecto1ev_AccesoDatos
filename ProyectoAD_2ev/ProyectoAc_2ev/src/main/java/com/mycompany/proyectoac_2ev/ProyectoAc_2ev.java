@@ -4,11 +4,8 @@
 package com.mycompany.proyectoac_2ev;
 
 import VistaControlador.Principal;
-import VistaControlador.Emparejados;
+import VistaControlador.MenuMinijuegos;
 import VistaControlador.Ventana_Gracias;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.swing.JOptionPane;
 import logicaNegocio.*;
 
 /**
@@ -55,10 +51,11 @@ public class ProyectoAc_2ev {
         torneos = control.leerTodosTorneos();
         System.out.println("¿Desea añadir jugadores básicos de prueba? (s/n)");
         String res = sc.nextLine();
-        if(res.equalsIgnoreCase("s")){
-            ArrayList <Jugador> jugadores_aux = IO.LeerXML.leerJugadores();
+        if (res.equalsIgnoreCase("s")) {
+            ArrayList<Jugador> jugadores_aux = IO.LeerXML.leerJugadores();
             for (Jugador jugador : jugadores_aux) {
                 control.crearJugador(jugador);
+                jugadores.add(jugador);
             }
         }
         //ConexionBBDD.getConnection();
@@ -92,8 +89,11 @@ public class ProyectoAc_2ev {
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
                     String respuesta = sc.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
-                        VistaControlador.Emparejados minijuego = new Emparejados(null);
+                        VistaControlador.MenuMinijuegos minijuego = new MenuMinijuegos();
+                        minijuego.setLocationRelativeTo(null);
                         minijuego.setVisible(true);
+                        
+                        
                     } else {
                         Ventana_Gracias gracias = new Ventana_Gracias();
                         gracias.setVisible(true);
@@ -107,8 +107,6 @@ public class ProyectoAc_2ev {
         } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
-    
-    
     /*private static void jugarMiniJuego() {
         System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
         String respuesta = sc.nextLine();
@@ -117,7 +115,6 @@ public class ProyectoAc_2ev {
             juego.setVisible(true);
         }
     }*/
-
     public static void menuJugador() {
         String opcion = "";
         do {
@@ -127,7 +124,7 @@ public class ProyectoAc_2ev {
             System.out.println("3.- Modificar Jugador");
             System.out.println("4.- Buscar Jugador");
             System.out.println("5.- Listar Jugadores en BBDD");
-            System.out.println("5.- Añadir Datos Personales del Jugador");
+            System.out.println("6.- Añadir Datos Personales del Jugador");
             System.out.println("7.- Salir");
 
             opcion = sc.nextLine();
@@ -151,7 +148,7 @@ public class ProyectoAc_2ev {
                 case "6":
                     imprimirJugadores(jugadores);
                     Jugador jugador = seleccionarJugador();
-                    jugador.setDatosPersonales(rellenarDatosPersonales());
+                    guardarDatosPersonales(jugador);
                     break;
                 case "7":
                     break;
@@ -292,6 +289,14 @@ public class ProyectoAc_2ev {
         String telefono = sc.nextLine();
         DatosPersonales dp = new DatosPersonales(1, apellido, fecha, email, telefono);
         return dp;
+    }
+
+    //Metodo que guarda en la base de datos los datos personales del jugador
+    private static void guardarDatosPersonales(Jugador jugador) {
+        DatosPersonales datosP = rellenarDatosPersonales();
+        jugador.setDatosPersonales(datosP);
+        control.editarDatosPersonales(datosP);
+        control.editarJugador(jugador);
     }
 
     // Método que valida el día y mes de la fecha

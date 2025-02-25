@@ -37,10 +37,13 @@ public class BotonEscurridizo extends javax.swing.JFrame {
 
         botonMover = new javax.swing.JButton();
         fondo = new javax.swing.JPanel();
+        boton_Rendrise = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(400, 400));
         setMinimumSize(new java.awt.Dimension(400, 400));
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(400, 400));
         setResizable(false);
         getContentPane().setLayout(null);
@@ -73,11 +76,43 @@ public class BotonEscurridizo extends javax.swing.JFrame {
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
 
         getContentPane().add(fondo);
-        fondo.setBounds(0, 0, 400, 400);
+        fondo.setBounds(0, 0, 400, 310);
+
+        boton_Rendrise.setBackground(new java.awt.Color(216, 194, 170));
+
+        jButton1.setBackground(new java.awt.Color(246, 232, 198));
+        jButton1.setFont(new java.awt.Font("Rubik", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(218, 91, 4));
+        jButton1.setText("Me rindo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout boton_RendriseLayout = new javax.swing.GroupLayout(boton_Rendrise);
+        boton_Rendrise.setLayout(boton_RendriseLayout);
+        boton_RendriseLayout.setHorizontalGroup(
+            boton_RendriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(boton_RendriseLayout.createSequentialGroup()
+                .addGap(157, 157, 157)
+                .addComponent(jButton1)
+                .addContainerGap(148, Short.MAX_VALUE))
+        );
+        boton_RendriseLayout.setVerticalGroup(
+            boton_RendriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, boton_RendriseLayout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(22, 22, 22))
+        );
+
+        getContentPane().add(boton_Rendrise);
+        boton_Rendrise.setBounds(0, 310, 400, 90);
 
         pack();
         setLocationRelativeTo(null);
@@ -105,6 +140,10 @@ public class BotonEscurridizo extends javax.swing.JFrame {
         timer.setRepeats(false); // Para que solo se ejecute una vez
         timer.start();
     }//GEN-LAST:event_botonMoverMouseEntered
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +182,8 @@ public class BotonEscurridizo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonMover;
+    private javax.swing.JPanel boton_Rendrise;
     private javax.swing.JPanel fondo;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

@@ -193,11 +193,14 @@ public class Emparejados extends javax.swing.JFrame {
         c14 = new javax.swing.JButton();
         c15 = new javax.swing.JButton();
         c16 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Minijuego");
         setBackground(new java.awt.Color(216, 194, 170));
         setMinimumSize(new java.awt.Dimension(450, 450));
+        setUndecorated(true);
+        setResizable(false);
         setSize(new java.awt.Dimension(450, 400));
 
         jPanel1.setBackground(new java.awt.Color(216, 194, 170));
@@ -424,6 +427,18 @@ public class Emparejados extends javax.swing.JFrame {
         jPanel1.add(panel_ppal);
         panel_ppal.setBounds(106, 86, 625, 410);
 
+        jButton1.setBackground(new java.awt.Color(246, 232, 198));
+        jButton1.setFont(new java.awt.Font("Rubik", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(218, 91, 4));
+        jButton1.setText("Rendirse");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(350, 530, 130, 33);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -436,8 +451,8 @@ public class Emparejados extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -508,6 +523,10 @@ public class Emparejados extends javax.swing.JFrame {
         manejarClic(c16);
     }//GEN-LAST:event_c16ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -561,6 +580,7 @@ public class Emparejados extends javax.swing.JFrame {
     private javax.swing.JButton c7;
     private javax.swing.JButton c8;
     private javax.swing.JButton c9;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel_ppal;

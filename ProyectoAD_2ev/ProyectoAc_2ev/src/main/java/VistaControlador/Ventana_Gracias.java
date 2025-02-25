@@ -31,6 +31,8 @@ public class Ventana_Gracias extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         FONDO.setBackground(new java.awt.Color(216, 194, 170));
 
