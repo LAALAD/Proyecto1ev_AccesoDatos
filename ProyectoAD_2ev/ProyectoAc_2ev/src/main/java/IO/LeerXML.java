@@ -6,10 +6,16 @@ package IO;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import logicaNegocio.DatosPersonales;
 import logicaNegocio.Jugador;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -53,29 +59,44 @@ public class LeerXML {
                 String partidasGanadasStr = jugadorElement.getElementsByTagName("partidasGanadas").item(0).getTextContent();
                 String partidasJugadasStr = jugadorElement.getElementsByTagName("partidasJugadas").item(0).getTextContent();
 
-               
-                
-                
                 // Crear el objeto Jugador (utilizando el constructor que recibe el nombre)
                 Jugador jugador = new Jugador(nombre);
                 // Asignar el id (opcional, en caso de que se necesite)
                 //jugador.setId_j(Integer.parseInt(idStr));
-                
-                 // Convertir los valores de partidas ganadas y jugadas
+
+                // Convertir los valores de partidas ganadas y jugadas
                 int partidasGanadas = (int) Double.parseDouble(partidasGanadasStr);
                 int partidasJugadas = (int) Double.parseDouble(partidasJugadasStr);
                 // Asignar estadísticas de partidas
                 jugador.setPartidasGanadas(partidasGanadas);
                 jugador.setPartidasJugadas(partidasJugadas);
+                // Leer datos personales si existen
+                NodeList datosPersonalesList = jugadorElement.getElementsByTagName("datosPersonales");
+                if (datosPersonalesList.getLength() > 0) {
+                    Element datosPersonalesElement = (Element) datosPersonalesList.item(0);
+
+                    String apellido = datosPersonalesElement.getElementsByTagName("apellido").item(0).getTextContent();
+                    String fechaNacimientoStr = datosPersonalesElement.getElementsByTagName("fechaNacimiento").item(0).getTextContent();
+                    Date fechaNacimiento = (new SimpleDateFormat("dd/MM/yyyy")).parse(fechaNacimientoStr);
+                    String email = datosPersonalesElement.getElementsByTagName("email").item(0).getTextContent();
+                    String telefono = datosPersonalesElement.getElementsByTagName("telefono").item(0).getTextContent();
+
+                    DatosPersonales datosPersonales = new DatosPersonales(0, apellido, fechaNacimiento, email, telefono);
+                    jugador.setDatosPersonales(datosPersonales);
+
+                }
 
                 // Agregar el jugador a la lista
                 jugadores.add(jugador);
             }
 
             System.out.println("XML de jugadores cargado desde: " + file.getPath());
+            //pARSER ES POR LA FECHA DE DATOS PERSONALES
         } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+        } catch (ParseException ex) {
+            Logger.getLogger(LeerXML.class.getName()).log(Level.SEVERE, null, ex);
         }
         return jugadores;
     }

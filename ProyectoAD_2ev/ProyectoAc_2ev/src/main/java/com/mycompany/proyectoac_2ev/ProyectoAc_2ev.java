@@ -25,7 +25,7 @@ public class ProyectoAc_2ev {
 
     private static ControladorLogico control = new ControladorLogico();
 
-    private static ArrayList<Jugador> jugadores = new ArrayList<>();
+    private static ArrayList<Jugador> arbitros = new ArrayList<>();
     private static ArrayList<Torneo> torneos = new ArrayList<>();
 
     private static Scanner sc = new Scanner(System.in);
@@ -47,7 +47,7 @@ public class ProyectoAc_2ev {
      * y carga la lista de jugadores y torneos.
      */
     public static void menu() {
-        jugadores = control.leerTodosJugadores();
+        arbitros = control.leerTodosJugadores();
         torneos = control.leerTodosTorneos();
         System.out.println("¿Desea añadir jugadores básicos de prueba? (s/n)");
         String res = sc.nextLine();
@@ -55,7 +55,7 @@ public class ProyectoAc_2ev {
             ArrayList<Jugador> jugadores_aux = IO.LeerXML.leerJugadores();
             for (Jugador jugador : jugadores_aux) {
                 control.crearJugador(jugador);
-                jugadores.add(jugador);
+                arbitros.add(jugador);
             }
         }
         //ConexionBBDD.getConnection();
@@ -83,7 +83,7 @@ public class ProyectoAc_2ev {
                     menuPartida();
                     break;
                 case "4":
-                    IO.EscribirXML.guardarJugadores(jugadores);
+                    IO.EscribirXML.guardarJugadores(arbitros);
                     break;
                 case "5":
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
@@ -92,8 +92,7 @@ public class ProyectoAc_2ev {
                         VistaControlador.MenuMinijuegos minijuego = new MenuMinijuegos();
                         minijuego.setLocationRelativeTo(null);
                         minijuego.setVisible(true);
-                        
-                        
+
                     } else {
                         Ventana_Gracias gracias = new Ventana_Gracias();
                         gracias.setVisible(true);
@@ -142,11 +141,11 @@ public class ProyectoAc_2ev {
                     buscarJugador();
                     break;
                 case "5":
-                    imprimirJugadores(jugadores);
+                    imprimirJugadores(arbitros);
                     //imprimirJugadores(j.listarJugadores());
                     break;
                 case "6":
-                    imprimirJugadores(jugadores);
+                    imprimirJugadores(arbitros);
                     Jugador jugador = seleccionarJugador();
                     guardarDatosPersonales(jugador);
                     break;
@@ -263,17 +262,17 @@ public class ProyectoAc_2ev {
     private static void crearJugador() {
         System.out.println("Introduce el nombre del jugador: ");
         String nombre = sc.nextLine();
-        jugadores.add(new Jugador(nombre));
+        arbitros.add(new Jugador(nombre));
 
         //rellena la ficha si quieres, de manera opcional
         System.out.println("Deseas rellenar la ficha del jugador s/n");
         String opcion = sc.nextLine();
         if (opcion.equalsIgnoreCase("s")) {
             //rellena los datos personales del ultimo jugadore creado devolviendo un tipo de dato Datos Personales
-            jugadores.getLast().setDatosPersonales(rellenarDatosPersonales());
+            arbitros.getLast().setDatosPersonales(rellenarDatosPersonales());
         }
 
-        control.crearJugador(jugadores.getLast());
+        control.crearJugador(arbitros.getLast());
     }
 
     private static DatosPersonales rellenarDatosPersonales() {
@@ -295,7 +294,7 @@ public class ProyectoAc_2ev {
     private static void guardarDatosPersonales(Jugador jugador) {
         DatosPersonales datosP = rellenarDatosPersonales();
         jugador.setDatosPersonales(datosP);
-        control.editarDatosPersonales(datosP);
+        //control.editarDatosPersonales(datosP); //NO HACE FALTA GRACIAS AL CASCADE
         control.editarJugador(jugador);
     }
 
@@ -478,14 +477,14 @@ public class ProyectoAc_2ev {
      * Elimina un jugador de la lista, si existe.
      */
     private static void eliminarJugador() {
-        if (jugadores.isEmpty()) {
+        if (arbitros.isEmpty()) {
             System.out.println("No existen jugadores registrados");
             return;
         }
-        imprimirJugadores(jugadores);
+        imprimirJugadores(arbitros);
         System.out.println("Para el jugador a eliminar...");
         Jugador eliminar = seleccionarJugador();
-        jugadores.remove(eliminar);
+        arbitros.remove(eliminar);
         control.eliminarJugador(eliminar.getId_j());
     }
 
@@ -493,11 +492,11 @@ public class ProyectoAc_2ev {
      * Modifica los datos de un jugador (nombre).
      */
     private static void modificarJugador() {
-        if (jugadores.isEmpty()) {
+        if (arbitros.isEmpty()) {
             System.out.println("No existen jugadores registrados");
             return;
         }
-        imprimirJugadores(jugadores);
+        imprimirJugadores(arbitros);
         System.out.println("Para el jugador a modificar: ");
         Jugador modif = seleccionarJugador();
         System.out.println("Introduce el nuevo nombre del jugador: ");
@@ -510,7 +509,7 @@ public class ProyectoAc_2ev {
      * Busca un jugador en la base de datos por su ID y muestra sus detalles.
      */
     private static void buscarJugador() {
-        if (jugadores.isEmpty()) {
+        if (arbitros.isEmpty()) {
             System.out.println("No existen jugadores registrados");
             return;
         }
@@ -543,7 +542,7 @@ public class ProyectoAc_2ev {
             id_j_aux = asignarEntero(); // Obtener el ID ingresado por el usuario
 
             // Buscar el jugador en la lista de jugadores
-            for (Jugador it : jugadores) {
+            for (Jugador it : arbitros) {
                 // Si el ID coincide con algún jugador en la lista, devolver ese jugador
                 if (it.getId_j() == id_j_aux) {
                     return it; // Jugador encontrado, se devuelve el objeto
@@ -803,7 +802,7 @@ public class ProyectoAc_2ev {
         //ArrayList<Jugador> salida = (ArrayList<Jugador>) jugadores.clone();
 
         // Se crea una nueva lista para no modificar la lista original de jugadores
-        ArrayList<Jugador> salida = new ArrayList<>(jugadores);
+        ArrayList<Jugador> salida = new ArrayList<>(arbitros);
         ArrayList<Jugador> jugadores_inscritos = new ArrayList<>();
         for (TorneoXJugador txj : t.getInscritos()) {
             jugadores_inscritos.add(txj.getJugador());
@@ -841,7 +840,7 @@ public class ProyectoAc_2ev {
         outerLoop:// Etiqueta para el bucle exterior
         do {
             torneos.getLast().getArbitros().add(contratarArbitro());
-            // Pregunta al usuario si desea inscribir más jugadores
+            // Pregunta al usuario si desea contratar más arbitros
             String respuesta;
             while (true) {
                 System.out.println("¿Desea contratar más arbitros? (s/n)");
@@ -858,16 +857,128 @@ public class ProyectoAc_2ev {
         control.crearTorneo(torneos.getLast());
     }
 
-    // Intentar crear el torneo y verificar si la creación fue exitosa.
-    /*if (t.crearTorneo(nuevo)) {
-            // Si se crea correctamente, agregarlo a la lista de torneos.
-            torneos.add(nuevo);
-            System.out.println("¡Torneo creado exitosamente!"); // Confirmar al usuario
-        } else {
-            // Si hay un error al crear el torneo, mostrar un mensaje de error.
-            System.out.println("Error al crear el torneo.");
-        }*/
+    private static void menuArbitro() {
+        String opcion = "";
+        do {
+            System.out.println("Elija una opcion");
+            System.out.println("1.- Crear Arbitro");
+            System.out.println("2.- Eliminar Arbitro");
+            System.out.println("3.- Modificar Arbitro");
+            System.out.println("4.- Listar Arbitros");
+            System.out.println("5.- Salir");
+
+            opcion = sc.nextLine();
+            switch (opcion) {
+                case "1":
+                    crearArbitro();
+                    break;
+                case "2":
+                    eliminarArbitro();
+                    break;
+                case "3":
+                    modificarArbitro();
+                    break;
+                case "4":
+                    imprimirArbitros(control.leerTodosArbitros());
+                    break;
+                case "5":
+                    break;
+                default:
+                    System.out.println("¡Opción incorrecta!");
+            }
+        } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 4 seguir el bucle
+    }
+
+    private static void crearArbitro() {
+
+        System.out.println("Introduce el nombre del arbitro: ");
+        String nombre = sc.nextLine();
+        System.out.println("Introduce el numero de licencia del arbitro: ");
+        int numeroLicencia = asignarEntero();
+
+        Arbitro nuevo = new Arbitro(nombre, numeroLicencia);
+
+        control.crearArbitro(nuevo);
+    }
+
+    private static void eliminarArbitro() {
+        ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
+        if (arbitros.isEmpty()) {
+            System.out.println("No existen jugadores registrados");
+            return;
+        }
+        imprimirArbitros(arbitros);
+        System.out.println("Para el arbitro a eliminar...");
+        Arbitro eliminar;
+        do {
+            eliminar = control.leerArbitro(asignarEntero());
+
+        } while (eliminar == null);
+        //arbitros.remove(eliminar);
+        control.eliminarArbitro(eliminar.getId());
+
+    }
+
+    private static void modificarArbitro() {
+        // Verificamos si existen torneos que no hayan sido jugados
+        ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
+        if (arbitros.isEmpty()) {
+            System.out.println("No existen arbitros registrados");
+            return; // Si no hay arbitros disponibles, salimos del método
+        }
+
+        // Imprimimos los torneos que no han sido jugados
+        imprimirArbitros(arbitros);
+
+        // Pedimos al usuario que seleccione el torneo que desea modificar
+        System.out.println("Para el arbitro a modificar: ");
+        Arbitro modif = control.leerArbitro(asignarEntero());// Seleccionamos el torneo a modificar
+
+        String opcion = "";
+        do {
+            // Mostramos el menú de opciones para modificar el torneo
+            System.out.println("Elija una opcion");
+            System.out.println("1.- Modificar nombre");
+            System.out.println("2.- Modificar numero de licencia");
+            System.out.println("3.- Salir");
+
+            opcion = sc.nextLine();
+            switch (opcion) {
+                case "1":
+                    System.out.println("Introduce el nuevo nombre del arbitro: ");
+                    modif.setNombre(sc.nextLine());
+                    break;
+                case "2":
+                    System.out.println("Introduce el nuevo numero de licencia del arbitro: ");
+                    modif.setNumeroLicencia(asignarEntero());
+                    break;
+                case "3": // Salimos y guardamos los cambios en el arbitro                    
+                    control.editarArbitro(modif);
+                    break;
+                default:
+                    System.out.println("¡Opción incorrecta!");
+            }
+
+        } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 4 seguir el bucle
+    }
+
+    private static void imprimirArbitros(ArrayList<Arbitro> arbitros) {
+        if (arbitros.isEmpty()) {
+            System.out.println("No hay arbitros disponibles");
+            return;
+        }
+
+        System.out.println("|---------------------------|");
+        System.out.println("| ID \t|\t NOMBRE \t|\t LICENCIA");
+        System.out.println("|---------------------------|");
+        for (Arbitro it : arbitros) {
+            System.out.println("| " + it.getId() + " \t|\t " + it.getNombre() + " \t|\t " + it.getNumeroLicencia());
+            System.out.println("|---------------------------|");
+        }
+    }
+
     private static Arbitro contratarArbitro() {
+
         System.out.println("Introduce el nombre del arbitro: ");
         String nombre = sc.nextLine();
         System.out.println("Introduce el numero de licencia del arbitro: ");
@@ -1009,7 +1120,7 @@ public class ProyectoAc_2ev {
         }
 
         // Verifica si existen jugadores registrados
-        if (jugadores.isEmpty()) {
+        if (arbitros.isEmpty()) {
             System.out.println("No existen jugadores registrados para inscribir");
             return; // Sale si no hay jugadores disponibles
         }
@@ -1265,12 +1376,14 @@ public class ProyectoAc_2ev {
 
             // Operaciones de base de datos
             Torneo torneo1 = new Torneo("Campeonato Nacional", new Date(), 20);
-            Torneo torneo2 = new Torneo("Campeonato Nacional II", (new SimpleDateFormat("dd/MM/yyyy")).parse("22/2"), 9);
+            Torneo torneo2 = new Torneo("Campeonato Nacional II", new Date(), 20);
+            //Torneo torneo3 = new Torneo("Campeonato Nacional II", (new SimpleDateFormat("dd/MM/yyyy")).parse("22/2"), 9);
             //int error=10/0;
 
             // Guardar el torneo en la base de datos
             em.persist(torneo1);
             em.persist(torneo2);
+            //em.persist(torneo3);
 
             // Si todo va bien, hacer commit
             transaction.commit();
@@ -1289,4 +1402,5 @@ public class ProyectoAc_2ev {
             emf.close();
         }
     }
+
 }

@@ -5,6 +5,7 @@
 package IO;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.xml.parsers.DocumentBuilder;
@@ -43,7 +44,6 @@ public class EscribirXML {
             // Crear el elemento raíz <jugadores>
             Element misJugadores = doc.createElement("jugadores");
 
-            doc.getDocumentElement().appendChild(misJugadores);
             // Recorrer la lista de jugadores y crear un nodo <jugador> para cada uno
             for (Jugador jugador : jugadores) {
                 Element jugadorElement = doc.createElement("jugador");
@@ -73,6 +73,37 @@ public class EscribirXML {
                 Text textpartidasJugadas = doc.createTextNode(String.valueOf(jugador.getPartidasJugadas()));
                 partidasJugadasElement.appendChild(textpartidasJugadas);
                 jugadorElement.appendChild(partidasJugadasElement);
+                // Añade los datos personales en caso de q existan
+                if (jugador.getDatosPersonales() != null) {
+                    Element datosPersonalesElement = doc.createElement("datosPersonales");
+
+                    // Apellido
+                    Element apellidoElement = doc.createElement("apellido");
+                    Text textApellido = doc.createTextNode(jugador.getDatosPersonales().getApellido());
+                    apellidoElement.appendChild(textApellido);
+                    datosPersonalesElement.appendChild(apellidoElement);
+
+                    // Fecha de nacimiento
+                    Element fechaNacimientoElement = doc.createElement("fechaNacimiento");
+                    Text textFechaNacimiento = doc.createTextNode((new SimpleDateFormat("dd/MM/yyyy")).format(jugador.getDatosPersonales().getFechaNacimiento())); 
+                    //.format para transformarse desde un date | .parse para transformarse desde un string
+                    fechaNacimientoElement.appendChild(textFechaNacimiento);
+                    datosPersonalesElement.appendChild(fechaNacimientoElement);
+
+                    // Email
+                    Element emailElement = doc.createElement("email");
+                    Text textEmail = doc.createTextNode(jugador.getDatosPersonales().getEmail());
+                    emailElement.appendChild(textEmail);
+                    datosPersonalesElement.appendChild(emailElement);
+
+                    // Teléfono
+                    Element telefonoElement = doc.createElement("telefono");
+                    Text textTelefono = doc.createTextNode(jugador.getDatosPersonales().getTelefono());
+                    telefonoElement.appendChild(textTelefono);
+                    datosPersonalesElement.appendChild(telefonoElement);
+
+                    jugadorElement.appendChild(datosPersonalesElement);
+                }
 
                 //ultima linea para armar la estrucutura 
                 misJugadores.appendChild(jugadorElement);
@@ -82,7 +113,7 @@ public class EscribirXML {
 
             Source source = new DOMSource(doc);
             //Result result = new StreamResult(new File("myJugadores.xml")); //no es como un File, asiq se debe crear la carpeta previamente
-           
+
             File fichero = seleccionarFichero();
             //este if en caso de que el usuario le de a cancelar no explote
             if (fichero != null) {
