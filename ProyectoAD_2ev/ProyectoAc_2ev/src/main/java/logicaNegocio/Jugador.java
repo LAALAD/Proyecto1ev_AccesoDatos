@@ -1,6 +1,7 @@
 package logicaNegocio;
 
 import Factory.FactoriaItems;
+import com.mycompany.proyectoac_2ev.Validaciones;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -483,13 +484,29 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         return puntaje;
     }
 
-    public int decidir() {
+    /*public int decidir() {
         // Lógica simple para decidir: pide carta si el puntaje es menor a 17
         int puntajeActual = calcularPuntaje();
         if (puntajeActual < 17) {
             return 1; // Pedir carta
         } else {
             return 2; // Plantarse
+        }
+    }*/
+    
+    public int decidir() {
+        Scanner sc = new Scanner(System.in);
+        // Lógica simple para decidir: pide carta si el puntaje es menor a 17
+        while(true){
+            System.out.println("Escribe 1 para pedir carta o 2 para plantarte: ");
+            int num = Validaciones.asignarEntero();
+            if (num == 1) {
+                return 1; // Pedir carta
+            } else if(num == 2) {
+                return 2; // Plantarse
+            } else {
+                System.out.println("Elija 1 o 2");
+            }
         }
     }
 

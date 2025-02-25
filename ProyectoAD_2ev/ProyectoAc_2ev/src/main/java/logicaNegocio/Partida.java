@@ -416,20 +416,3 @@ public abstract class Partida {
         System.out.println("==============================");
     }
 }
-
-/*
-            // Comprobar si alguien ha ganado 2 rondas
-            for (Jugador jugador : jugadores) {
-                if (victorias.get(jugador) >= 2) {
-                    System.out.println("\nEl ganador del torneo es: " + jugador.getNombre() + "\n");
-                    partidaEnCurso = false;
-                    break;
-                }
-            }
-        }
-
-        System.out.println(
-                "Fin de la partida");
-        System.out.println(
-                "==============================");
-    }*/
