@@ -20,9 +20,7 @@ public class DatosPersonales implements Serializable {
     @Basic
     private String telefono;
 
-
-    public DatosPersonales(int id, String apellido, Date fechaNacimiento, String email, String telefono) {
-        this.id = id;
+     public DatosPersonales( String apellido, Date fechaNacimiento, String email, String telefono) {
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.email = email;

@@ -25,7 +25,7 @@ public class ProyectoAc_2ev {
 
     private static ControladorLogico control = new ControladorLogico();
 
-    private static ArrayList<Jugador> arbitros = new ArrayList<>();
+    private static ArrayList<Jugador> jugadores = new ArrayList<>();
     private static ArrayList<Torneo> torneos = new ArrayList<>();
 
     private static Scanner sc = new Scanner(System.in);
@@ -47,20 +47,22 @@ public class ProyectoAc_2ev {
      * y carga la lista de jugadores y torneos.
      */
     public static void menu() {
-        arbitros = control.leerTodosJugadores();
+        jugadores = control.leerTodosJugadores();
         torneos = control.leerTodosTorneos();
         System.out.println("¿Desea añadir jugadores básicos de prueba? (s/n)");
         String res = sc.nextLine();
         if (res.equalsIgnoreCase("s")) {
             ArrayList<Jugador> jugadores_aux = IO.LeerXML.leerJugadores();
-            for (Jugador jugador : jugadores_aux) {
-                control.crearJugador(jugador);
-                arbitros.add(jugador);
+            if (!jugadores_aux.isEmpty()) { //si se ha encontrado algún jugador
+                int entradas_encontradas = 0;
+                for (Jugador jugador : jugadores_aux) {
+                    control.crearJugador(jugador);
+                    jugadores.add(jugador);
+                    entradas_encontradas++;
+                }
+                System.out.println("¡Se han añadido " + entradas_encontradas + " jugadores exitosamente!");
             }
         }
-        //ConexionBBDD.getConnection();
-        //jugadores = j.listarJugadores();
-        //torneos = t.leerBBDDTorneos(jugadores);
 
         String opcion = "";
         do {
@@ -87,7 +89,7 @@ public class ProyectoAc_2ev {
                     menuArbitro();
                     break;
                 case "5":
-                    IO.EscribirXML.guardarJugadores(arbitros);
+                    IO.EscribirXML.guardarJugadores(jugadores);
                     break;
                 case "6":
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
@@ -145,11 +147,11 @@ public class ProyectoAc_2ev {
                     buscarJugador();
                     break;
                 case "5":
-                    imprimirJugadores(arbitros);
+                    imprimirJugadores(jugadores);
                     //imprimirJugadores(j.listarJugadores());
                     break;
                 case "6":
-                    imprimirJugadores(arbitros);
+                    imprimirJugadores(jugadores);
                     Jugador jugador = seleccionarJugador();
                     guardarDatosPersonales(jugador);
                     break;
@@ -266,17 +268,17 @@ public class ProyectoAc_2ev {
     private static void crearJugador() {
         System.out.println("Introduce el nombre del jugador: ");
         String nombre = sc.nextLine();
-        arbitros.add(new Jugador(nombre));
+        jugadores.add(new Jugador(nombre));
 
         //rellena la ficha si quieres, de manera opcional
         System.out.println("Deseas rellenar la ficha del jugador s/n");
         String opcion = sc.nextLine();
         if (opcion.equalsIgnoreCase("s")) {
             //rellena los datos personales del ultimo jugadore creado devolviendo un tipo de dato Datos Personales
-            arbitros.getLast().setDatosPersonales(rellenarDatosPersonales());
+            jugadores.getLast().setDatosPersonales(rellenarDatosPersonales());
         }
 
-        control.crearJugador(arbitros.getLast());
+        control.crearJugador(jugadores.getLast());
     }
 
     private static DatosPersonales rellenarDatosPersonales() {
@@ -290,7 +292,8 @@ public class ProyectoAc_2ev {
 
         System.out.println("Introduce el telefono: ");
         String telefono = sc.nextLine();
-        DatosPersonales dp = new DatosPersonales(1, apellido, fecha, email, telefono);
+        DatosPersonales dp = new DatosPersonales(apellido, fecha, email, telefono);
+        //control.crearDatosPersonales(dp);
         return dp;
     }
 
@@ -298,6 +301,7 @@ public class ProyectoAc_2ev {
     private static void guardarDatosPersonales(Jugador jugador) {
         DatosPersonales datosP = rellenarDatosPersonales();
         jugador.setDatosPersonales(datosP);
+
         //control.editarDatosPersonales(datosP); //NO HACE FALTA GRACIAS AL CASCADE
         control.editarJugador(jugador);
     }
@@ -481,14 +485,14 @@ public class ProyectoAc_2ev {
      * Elimina un jugador de la lista, si existe.
      */
     private static void eliminarJugador() {
-        if (arbitros.isEmpty()) {
+        if (jugadores.isEmpty()) {
             System.out.println("No existen jugadores registrados");
             return;
         }
-        imprimirJugadores(arbitros);
+        imprimirJugadores(jugadores);
         System.out.println("Para el jugador a eliminar...");
         Jugador eliminar = seleccionarJugador();
-        arbitros.remove(eliminar);
+        jugadores.remove(eliminar);
         control.eliminarJugador(eliminar.getId_j());
     }
 
@@ -496,11 +500,11 @@ public class ProyectoAc_2ev {
      * Modifica los datos de un jugador (nombre).
      */
     private static void modificarJugador() {
-        if (arbitros.isEmpty()) {
+        if (jugadores.isEmpty()) {
             System.out.println("No existen jugadores registrados");
             return;
         }
-        imprimirJugadores(arbitros);
+        imprimirJugadores(jugadores);
         System.out.println("Para el jugador a modificar: ");
         Jugador modif = seleccionarJugador();
         System.out.println("Introduce el nuevo nombre del jugador: ");
@@ -513,7 +517,7 @@ public class ProyectoAc_2ev {
      * Busca un jugador en la base de datos por su ID y muestra sus detalles.
      */
     private static void buscarJugador() {
-        if (arbitros.isEmpty()) {
+        if (jugadores.isEmpty()) {
             System.out.println("No existen jugadores registrados");
             return;
         }
@@ -546,7 +550,7 @@ public class ProyectoAc_2ev {
             id_j_aux = asignarEntero(); // Obtener el ID ingresado por el usuario
 
             // Buscar el jugador en la lista de jugadores
-            for (Jugador it : arbitros) {
+            for (Jugador it : jugadores) {
                 // Si el ID coincide con algún jugador en la lista, devolver ese jugador
                 if (it.getId_j() == id_j_aux) {
                     return it; // Jugador encontrado, se devuelve el objeto
@@ -806,7 +810,7 @@ public class ProyectoAc_2ev {
         //ArrayList<Jugador> salida = (ArrayList<Jugador>) jugadores.clone();
 
         // Se crea una nueva lista para no modificar la lista original de jugadores
-        ArrayList<Jugador> salida = new ArrayList<>(arbitros);
+        ArrayList<Jugador> salida = new ArrayList<>(jugadores);
         ArrayList<Jugador> jugadores_inscritos = new ArrayList<>();
         for (TorneoXJugador txj : t.getInscritos()) {
             jugadores_inscritos.add(txj.getJugador());
@@ -1160,7 +1164,7 @@ public class ProyectoAc_2ev {
         }
 
         // Verifica si existen jugadores registrados
-        if (arbitros.isEmpty()) {
+        if (jugadores.isEmpty()) {
             System.out.println("No existen jugadores registrados para inscribir");
             return; // Sale si no hay jugadores disponibles
         }
