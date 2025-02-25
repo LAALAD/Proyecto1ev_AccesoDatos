@@ -68,8 +68,9 @@ public class ProyectoAc_2ev {
             System.out.println("1.- Menu Jugador");
             System.out.println("2.- Menu Torneo");
             System.out.println("3.- Menu Partida");
-            System.out.println("4.- Guardar Jugadores Existentes");
-            System.out.println("5.- Salir");
+            System.out.println("4.- Menu Arbitro");
+            System.out.println("5.- Guardar Jugadores Existentes");
+            System.out.println("6.- Salir");
 
             opcion = sc.nextLine();
             switch (opcion) {
@@ -83,9 +84,12 @@ public class ProyectoAc_2ev {
                     menuPartida();
                     break;
                 case "4":
-                    IO.EscribirXML.guardarJugadores(arbitros);
+                    menuArbitro();
                     break;
                 case "5":
+                    IO.EscribirXML.guardarJugadores(arbitros);
+                    break;
+                case "6":
                     System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
                     String respuesta = sc.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
@@ -103,7 +107,7 @@ public class ProyectoAc_2ev {
                     System.out.println("¡Opción incorrecta!");
             }
 
-        } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 4 seguir el bucle
+        } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
     /*private static void jugarMiniJuego() {
@@ -837,9 +841,13 @@ public class ProyectoAc_2ev {
         // Crear un nuevo objeto Torneo con los datos proporcionados.
         torneos.add(new Torneo(nombre, fecha, num_max));
 
+        control.crearTorneo(torneos.getLast());
+
         outerLoop:// Etiqueta para el bucle exterior
         do {
-            torneos.getLast().getArbitros().add(contratarArbitro());
+            //torneos.getLast().getArbitros().add(contratarArbitro());
+            contratarArbitro(torneos.getLast());
+
             // Pregunta al usuario si desea contratar más arbitros
             String respuesta;
             while (true) {
@@ -854,7 +862,6 @@ public class ProyectoAc_2ev {
                 }
             }
         } while (true);
-        control.crearTorneo(torneos.getLast());
     }
 
     private static void menuArbitro() {
@@ -920,7 +927,6 @@ public class ProyectoAc_2ev {
     }
 
     private static void modificarArbitro() {
-        // Verificamos si existen torneos que no hayan sido jugados
         ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
         if (arbitros.isEmpty()) {
             System.out.println("No existen arbitros registrados");
@@ -977,14 +983,48 @@ public class ProyectoAc_2ev {
         }
     }
 
-    private static Arbitro contratarArbitro() {
+    private static void contratarArbitro(Torneo torneo) {
+        String opcion = "";
+        do {
+            // Mostramos el menú de opciones para modificar el torneo
+            System.out.println("Elija una opcion");
+            System.out.println("1.- Seleccionar arbitro registrado");
+            System.out.println("2.- Añadir nuevo arbitro");
+            System.out.println("3.- Salir");
 
-        System.out.println("Introduce el nombre del arbitro: ");
-        String nombre = sc.nextLine();
-        System.out.println("Introduce el numero de licencia del arbitro: ");
-        int numeroLicencia = asignarEntero();
+            opcion = sc.nextLine();
+            switch (opcion) {
+                case "1":
+                    Arbitro seleccionado = control.leerArbitro(asignarEntero());
+                    Boolean encontrado = false;
+                    for (Arbitro contratado : torneo.getArbitros()) {
+                        if (seleccionado.getId() == contratado.getId()) {
+                            System.out.println("El arbitro seleccionado ya está contratado para este evento");
+                            encontrado = true;
+                        }
+                    }
+                    if (!encontrado) {
+                        torneo.getArbitros().add(seleccionado);
+                        control.editarTorneo(torneo);
+                    }
+                    break;
+                case "2":
 
-        return new Arbitro(nombre, numeroLicencia);
+                    System.out.println("Introduce el nombre del arbitro: ");
+                    String nombre = sc.nextLine();
+                    System.out.println("Introduce el numero de licencia del arbitro: ");
+                    int numeroLicencia = asignarEntero();
+                    torneo.getArbitros().add(new Arbitro(nombre, numeroLicencia));
+                    control.editarTorneo(torneo);
+                    break;
+                case "3": // Salimos y guardamos los cambios en el arbitro     
+                    break;
+                default:
+                    System.out.println("¡Opción incorrecta!");
+            }
+
+        } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 4 seguir el bucle
+
     }
 
     /**

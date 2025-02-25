@@ -44,7 +44,9 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     - orphanRemoval = true: Elimina automáticamente las relaciones huérfanas (cuando un jugador es removido 
     de la lista de inscritos).
      */
-    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
+    //orphanRemoval evita este error-> Cannot delete or update a parent row: a foreign key constraint fails (`proyecto2ev`.`torneoxjugador`, CONSTRAINT `FK_TORNEOXJUGADOR_id_jugador` FOREIGN KEY (`id_jugador`) REFERENCES `jugador` (`ID_J`))
+    //cascade evita este error-> Cannot delete or update a parent row: a foreign key constraint fails (`proyecto2ev`.`torneoxjugador`, CONSTRAINT `FK_TORNEOXJUGADOR_id_jugador` FOREIGN KEY (`id_jugador`) REFERENCES `jugador` (`ID_J`))
+    @OneToMany(mappedBy = "jugador",  cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TorneoXJugador> torneos = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
