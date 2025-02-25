@@ -6,6 +6,7 @@ package com.mycompany.proyectoac_2ev;
 import VistaControlador.Principal;
 import VistaControlador.MenuMinijuegos;
 import VistaControlador.Ventana_Gracias;
+import static com.mycompany.proyectoac_2ev.Validaciones.validarFechaFutura;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -285,7 +286,7 @@ public class ProyectoAc_2ev {
         System.out.println("Introduce el apellido: ");
         String apellido = sc.nextLine();
 
-        Date fecha = validarFechaPasada();
+        Date fecha = Validaciones.validarFechaPasada();
 
         System.out.println("Introduce un email: ");
         String email = sc.nextLine();
@@ -304,181 +305,6 @@ public class ProyectoAc_2ev {
 
         //control.editarDatosPersonales(datosP); //NO HACE FALTA GRACIAS AL CASCADE
         control.editarJugador(jugador);
-    }
-
-    // Método que valida el día y mes de la fecha
-    private static boolean esFechaValida(String fechaStr) {
-        // Separamos el día, mes y año
-        String[] partesFecha = fechaStr.split("/");
-
-        // Comprobamos que la fecha tenga exactamente 3 partes (dd, mm, yyyy)
-        if (partesFecha.length != 3) {
-            System.out.println("Formato incorrecto. Debe ser dd/MM/yyyy.");
-            return false;  // Fecha inválida
-        }
-
-        // Intentamos convertir los valores de día, mes y año
-        try {
-            int dia = Integer.valueOf(partesFecha[0]);
-            int mes = Integer.valueOf(partesFecha[1]);
-            int ano = Integer.valueOf(partesFecha[2]);
-
-            // Validar que el mes esté entre 1 y 12
-            if (mes < 1 || mes > 12) {
-                System.out.println("Mes inválido. El mes debe estar entre 01 y 12.");
-                return false;  // Fecha inválida
-            }
-
-            // Validar que el día esté dentro de los rangos posibles para ese mes
-            if (!esDiaValido(dia, mes, ano)) {
-                return false;  // Fecha inválida
-            }
-
-        } catch (NumberFormatException e) {
-            System.out.println("El día, mes o año no es un número válido. Intenta nuevamente.");
-            return false;  // Fecha inválida
-        }
-
-        // Si pasa todas las validaciones
-        return true;
-    }
-
-    // Método auxiliar para validar el día según el mes y el año
-    private static boolean esDiaValido(int dia, int mes, int ano) {
-        // Definir los días máximos por mes
-        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-        // Si es un año bisiesto, febrero tiene 29 días
-        if (esBisiesto(ano)) {
-            diasPorMes[1] = 29;  // Febrero (índice 1) tiene 29 días en años bisiestos
-        }
-
-        // Comprobar si el día es válido para el mes
-        //mes-1 porque el mes 1 enero -> es la posicion 0 del array
-        if (dia < 1 || dia > diasPorMes[mes - 1]) { // si el dia es negativo o mas de los particulares de ese mes
-            System.out.println("Día inválido. El mes " + mes + " tiene " + diasPorMes[mes - 1] + " días.");
-            return false;  // Fecha inválida
-        }
-
-        // Si el día es válido para ese mes
-        return true;
-    }
-
-    // Método para verificar si un año es bisiesto
-    private static boolean esBisiesto(int ano) {
-        if (ano % 4 == 0) {  // Verificamos si es divisible por 4
-            if (ano % 100 == 0) {  // Verificamos si es divisible por 100
-                if (ano % 400 == 0) {  // Verificamos si también es divisible por 400
-                    return true;  // Si es divisible por 400, es bisiesto
-                } else {
-                    return false;  // Si no es divisible por 400, no es bisiesto
-                }
-            }
-            return true;  // Si es divisible por 4 pero no por 100, es bisiesto
-        }
-        return false;  // Si no es divisible por 4, no es bisiesto
-    }
-
-    // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
-    private static Date validarFechaPasada() {
-        // Declaramos una variable de tipo Date para almacenar la fecha que será validada
-        Date fecha = null;
-
-        // Creamos un objeto SimpleDateFormat que se encargará de convertir la cadena de texto en un objeto Date
-        // El formato de la fecha esperado es día/mes/año, por ejemplo: 23/02/2025
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        // Variable booleana que indica si la fecha ingresada es válida. Se inicializa como falsa.
-        boolean fechaValida = false;
-
-        // Iniciamos un bucle while que seguirá pidiendo la fecha hasta que el formato sea correcto
-        while (!fechaValida) {
-            try {
-                // Solicitamos la fecha de nacimiento al usuario
-                System.out.print("Introduce la fecha de nacimiento (dd/MM/yyyy): ");
-
-                // Leemos la entrada del usuario como una cadena de texto (String)
-                String fechaStr = sc.nextLine();
-
-                // Llamamos al método que valida el día y mes
-                if (!esFechaValida(fechaStr)) {
-                    continue;  // Si la fecha no es válida, volvemos a pedirla
-                }
-
-                // Intentamos convertir la cadena leída en un objeto Date usando el formato esperado
-                fecha = sdf.parse(fechaStr);
-
-                // Obtener la fecha actual
-                Date fechaActual = new Date();
-
-                // Comprobar si la fecha ingresada es anterior a la fecha actual
-                if (fecha.before(fechaActual)) {
-                    // Si la fecha es válida (es anterior a la actual), se establece como válida
-                    fechaValida = true;
-                } else {
-                    // Si la fecha no es anterior a la actual, se informa al usuario
-                    System.out.println("La fecha ingresada no puede ser futura. Intenta nuevamente.");
-                }
-                //Si ocurre un error al intentar convertir la fecha (por ejemplo, si el formato es incorrecto),
-                // entra en el bloque catch y muestra un mensaje de error
-            } catch (ParseException e) {
-                System.out.println("Formato de fecha incorrecto. Intenta nuevamente.");
-            }
-        }
-
-        // Cuando la fecha es válida, la devolvemos
-        return fecha;
-    }
-
-    // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
-    private static Date validarFechaFutura() {
-        // Declaramos una variable de tipo Date para almacenar la fecha que será validada
-        Date fecha = null;
-
-        // Creamos un objeto SimpleDateFormat que se encargará de convertir la cadena de texto en un objeto Date
-        // El formato de la fecha esperado es día/mes/año, por ejemplo: 23/02/2025
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        // Variable booleana que indica si la fecha ingresada es válida. Se inicializa como falsa.
-        boolean fechaValida = false;
-
-        // Iniciamos un bucle while que seguirá pidiendo la fecha hasta que el formato sea correcto
-        while (!fechaValida) {
-            try {
-                // Solicitamos la fecha de nacimiento al usuario
-                System.out.print("Introduce la fecha (dd/MM/yyyy): ");
-
-                // Leemos la entrada del usuario como una cadena de texto (String)
-                String fechaStr = sc.nextLine();
-
-                // Llamamos al método que valida el día y mes
-                if (!esFechaValida(fechaStr)) {
-                    continue;  // Si la fecha no es válida, volvemos a pedirla
-                }
-
-                // Intentamos convertir la cadena leída en un objeto Date usando el formato esperado
-                fecha = sdf.parse(fechaStr);
-
-                // Obtener la fecha actual
-                Date fechaActual = new Date();
-
-                // Comprobar si la fecha ingresada es posterior a la fecha actual
-                if (fecha.after(fechaActual)) {
-                    // Si la fecha es posterior a la actual, es válida
-                    fechaValida = true;
-                } else {
-                    // Si la fecha no es posterior a la actual, mostramos un mensaje
-                    System.out.println("La fecha debe ser posterior a la fecha actual. Intenta nuevamente.");
-                }
-                //Si ocurre un error al intentar convertir la fecha (por ejemplo, si el formato es incorrecto),
-                // entra en el bloque catch y muestra un mensaje de error
-            } catch (ParseException e) {
-                System.out.println("Formato de fecha incorrecto. Intenta nuevamente.");
-            }
-        }
-
-        // Cuando la fecha es válida, la devolvemos
-        return fecha;
     }
 
     /**
@@ -523,7 +349,7 @@ public class ProyectoAc_2ev {
         }
         System.out.println("Introduzca el id del jugador a buscar:");
         //Jugador encontrado = j.buscarJugador(asignarEntero());
-        Jugador encontrado = control.leerJugador(asignarEntero());
+        Jugador encontrado = control.leerJugador(Validaciones.asignarEntero());
         if (encontrado == null) {
             System.out.println("No hay jugadores con el id indicado");
             return;
@@ -547,7 +373,7 @@ public class ProyectoAc_2ev {
         // Bucle para solicitar un ID de jugador válido
         do {
             System.out.println("Selecciona el id de un jugador: ");
-            id_j_aux = asignarEntero(); // Obtener el ID ingresado por el usuario
+            id_j_aux = Validaciones.asignarEntero(); // Obtener el ID ingresado por el usuario
 
             // Buscar el jugador en la lista de jugadores
             for (Jugador it : jugadores) {
@@ -577,7 +403,7 @@ public class ProyectoAc_2ev {
         do {
             // Solicitar al usuario que ingrese un ID de torneo
             System.out.println("Selecciona el id de un torneo: ");
-            int id_t_aux = asignarEntero(); // Obtener el ID ingresado por el usuario
+            int id_t_aux = Validaciones.asignarEntero(); // Obtener el ID ingresado por el usuario
 
             // Buscar el torneo en la lista de torneos
             for (Torneo it : torneos) {
@@ -608,7 +434,7 @@ public class ProyectoAc_2ev {
         do {
             // Solicitar al usuario que ingrese un ID de jugador
             System.out.println("Selecciona el id de un jugador: ");
-            id_j_aux = asignarEntero();// Obtener el ID ingresado por el usuario
+            id_j_aux = Validaciones.asignarEntero();// Obtener el ID ingresado por el usuario
 
             // Buscar el jugador en la lista de jugadores
             for (Jugador it : jugadores) {
@@ -638,7 +464,7 @@ public class ProyectoAc_2ev {
         do {
             // Solicitar al usuario que ingrese un ID de torneo
             System.out.println("Selecciona el id de un torneo: ");
-            int id_t_aux = asignarEntero();// Obtener el ID ingresado por el usuario
+            int id_t_aux = Validaciones.asignarEntero();// Obtener el ID ingresado por el usuario
 
             // Buscar el torneo en la lista de torneos
             for (Torneo it : torneos) {
@@ -650,29 +476,6 @@ public class ProyectoAc_2ev {
             // Si no se encuentra el torneo con el ID proporcionado, se continuará el bucle
             System.out.println("Id no valido...");
         } while (true); // El bucle continúa hasta que se ingresa un ID válido
-    }
-
-    /**
-     * Solicita al usuario que ingrese un número entero y lo valida. El método
-     * sigue pidiendo una entrada hasta que el usuario ingrese un valor válido
-     * (un número entero). Si el usuario ingresa un valor no numérico, se
-     * muestra un mensaje de error y se solicita nuevamente.
-     *
-     * @return El valor entero ingresado por el usuario.
-     */
-    public static int asignarEntero() {
-        int salida; // Variable donde se almacenará el valor ingresado por el usuario
-        do {
-            try {
-                // Solicitar al usuario que ingrese un número entero
-                salida = Integer.valueOf(sc.nextLine()); // Intentamos convertir la entrada a un número entero
-                return salida;// Si la conversión es exitosa, retornamos el número
-            } catch (NumberFormatException e) {
-                // Si la entrada no es un número válido (excepción), mostramos un mensaje de error
-                System.out.println("Valor invalido...");
-                System.out.println("El valor inrtoducido no es numérico");
-            }
-        } while (true); // Repetir el proceso hasta que se ingrese un número entero válido
     }
 
     /**
@@ -836,11 +639,11 @@ public class ProyectoAc_2ev {
 
         // Llamar a la función asignarFecha() para obtener una fecha válida.
         //Date fecha = asignarFecha();
-        Date fecha = validarFechaFutura();
+        Date fecha = Validaciones.validarFechaFutura();
 
         // Solicitar al usuario el número máximo de participantes.
         System.out.println("Introduce el numero maximo de participantes: ");
-        int num_max = asignarEntero();
+        int num_max = Validaciones.asignarEntero();
 
         // Crear un nuevo objeto Torneo con los datos proporcionados.
         torneos.add(new Torneo(nombre, fecha, num_max));
@@ -905,7 +708,7 @@ public class ProyectoAc_2ev {
         System.out.println("Introduce el nombre del arbitro: ");
         String nombre = sc.nextLine();
         System.out.println("Introduce el numero de licencia del arbitro: ");
-        int numeroLicencia = asignarEntero();
+        int numeroLicencia = Validaciones.asignarEntero();
 
         Arbitro nuevo = new Arbitro(nombre, numeroLicencia);
 
@@ -922,14 +725,34 @@ public class ProyectoAc_2ev {
         System.out.println("Para el arbitro a eliminar...");
         Arbitro eliminar;
         do {
-            eliminar = control.leerArbitro(asignarEntero());
+            eliminar = control.leerArbitro(Validaciones.asignarEntero());
 
         } while (eliminar == null);
         //arbitros.remove(eliminar);
         control.eliminarArbitro(eliminar.getId());
 
     }
+    private static Arbitro seleccionarArbitro(){       
+        int id_aux;
+        // Bucle para solicitar un ID de jugador válido
+        do {
+            // Solicitar al usuario que ingrese un ID de jugador
+            System.out.println("Selecciona el id de un arbitro: ");
+            id_aux = Validaciones.asignarEntero();// Obtener el ID ingresado por el usuario
 
+            // Buscar el jugador en la lista de jugadores
+            for (Arbitro it : control.leerTodosArbitros()) {
+                // Si el ID coincide con algún jugador en la lista, devolver ese jugador
+                if (it.getId()== id_aux) {
+                    return it;// Arbitro encontrado, se devuelve el objeto
+                }
+            }
+            // Si no se encuentra el jugador con el ID proporcionado, se continuará el bucle
+            System.out.println("Id no valido...");
+        } while (true);  // El bucle continúa hasta que se ingresa un ID válido
+    
+    }
+    
     private static void modificarArbitro() {
         ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
         if (arbitros.isEmpty()) {
@@ -942,7 +765,7 @@ public class ProyectoAc_2ev {
 
         // Pedimos al usuario que seleccione el torneo que desea modificar
         System.out.println("Para el arbitro a modificar: ");
-        Arbitro modif = control.leerArbitro(asignarEntero());// Seleccionamos el torneo a modificar
+        Arbitro modif = seleccionarArbitro();// Seleccionamos el torneo a modificar
 
         String opcion = "";
         do {
@@ -960,7 +783,7 @@ public class ProyectoAc_2ev {
                     break;
                 case "2":
                     System.out.println("Introduce el nuevo numero de licencia del arbitro: ");
-                    modif.setNumeroLicencia(asignarEntero());
+                    modif.setNumeroLicencia(Validaciones.asignarEntero());
                     break;
                 case "3": // Salimos y guardamos los cambios en el arbitro                    
                     control.editarArbitro(modif);
@@ -999,7 +822,7 @@ public class ProyectoAc_2ev {
             opcion = sc.nextLine();
             switch (opcion) {
                 case "1":
-                    Arbitro seleccionado = control.leerArbitro(asignarEntero());
+                    Arbitro seleccionado = seleccionarArbitro();
                     Boolean encontrado = false;
                     for (Arbitro contratado : torneo.getArbitros()) {
                         if (seleccionado.getId() == contratado.getId()) {
@@ -1017,7 +840,7 @@ public class ProyectoAc_2ev {
                     System.out.println("Introduce el nombre del arbitro: ");
                     String nombre = sc.nextLine();
                     System.out.println("Introduce el numero de licencia del arbitro: ");
-                    int numeroLicencia = asignarEntero();
+                    int numeroLicencia = Validaciones.asignarEntero();
                     torneo.getArbitros().add(new Arbitro(nombre, numeroLicencia));
                     control.editarTorneo(torneo);
                     break;
@@ -1105,7 +928,7 @@ public class ProyectoAc_2ev {
                     break;
                 case "2":
                     System.out.println("Introduce el nuevo numero maximo de jugadores del torneo: ");
-                    modif.setNum_max_jugadores(asignarEntero());
+                    modif.setNum_max_jugadores(Validaciones.asignarEntero());
                     break;
                 case "3": // Salimos y guardamos los cambios en el torneo
                     //t.modificarTorneo(modif);
@@ -1137,7 +960,7 @@ public class ProyectoAc_2ev {
 
         // Obtener el ID del torneo a buscar y Buscar el torneo en la base de datos 
         //Torneo encontrado = t.buscarTorneo(asignarEntero());
-        Torneo encontrado = control.leerTorneo(asignarEntero());
+        Torneo encontrado = control.leerTorneo(Validaciones.asignarEntero());
 
         // Verificar si el torneo fue encontrado
         if (encontrado != null) {
