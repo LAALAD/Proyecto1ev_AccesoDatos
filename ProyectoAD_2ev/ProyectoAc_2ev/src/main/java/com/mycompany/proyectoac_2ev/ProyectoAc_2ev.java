@@ -1261,7 +1261,7 @@ public class ProyectoAc_2ev {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("Error en la transacción. Se ha hecho rollback.");
         } finally {
             // Cerrar el EntityManager

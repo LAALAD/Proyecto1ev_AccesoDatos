@@ -215,4 +215,10 @@ public class Validaciones {
         return fecha;
     }
 
+    /*public static boolean validarEmail(String email){
+        String regex ="";
+        if(email.matches(regex)){
+            return 
+        }
+    }*/
 }
