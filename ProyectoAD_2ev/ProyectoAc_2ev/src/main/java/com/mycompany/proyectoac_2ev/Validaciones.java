@@ -41,7 +41,7 @@ public class Validaciones {
                 salida = Integer.valueOf(sc.nextLine()); // Intentamos convertir la entrada a un número entero
                 if (salida > 0) {
                     return salida;// Si la conversión es exitosa, retornamos el número
-                }else{
+                } else {
                     System.out.println("El numero del ser positivo");
                     continue;
                 }
@@ -259,6 +259,15 @@ public class Validaciones {
         return fecha;
     }
 
+    /**
+     * Solicita al usuario que ingrese un correo electrónico válido y lo valida
+     * con una expresión regular.
+     *
+     * La validación requiere que el correo tenga el formato estándar
+     * "usuario@dominio.extensión".
+     *
+     * @return El correo electrónico ingresado y validado.
+     */
     public static String validarEmail() {
         String email = "";
         String regex = "^[a-zA-Z0-9.-]+@[a-zA-Z]+.[a-zA-Z]{2,}$";
@@ -285,6 +294,15 @@ public class Validaciones {
         return email;
     }
 
+    /**
+     * Solicita al usuario que ingrese un número de teléfono válido y lo valida
+     * con una expresión regular.
+     *
+     * La validación requiere que el número de teléfono contenga exactamente 9
+     * dígitos numéricos.
+     *
+     * @return El número de teléfono ingresado y validado.
+     */
     public static String validarTelefono() {
         String telefono = "";
         String regex = "^[0-9]{9}$";
@@ -303,6 +321,15 @@ public class Validaciones {
         return telefono;
     }
 
+    /**
+     * Solicita al usuario que ingrese un número de licencia válido y lo valida
+     * con una expresión regular.
+     *
+     * La validación requiere que la licencia tenga el formato "9999-AAA" y que
+     * sea única en la base de datos.
+     *
+     * @return La licencia validada en formato de texto en mayúsculas.
+     */
     public static String validarLicencia() {
         String licencia = "";
         String regex = "^[0-9]{4}-[A-Za-z]{3}$";
@@ -319,6 +346,15 @@ public class Validaciones {
         return licencia.toUpperCase();
     }
 
+    /**
+     * Verifica si un número de licencia ya está registrado en la base de datos.
+     *
+     * Se recorre la lista de árbitros y se comprueba si la licencia ingresada
+     * ya existe.
+     *
+     * @param entrada Número de licencia que se desea validar.
+     * @return `true` si la licencia es única, `false` si ya está registrada.
+     */
     private static boolean esLicenciaUnica(String entrada) {
         ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
         for (Arbitro arbitro : arbitros) {
