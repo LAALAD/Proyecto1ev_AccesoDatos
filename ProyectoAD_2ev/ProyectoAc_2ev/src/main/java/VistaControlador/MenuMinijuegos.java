@@ -52,6 +52,7 @@ public class MenuMinijuegos extends javax.swing.JFrame {
         setResizable(false);
 
         Fondo.setBackground(new java.awt.Color(216, 194, 170));
+        Fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel2.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(35, 103, 114));

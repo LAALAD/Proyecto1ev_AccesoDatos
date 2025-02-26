@@ -49,6 +49,7 @@ public class Ventana_Puntos extends javax.swing.JFrame {
         setResizable(false);
 
         FONDO.setBackground(new java.awt.Color(216, 194, 170));
+        FONDO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         msg.setFont(new java.awt.Font("Bauhaus 93", 1, 18)); // NOI18N
         msg.setForeground(new java.awt.Color(35, 103, 114));

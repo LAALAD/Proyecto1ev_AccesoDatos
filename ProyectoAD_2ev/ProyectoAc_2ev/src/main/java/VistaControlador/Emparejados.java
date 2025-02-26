@@ -185,8 +185,8 @@ public class Emparejados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        PanelPrincipal = new javax.swing.JPanel();
+        Titulo = new javax.swing.JLabel();
         panel_ppal = new javax.swing.JPanel();
         c1 = new javax.swing.JButton();
         c2 = new javax.swing.JButton();
@@ -204,7 +204,7 @@ public class Emparejados extends javax.swing.JFrame {
         c14 = new javax.swing.JButton();
         c15 = new javax.swing.JButton();
         c16 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_rendirse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Minijuego");
@@ -214,16 +214,16 @@ public class Emparejados extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(450, 400));
 
-        jPanel1.setBackground(new java.awt.Color(216, 194, 170));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jPanel1.setLayout(null);
+        PanelPrincipal.setBackground(new java.awt.Color(216, 194, 170));
+        PanelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        PanelPrincipal.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(35, 103, 114));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("¡ENCUENTRA LAS PAREJAS EN EL MENOR NUMERO DE MOVIMIENTOS!");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(95, 40, 640, 28);
+        Titulo.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(35, 103, 114));
+        Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Titulo.setText("¡ENCUENTRA LAS PAREJAS EN EL MENOR NUMERO DE MOVIMIENTOS!");
+        PanelPrincipal.add(Titulo);
+        Titulo.setBounds(95, 40, 640, 28);
 
         panel_ppal.setPreferredSize(new java.awt.Dimension(400, 400));
         panel_ppal.setLayout(new java.awt.GridLayout(4, 4));
@@ -436,22 +436,22 @@ public class Emparejados extends javax.swing.JFrame {
         });
         panel_ppal.add(c16);
 
-        jPanel1.add(panel_ppal);
+        PanelPrincipal.add(panel_ppal);
         panel_ppal.setBounds(106, 86, 625, 410);
 
-        jButton1.setBackground(new java.awt.Color(246, 232, 198));
-        jButton1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(218, 91, 4));
-        jButton1.setText("RENDIRSE");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_rendirse.setBackground(new java.awt.Color(246, 232, 198));
+        btn_rendirse.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        btn_rendirse.setForeground(new java.awt.Color(218, 91, 4));
+        btn_rendirse.setText("RENDIRSE");
+        btn_rendirse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
+        btn_rendirse.setFocusPainted(false);
+        btn_rendirse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_rendirseActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(350, 521, 130, 40);
+        PanelPrincipal.add(btn_rendirse);
+        btn_rendirse.setBounds(350, 521, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -459,13 +459,13 @@ public class Emparejados extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -537,10 +537,10 @@ public class Emparejados extends javax.swing.JFrame {
         manejarClic(c16);
     }//GEN-LAST:event_c16ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_rendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rendirseActionPerformed
         this.dispose();
         mm.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_rendirseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,6 +579,9 @@ public class Emparejados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JButton btn_rendirse;
     private javax.swing.JButton c1;
     private javax.swing.JButton c10;
     private javax.swing.JButton c11;
@@ -595,9 +598,6 @@ public class Emparejados extends javax.swing.JFrame {
     private javax.swing.JButton c7;
     private javax.swing.JButton c8;
     private javax.swing.JButton c9;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel_ppal;
     // End of variables declaration//GEN-END:variables
 }

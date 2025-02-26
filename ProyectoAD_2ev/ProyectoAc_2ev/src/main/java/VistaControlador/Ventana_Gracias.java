@@ -27,34 +27,35 @@ public class Ventana_Gracias extends javax.swing.JFrame {
     private void initComponents() {
 
         FONDO = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btn_cerrar = new javax.swing.JButton();
+        Titulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
         FONDO.setBackground(new java.awt.Color(216, 194, 170));
+        FONDO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jButton1.setBackground(new java.awt.Color(246, 232, 198));
-        jButton1.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(218, 91, 4));
-        jButton1.setText("CERRAR");
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setPreferredSize(new java.awt.Dimension(180, 50));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_cerrar.setBackground(new java.awt.Color(246, 232, 198));
+        btn_cerrar.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
+        btn_cerrar.setForeground(new java.awt.Color(218, 91, 4));
+        btn_cerrar.setText("CERRAR");
+        btn_cerrar.setAlignmentY(0.0F);
+        btn_cerrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cerrar.setFocusPainted(false);
+        btn_cerrar.setPreferredSize(new java.awt.Dimension(180, 50));
+        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_cerrarActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(35, 103, 114));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("¡GRACIAS POR UTILIZAR NUESTRA APLICACIÓN!");
+        Titulo.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(35, 103, 114));
+        Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Titulo.setText("¡GRACIAS POR UTILIZAR NUESTRA APLICACIÓN!");
 
         javax.swing.GroupLayout FONDOLayout = new javax.swing.GroupLayout(FONDO);
         FONDO.setLayout(FONDOLayout);
@@ -64,9 +65,9 @@ public class Ventana_Gracias extends javax.swing.JFrame {
             .addGroup(FONDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(FONDOLayout.createSequentialGroup()
                     .addGap(147, 147, 147)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(151, Short.MAX_VALUE))
-                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                .addComponent(Titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
         FONDOLayout.setVerticalGroup(
             FONDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,9 +75,9 @@ public class Ventana_Gracias extends javax.swing.JFrame {
             .addGroup(FONDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(FONDOLayout.createSequentialGroup()
                     .addGap(28, 28, 28)
-                    .addComponent(jLabel1)
+                    .addComponent(Titulo)
                     .addGap(50, 50, 50)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(28, Short.MAX_VALUE)))
         );
 
@@ -99,9 +100,9 @@ public class Ventana_Gracias extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_cerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,7 +141,7 @@ public class Ventana_Gracias extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FONDO;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JButton btn_cerrar;
     // End of variables declaration//GEN-END:variables
 }

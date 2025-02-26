@@ -48,6 +48,7 @@ public class Principal extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
+        Pane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         Pane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BotonPrincipal.setBackground(new java.awt.Color(246, 232, 198));
