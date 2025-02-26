@@ -16,26 +16,49 @@ import logicaNegocio.Torneo;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
- *
- * @author DAM2_02
+ * Controlador JPA para gestionar la persistencia de objetos {@link Torneo}.
+ * Proporciona métodos para crear, leer, actualizar y eliminar registros en la
+ * base de datos.
  */
 public class TorneoJpaController {
-    
+
     //Creamos:
+    /**
+     * Constructor por defecto que inicializa la conexión con la base de datos.
+     * Se utiliza la unidad de persistencia definida en `persistence.xml`.
+     */
     public TorneoJpaController() {
         //a createEntityManagerFactory, el entra el nombre d ela UP que nos hemos creado en el persistence.xml
         emf = Persistence.createEntityManagerFactory("PU_proyecto");
     }
 
+    /**
+     * Constructor que permite especificar una fábrica de entidades para la
+     * persistencia.
+     *
+     * @param emf Fábrica de administradores de entidades.
+     */
     public TorneoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     * Obtiene un nuevo {@link EntityManager} para interactuar con la base de
+     * datos.
+     *
+     * @return Un administrador de entidades para realizar operaciones de
+     * persistencia.
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea un nuevo torneo en la base de datos.
+     *
+     * @param torneo Objeto {@link Torneo} a persistir.
+     */
     public void create(Torneo torneo) {
         EntityManager em = null;
         try {
@@ -50,6 +73,14 @@ public class TorneoJpaController {
         }
     }
 
+    /**
+     * Modifica un registro existente de un torneo en la base de datos.
+     *
+     * @param torneo Objeto {@link Torneo} con la información actualizada.
+     * @throws NonexistentEntityException Si el registro no existe en la base de
+     * datos.
+     * @throws Exception Si ocurre un error en la transacción.
+     */
     public void edit(Torneo torneo) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -73,6 +104,13 @@ public class TorneoJpaController {
         }
     }
 
+    /**
+     * Elimina un torneo de la base de datos por su ID.
+     *
+     * @param id Identificador del torneo a eliminar.
+     * @throws NonexistentEntityException Si el torneo no existe en la base de
+     * datos.
+     */
     public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -94,14 +132,35 @@ public class TorneoJpaController {
         }
     }
 
+    /**
+     * Obtiene una lista con todos los torneos almacenados en la base de datos.
+     *
+     * @return Lista de objetos {@link Torneo}.
+     */
     public List<Torneo> findTorneoEntities() {
         return findTorneoEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista de torneos con paginación.
+     *
+     * @param maxResults Número máximo de resultados a obtener.
+     * @param firstResult Índice del primer resultado a recuperar.
+     * @return Lista de objetos {@link Torneo}.
+     */
     public List<Torneo> findTorneoEntities(int maxResults, int firstResult) {
         return findTorneoEntities(false, maxResults, firstResult);
     }
 
+    /**
+     * Método privado que realiza la consulta de torneos con o sin paginación.
+     *
+     * @param all Si es `true`, devuelve todos los registros. Si es `false`, usa
+     * paginación.
+     * @param maxResults Máximo número de resultados.
+     * @param firstResult Primer resultado a recuperar.
+     * @return Lista de objetos {@link Torneo} obtenidos de la base de datos.
+     */
     private List<Torneo> findTorneoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
@@ -118,6 +177,13 @@ public class TorneoJpaController {
         }
     }
 
+    /**
+     * Busca un torneo en la base de datos por su ID.
+     *
+     * @param id Identificador del torneo.
+     * @return Objeto {@link Torneo} correspondiente al ID proporcionado, o
+     * `null` si no existe.
+     */
     public Torneo findTorneo(int id) {
         EntityManager em = getEntityManager();
         try {
@@ -127,6 +193,11 @@ public class TorneoJpaController {
         }
     }
 
+    /**
+     * Obtiene la cantidad total de torneos almacenados en la base de datos.
+     *
+     * @return Número total de torneos registrados.
+     */
     public int getTorneoCount() {
         EntityManager em = getEntityManager();
         try {

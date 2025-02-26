@@ -27,11 +27,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
 /**
- *
- * @author DAM2_02
+ * Clase encargada de generar un archivo XML con la información de los
+ * jugadores. Utiliza la API DOM para construir y guardar la estructura XML.
  */
 public class EscribirXML {
 
+    /**
+     * Genera y guarda un archivo XML con la información de una lista de
+     * jugadores.
+     *
+     * @param jugadores Lista de jugadores a ser almacenados en el XML.
+     */
     public static void guardarJugadores(ArrayList<Jugador> jugadores) {
         try {
             // Crear el documento XML
@@ -85,7 +91,7 @@ public class EscribirXML {
 
                     // Fecha de nacimiento
                     Element fechaNacimientoElement = doc.createElement("fechaNacimiento");
-                    Text textFechaNacimiento = doc.createTextNode((new SimpleDateFormat("dd/MM/yyyy")).format(jugador.getDatosPersonales().getFechaNacimiento())); 
+                    Text textFechaNacimiento = doc.createTextNode((new SimpleDateFormat("dd/MM/yyyy")).format(jugador.getDatosPersonales().getFechaNacimiento()));
                     //.format para transformarse desde un date | .parse para transformarse desde un string
                     fechaNacimientoElement.appendChild(textFechaNacimiento);
                     datosPersonalesElement.appendChild(fechaNacimientoElement);
@@ -133,6 +139,13 @@ public class EscribirXML {
         }
     }
 
+    /**
+     * Muestra un cuadro de diálogo para que el usuario seleccione un archivo
+     * donde guardar el XML.
+     *
+     * @return Archivo seleccionado por el usuario, o `null` si cancela la
+     * operación.
+     */
     public static File seleccionarFichero() {
         // Crear una instancia de JFileChooser, que es un cuadro de diálogo estándar para seleccionar archivos o directorios.
         JFileChooser fileChooser = new JFileChooser();

@@ -26,15 +26,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
- * @author DAM2_02
+ * Clase encargada de leer archivos XML y extraer información almacenada en
+ * ellos. Utiliza la API DOM para analizar y procesar documentos XML.
  */
 public class LeerXML {
 
     /**
      * Método para cargar una lista de jugadores desde un fichero XML.
      *
-     * @param ruta Ruta del fichero XML a cargar.
      * @return Lista de objetos Jugador obtenidos del XML.
      */
     public static ArrayList<Jugador> leerJugadores() {
@@ -92,11 +91,11 @@ public class LeerXML {
                 }
 
                 System.out.println("XML de jugadores cargado desde: " + file.getPath());
-            } else{
+            } else {
                 System.out.println("No se ha seleccionado ningún fichero");
             }
             //pARSER ES POR LA FECHA DE DATOS PERSONALES
-        } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException | ParseException e ) {
+        } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException | SAXException | ParseException e) {
             System.out.println("Algo sucedió y no se pudo recuperar la información de los jugadores");
             System.out.println("Compruebe que el fichero seleccionnado está correctamente estructurado");
             //e.printStackTrace();

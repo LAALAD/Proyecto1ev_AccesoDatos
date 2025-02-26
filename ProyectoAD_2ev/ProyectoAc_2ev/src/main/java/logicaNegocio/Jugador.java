@@ -47,13 +47,13 @@ public class Jugador implements Comparable<Jugador>, Serializable {
      */
     //orphanRemoval evita este error-> Cannot delete or update a parent row: a foreign key constraint fails (`proyecto2ev`.`torneoxjugador`, CONSTRAINT `FK_TORNEOXJUGADOR_id_jugador` FOREIGN KEY (`id_jugador`) REFERENCES `jugador` (`ID_J`))
     //cascade evita este error-> Cannot delete or update a parent row: a foreign key constraint fails (`proyecto2ev`.`torneoxjugador`, CONSTRAINT `FK_TORNEOXJUGADOR_id_jugador` FOREIGN KEY (`id_jugador`) REFERENCES `jugador` (`ID_J`))
-    @OneToMany(mappedBy = "jugador",  cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
     private ArrayList<TorneoXJugador> torneos = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "datos_personales_id")
     private DatosPersonales datosPersonales;
-    
+
     @Transient // no se guardará en la base de datos 
     private double partidasGanadasTorneo = 0;
     @Transient
@@ -77,8 +77,6 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
-    
-    
 
     /**
      * Método que devuelve un ítem de tipo moneda utilizando la factoria de
@@ -167,6 +165,10 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         } while (!entradaValida);
     }
 
+    /**
+     * Método que permite al jugador seleccionar entre piedra, papel o tijera.
+     *
+     */
     public void seleccionarPiedraPapelTijera() {
         Scanner sc = new Scanner(System.in);
 
@@ -436,29 +438,50 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         return 0;*/
     }
 
+    /**
+     * Reinicia la mano del jugador, eliminando todas las cartas que tenga en
+     * ella.
+     */
     public void resetMano() {
         if (mano != null) {
             mano.clear();
         }
     }
 
+    /**
+     * Agrega una carta a la mano del jugador.
+     *
+     * @param carta La carta que se añade a la mano del jugador.
+     */
     public void recibirCarta(Carta carta) {
         mano.add(carta);
     }
 
+    /**
+     * Muestra las cartas en la mano del jugador en formato de cadena.
+     *
+     * @return Una cadena con la representación de las cartas en la mano,
+     * separadas por comas. Si la mano está vacía, devuelve "Sin cartas".
+     */
     public String mostrarMano() {
         String s_mano = "";
         for (Carta carta : mano) {
             s_mano += (carta.toString()) + (", ");
         }
         if (s_mano.length() > 0) {
-            return s_mano.substring(0, s_mano.length() - 2); // Pone el string sin la ultima ,
+            return s_mano.substring(0, s_mano.length() - 2); // Pone el string sin la última coma
         } else {
             return "Sin cartas";
         }
-
     }
 
+    /**
+     * Calcula el puntaje total de la mano del jugador según las reglas del
+     * juego. Los Ases pueden valer 11 o 1, dependiendo del total de la mano
+     * para evitar sobrepasar 21 puntos.
+     *
+     * @return El puntaje total de la mano del jugador.
+     */
     public int calcularPuntaje() {
         int puntaje = 0;
         int ases = 0;
@@ -484,6 +507,7 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         return puntaje;
     }
 
+
     /*public int decidir() {
         // Lógica simple para decidir: pide carta si el puntaje es menor a 17
         int puntajeActual = calcularPuntaje();
@@ -493,16 +517,20 @@ public class Jugador implements Comparable<Jugador>, Serializable {
             return 2; // Plantarse
         }
     }*/
-    
+    /**
+     * Permite al jugador decidir si quiere pedir una carta o plantarse. La
+     * decisión se toma a través de la entrada del usuario.
+     *
+     * @return 1 si el jugador decide pedir carta, 2 si decide plantarse.
+     */
     public int decidir() {
         Scanner sc = new Scanner(System.in);
-        // Lógica simple para decidir: pide carta si el puntaje es menor a 17
-        while(true){
+        while (true) {
             System.out.println("Escribe 1 para pedir carta o 2 para plantarte: ");
             int num = Validaciones.asignarEntero();
             if (num == 1) {
                 return 1; // Pedir carta
-            } else if(num == 2) {
+            } else if (num == 2) {
                 return 2; // Plantarse
             } else {
                 System.out.println("Elija 1 o 2");
@@ -510,14 +538,24 @@ public class Jugador implements Comparable<Jugador>, Serializable {
         }
     }
 
+    /**
+     * Obtiene los datos personales del jugador.
+     *
+     * @return Un objeto de tipo {@link DatosPersonales} con la información
+     * personal del jugador.
+     */
     public DatosPersonales getDatosPersonales() {
         return datosPersonales;
     }
 
+    /**
+     * Establece los datos personales del jugador.
+     *
+     * @param datosPersonales Objeto de tipo {@link DatosPersonales} con la
+     * información personal del jugador.
+     */
     public void setDatosPersonales(DatosPersonales datosPersonales) {
         this.datosPersonales = datosPersonales;
     }
-    
-    
 
 }

@@ -79,10 +79,22 @@ public class Torneo implements Serializable {
         this.inscripciones_abiertas = true; // Las inscripciones están abiertas por defecto
     }
 
+    /**
+     * Obtiene la lista de árbitros asociados al jugador.
+     *
+     * @return Una lista de objetos {@link Arbitro} que representan los árbitros
+     * asignados.
+     */
     public ArrayList<Arbitro> getArbitros() {
         return arbitros;
     }
 
+    /**
+     * Establece la lista de árbitros asociados al jugador.
+     *
+     * @param arbitros Una lista de objetos {@link Arbitro} que serán asignados
+     * al jugador.
+     */
     public void setArbitros(ArrayList<Arbitro> arbitros) {
         this.arbitros = arbitros;
     }
@@ -257,8 +269,14 @@ public class Torneo implements Serializable {
 
     }
 
+    /**
+     * Ejecuta una partida de Piedra, Papel o Tijera entre todos los jugadores
+     * inscritos. Cada jugador se enfrenta a los demás en rondas de uno contra
+     * uno. Luego de jugar, se cierran las inscripciones y se actualiza el
+     * ranking.
+     */
     public void jugarPiedraPapelTijera() {
-        // Se juega una partida entre todos los pares de jugadores inscritos usando dado
+        // Se juega una partida entre todos los pares de jugadores inscritos usando PiedraPapelTijera
         for (int i = 0; i < inscritos.size(); i++) {
             for (int j = i + 1; j < inscritos.size(); j++) {
                 Partida.jugarPiedraPapelTijera(inscritos.get(i).getJugador(), inscritos.get(j).getJugador());
@@ -268,19 +286,20 @@ public class Torneo implements Serializable {
         inscripciones_abiertas = false;
         // Se genera el ranking después de las partidas
         ranking();
-
     }
 
+    /**
+     * Ejecuta una partida de BlackJack entre todos los jugadores inscritos.
+     * Luego de jugar, se cierran las inscripciones y se actualiza el ranking.
+     */
     public void jugarBlackJack() {
-        // Se juega una partida entre todos los pares de jugadores inscritos usando dado
-
+        // Se juega una partida entre todos los jugadores inscritos usando BlackJack
         Partida.jugarBlackJack(inscritos);
 
         // Las inscripciones se cierran después de jugar
         inscripciones_abiertas = false;
         // Se genera el ranking después de las partidas
         ranking();
-
     }
 
     /**
@@ -358,6 +377,11 @@ public class Torneo implements Serializable {
         return false; // El jugador no está inscrito
     }
 
+    /**
+     * Muestra el top 3 de jugadores inscritos en el ranking del torneo. Los
+     * jugadores son ordenados en función de su desempeño y se imprimen los tres
+     * primeros en la clasificación.
+     */
     public void top3() {
         System.out.println("TOP 3: ");
         Collections.sort(inscritos);
@@ -368,8 +392,13 @@ public class Torneo implements Serializable {
             }
             System.out.println(inscritos.get(i).getPosicion() + ".- " + inscritos.get(i).getJugador().getNombre());
         }
-    }    
-    
+    }
+
+    /**
+     * Muestra las estadísticas completas de los jugadores inscritos en el
+     * torneo. Los jugadores son ordenados en función de su desempeño y se
+     * imprimen en orden de clasificación.
+     */
     public void stats() {
         System.out.println("ESTADISTICAS: ");
         Collections.sort(inscritos);
@@ -378,6 +407,5 @@ public class Torneo implements Serializable {
             System.out.println(inscritos.get(i).getPosicion() + ".- " + inscritos.get(i).getJugador().getNombre());
         }
     }
+
 }
-
-
