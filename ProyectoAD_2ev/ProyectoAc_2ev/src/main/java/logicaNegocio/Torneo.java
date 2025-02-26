@@ -340,9 +340,10 @@ public class Torneo implements Serializable {
               % es el indicador de formato.
               El signo - es para alinear el texto a la izquierda. Si no se incluye, se alinea a la derecha por defecto.
          */
-        for (Jugador participante : participantes) {
+        for (int i = 0; i < participantes.size(); i++) {  
+            Jugador participante =  participantes.get(i);
             System.out.println("----------------------------------");
-            System.out.printf("|  %-18s: %-8d |\n", "ID", participante.getId_j());
+            System.out.printf("|  %-18s: %-8d |\n", "POSICION", i+1 );
             System.out.printf("|  %-18s: %-8s |\n", "NOMBRE", participante.getNombre());
             System.out.printf("|  %-18s: %-8.1f |\n", "Partidas Ganadas", participante.getPartidasGanadas());
             System.out.printf("|  %-18s: %-8.1f |\n", "Partidas Jugadas", participante.getPartidasJugadas());
@@ -359,7 +360,7 @@ public class Torneo implements Serializable {
                 }
             }
         }
-
+        
     }
 
     /*

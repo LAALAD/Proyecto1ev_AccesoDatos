@@ -6,8 +6,11 @@ package com.mycompany.proyectoac_2ev;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import logicaNegocio.Arbitro;
+import logicaNegocio.ControladorLogico;
 
 /**
  * Clase que proporciona métodos de validación para entrada de datos del
@@ -17,6 +20,8 @@ import java.util.Scanner;
  * @author DAM2_02
  */
 public class Validaciones {
+
+    private static ControladorLogico control = new ControladorLogico();
 
     public static Scanner sc = new Scanner(System.in);
 
@@ -34,7 +39,12 @@ public class Validaciones {
             try {
                 // Solicitar al usuario que ingrese un número entero
                 salida = Integer.valueOf(sc.nextLine()); // Intentamos convertir la entrada a un número entero
-                return salida;// Si la conversión es exitosa, retornamos el número
+                if (salida > 0) {
+                    return salida;// Si la conversión es exitosa, retornamos el número
+                }else{
+                    System.out.println("El numero del ser positivo");
+                    continue;
+                }
             } catch (NumberFormatException e) {
                 // Si la entrada no es un número válido (excepción), mostramos un mensaje de error
                 System.out.println("Valor invalido...");
@@ -227,7 +237,7 @@ public class Validaciones {
                 // Intentamos convertir la cadena leída en un objeto Date usando el formato esperado
                 fecha = sdf.parse(fechaStr);
 
-                // Obtener la fecha actual
+                // Obtener la fecha actual (new Date por defecto te da la fecha actual)
                 Date fechaActual = new Date();
 
                 // Comprobar si la fecha ingresada es posterior a la fecha actual
@@ -251,11 +261,18 @@ public class Validaciones {
 
     public static String validarEmail() {
         String email = "";
-        String regex = "^[a-zA-Z0-9.-]+@[a-zA-Z.-]+.[a-zA-Z]{2,}$";
+        String regex = "^[a-zA-Z0-9.-]+@[a-zA-Z]+.[a-zA-Z]{2,}$";
+        /*
+        [a-zA-Z0-9.-]+ => minusculas,mayusculas,puntos y guiones (+ => uno o mas caracteres)
+        @ => un arroba obligatorio
+        [a-zA-Z]+ => minusculas,mayusculas  (+ => uno o mas caracteres)
+        . => punto obligatorio
+        [a-zA-Z]{2,} => minusculas y mayusculas, 2 o mas caracteres(min. 2)
+         */
         boolean esValido = false;
 
         while (!esValido) {
-            System.out.println("Introduce un email: ");
+            System.out.println("Introduce un email: (ej.: example@example.com)");
             email = sc.nextLine();
             if (email.matches(regex)) {
                 esValido = true;
@@ -267,15 +284,15 @@ public class Validaciones {
 
         return email;
     }
-    
-     public static String validarTelefono() {
+
+    public static String validarTelefono() {
         String telefono = "";
         String regex = "^[0-9]{9}$";
         boolean esValido = false;
 
         while (!esValido) {
-            System.out.println("Introduce tu numero de telefono: ");
-            telefono = sc.nextLine();
+            System.out.println("Introduce tu numero de telefono: (9 dígitos)");
+            telefono = sc.nextLine().trim();
             if (telefono.matches(regex)) {
                 esValido = true;
             } else {
@@ -286,4 +303,29 @@ public class Validaciones {
         return telefono;
     }
 
+    public static String validarLicencia() {
+        String licencia = "";
+        String regex = "^[0-9]{4}-[A-Za-z]{3}$";
+        boolean esValido = false;
+        while (!esValido) {
+            System.out.println("Introduce el numero de licencia: (Ej.: 9999-AAA)");
+            licencia = sc.nextLine();
+            if (licencia.matches(regex) && esLicenciaUnica(licencia)) {
+                esValido = true;
+            } else {
+                System.out.println("La licencia debe tener el siguiente formato 9999-AAA y no puede estar repetida");
+            }
+        }
+        return licencia.toUpperCase();
+    }
+
+    private static boolean esLicenciaUnica(String entrada) {
+        ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
+        for (Arbitro arbitro : arbitros) {
+            if (arbitro.getNumeroLicencia().equals(entrada)) {
+                return false;//no es unica
+            }
+        }
+        return true;//es unica
+    }
 }

@@ -42,11 +42,10 @@ public class BotonEscurridizo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botonMover = new javax.swing.JButton();
         fondo = new javax.swing.JPanel();
-        msg = new javax.swing.JLabel();
-        boton_Rendrise = new javax.swing.JPanel();
         botonRindo = new javax.swing.JButton();
+        msg = new javax.swing.JLabel();
+        botonMover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(400, 400));
@@ -56,10 +55,30 @@ public class BotonEscurridizo extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        botonMover.setBackground(new java.awt.Color(246, 232, 198));
-        botonMover.setFont(new java.awt.Font("Rubik", 0, 14)); // NOI18N
-        botonMover.setForeground(new java.awt.Color(218, 91, 4));
+        fondo.setBackground(new java.awt.Color(216, 194, 170));
+        fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+
+        botonRindo.setBackground(new java.awt.Color(246, 232, 198));
+        botonRindo.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        botonRindo.setForeground(new java.awt.Color(218, 91, 4));
+        botonRindo.setText("RENDIRSE");
+        botonRindo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRindoActionPerformed(evt);
+            }
+        });
+
+        msg.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        msg.setForeground(new java.awt.Color(35, 103, 114));
+        msg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        msg.setText("¡INTENTA ATRAPAR EL BOTÓN!");
+
+        botonMover.setBackground(new java.awt.Color(249, 201, 107));
+        botonMover.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        botonMover.setForeground(new java.awt.Color(35, 103, 114));
         botonMover.setText("¡ATRÁPAME!");
+        botonMover.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(129, 69, 44), 0, true));
+        botonMover.setFocusPainted(false);
         botonMover.setPreferredSize(new java.awt.Dimension(120, 25));
         botonMover.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -71,67 +90,38 @@ public class BotonEscurridizo extends javax.swing.JFrame {
                 botonMoverActionPerformed(evt);
             }
         });
-        getContentPane().add(botonMover);
-        botonMover.setBounds(140, 187, 130, 30);
-
-        fondo.setBackground(new java.awt.Color(216, 194, 170));
-
-        msg.setFont(new java.awt.Font("Rubik", 1, 18)); // NOI18N
-        msg.setForeground(new java.awt.Color(35, 103, 114));
-        msg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        msg.setText("¡INTENTA ATRAPAR EL BOTON!");
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(msg)
-                .addGap(47, 47, 47))
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(msg))
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(botonMover, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(botonRindo)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fondoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(17, 17, 17)
                 .addComponent(msg)
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addComponent(botonMover, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(136, 136, 136)
+                .addComponent(botonRindo)
+                .addGap(34, 34, 34))
         );
 
         getContentPane().add(fondo);
-        fondo.setBounds(0, 0, 400, 310);
-
-        boton_Rendrise.setBackground(new java.awt.Color(216, 194, 170));
-
-        botonRindo.setBackground(new java.awt.Color(246, 232, 198));
-        botonRindo.setFont(new java.awt.Font("Rubik", 0, 14)); // NOI18N
-        botonRindo.setForeground(new java.awt.Color(218, 91, 4));
-        botonRindo.setText("Me rindo");
-        botonRindo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRindoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout boton_RendriseLayout = new javax.swing.GroupLayout(boton_Rendrise);
-        boton_Rendrise.setLayout(boton_RendriseLayout);
-        boton_RendriseLayout.setHorizontalGroup(
-            boton_RendriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(boton_RendriseLayout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(botonRindo)
-                .addContainerGap(148, Short.MAX_VALUE))
-        );
-        boton_RendriseLayout.setVerticalGroup(
-            boton_RendriseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, boton_RendriseLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(botonRindo)
-                .addGap(22, 22, 22))
-        );
-
-        getContentPane().add(boton_Rendrise);
-        boton_Rendrise.setBounds(0, 310, 400, 90);
+        fondo.setBounds(0, 0, 400, 400);
 
         pack();
         setLocationRelativeTo(null);
@@ -205,7 +195,6 @@ public class BotonEscurridizo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonMover;
     private javax.swing.JButton botonRindo;
-    private javax.swing.JPanel boton_Rendrise;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel msg;
     // End of variables declaration//GEN-END:variables

@@ -55,7 +55,8 @@ public class MenuMinijuegos extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(35, 103, 114));
-        jLabel2.setText("Elije que minijuego quieres probar!");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Elige que minijuego quieres probar!");
 
         img_memoria.setForeground(new java.awt.Color(35, 103, 114));
         img_memoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/memoriaC.png"))); // NOI18N
@@ -63,12 +64,12 @@ public class MenuMinijuegos extends javax.swing.JFrame {
         img_button.setForeground(new java.awt.Color(35, 103, 114));
         img_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boton.png"))); // NOI18N
 
-        btn_boton.setBackground(new java.awt.Color(246, 232, 198));
+        btn_boton.setBackground(new java.awt.Color(249, 201, 107));
         btn_boton.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
-        btn_boton.setForeground(new java.awt.Color(218, 91, 4));
+        btn_boton.setForeground(new java.awt.Color(35, 103, 114));
         btn_boton.setText("JUGAR");
         btn_boton.setAlignmentY(0.0F);
-        btn_boton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_boton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
         btn_boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_boton.setFocusPainted(false);
         btn_boton.setPreferredSize(new java.awt.Dimension(180, 50));
@@ -78,12 +79,12 @@ public class MenuMinijuegos extends javax.swing.JFrame {
             }
         });
 
-        btn_memoira.setBackground(new java.awt.Color(246, 232, 198));
+        btn_memoira.setBackground(new java.awt.Color(249, 201, 107));
         btn_memoira.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
-        btn_memoira.setForeground(new java.awt.Color(218, 91, 4));
+        btn_memoira.setForeground(new java.awt.Color(35, 103, 114));
         btn_memoira.setText("JUGAR");
         btn_memoira.setAlignmentY(0.0F);
-        btn_memoira.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_memoira.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
         btn_memoira.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_memoira.setFocusPainted(false);
         btn_memoira.setPreferredSize(new java.awt.Dimension(180, 50));
@@ -101,12 +102,12 @@ public class MenuMinijuegos extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(35, 103, 114));
         jLabel3.setText("Boton escurridizo");
 
-        btn_salir.setBackground(new java.awt.Color(218, 91, 4));
+        btn_salir.setBackground(new java.awt.Color(246, 232, 198));
         btn_salir.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
-        btn_salir.setForeground(new java.awt.Color(0, 0, 0));
+        btn_salir.setForeground(new java.awt.Color(218, 91, 4));
         btn_salir.setText("SALIR");
         btn_salir.setAlignmentY(0.0F);
-        btn_salir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_salir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
         btn_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_salir.setFocusPainted(false);
         btn_salir.setPreferredSize(new java.awt.Dimension(180, 50));
@@ -232,9 +233,9 @@ public class MenuMinijuegos extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(img_memoria, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(FondoLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(45, 45, 45)
                         .addComponent(btn_memoira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FondoLayout.createSequentialGroup()
                         .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,16 +246,13 @@ public class MenuMinijuegos extends javax.swing.JFrame {
                         .addGap(29, 29, 29))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FondoLayout.createSequentialGroup()
                         .addComponent(btn_boton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
+                        .addGap(42, 42, 42))))
             .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(FondoLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FondoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(200, 200, 200))
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         FondoLayout.setVerticalGroup(
             FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

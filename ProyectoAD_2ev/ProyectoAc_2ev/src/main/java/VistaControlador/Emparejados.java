@@ -215,14 +215,15 @@ public class Emparejados extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(450, 400));
 
         jPanel1.setBackground(new java.awt.Color(216, 194, 170));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Rubik", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 103, 114));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("¡ENCUENTRA LAS PAREJAS EN EL MENOR NUMERO DE MOVIMIENTOS!");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(110, 40, 625, 22);
+        jLabel1.setBounds(95, 40, 640, 28);
 
         panel_ppal.setPreferredSize(new java.awt.Dimension(400, 400));
         panel_ppal.setLayout(new java.awt.GridLayout(4, 4));
@@ -439,16 +440,18 @@ public class Emparejados extends javax.swing.JFrame {
         panel_ppal.setBounds(106, 86, 625, 410);
 
         jButton1.setBackground(new java.awt.Color(246, 232, 198));
-        jButton1.setFont(new java.awt.Font("Rubik", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(218, 91, 4));
-        jButton1.setText("Rendirse");
+        jButton1.setText("RENDIRSE");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
+        jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(350, 530, 130, 33);
+        jButton1.setBounds(350, 521, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

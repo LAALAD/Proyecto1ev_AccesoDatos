@@ -278,7 +278,7 @@ public class ProyectoAc_2ev {
     private static void crearJugador() {
         System.out.println("Introduce el nombre del jugador: ");
         String nombre = sc.nextLine();
-        jugadores.add(new Jugador(nombre));
+        jugadores.add(new Jugador(nombre.toUpperCase()));
 
         //rellena la ficha si quieres, de manera opcional
         System.out.println("Deseas rellenar la ficha del jugador s/n");
@@ -307,7 +307,7 @@ public class ProyectoAc_2ev {
         Date fecha = Validaciones.validarFechaPasada();
         String email = Validaciones.validarEmail();
         String telefono = Validaciones.validarTelefono();
-        DatosPersonales dp = new DatosPersonales(apellido, fecha, email, telefono);
+        DatosPersonales dp = new DatosPersonales(apellido.toUpperCase(), fecha, email, telefono);
         //control.crearDatosPersonales(dp);
         return dp;
     }
@@ -748,9 +748,9 @@ public class ProyectoAc_2ev {
         System.out.println("Introduce el nombre del arbitro: ");
         String nombre = sc.nextLine();
         System.out.println("Introduce el numero de licencia del arbitro: ");
-        int numeroLicencia = Validaciones.asignarEntero();
+        String numeroLicencia = Validaciones.validarLicencia();
 
-        Arbitro nuevo = new Arbitro(nombre, numeroLicencia);
+        Arbitro nuevo = new Arbitro(nombre.toUpperCase(), numeroLicencia);
 
         control.crearArbitro(nuevo);
     }
@@ -844,11 +844,11 @@ public class ProyectoAc_2ev {
             switch (opcion) {
                 case "1":
                     System.out.println("Introduce el nuevo nombre del arbitro: ");
-                    modif.setNombre(sc.nextLine());
+                    modif.setNombre(sc.nextLine().toUpperCase());
                     break;
                 case "2":
                     System.out.println("Introduce el nuevo numero de licencia del arbitro: ");
-                    modif.setNumeroLicencia(Validaciones.asignarEntero());
+                    modif.setNumeroLicencia(Validaciones.validarLicencia());
                     break;
                 case "3": // Salimos y guardamos los cambios en el arbitro                    
                     control.editarArbitro(modif);
@@ -875,12 +875,12 @@ public class ProyectoAc_2ev {
             return;
         }
 
-        System.out.println("|---------------------------|");
+        System.out.println("|------------------------------------------------------|");
         System.out.println("| ID \t|\t NOMBRE \t|\t LICENCIA");
-        System.out.println("|---------------------------|");
+        System.out.println("|------------------------------------------------------|");
         for (Arbitro it : arbitros) {
-            System.out.println("| " + it.getId() + " \t|\t " + it.getNombre() + " \t|\t " + it.getNumeroLicencia());
-            System.out.println("|---------------------------|");
+            System.out.println("| " + it.getId() + " \t|\t " + it.getNombre() + " \t\t|\t " + it.getNumeroLicencia());
+            System.out.println("|------------------------------------------------------|");
         }
     }
 
@@ -920,12 +920,13 @@ public class ProyectoAc_2ev {
                     }
                     break;
                 case "2":
-
                     System.out.println("Introduce el nombre del arbitro: ");
-                    String nombre = sc.nextLine();
-                    System.out.println("Introduce el numero de licencia del arbitro: ");
-                    int numeroLicencia = Validaciones.asignarEntero();
+                    String nombre = sc.nextLine().toUpperCase();
+                    
+                    String numeroLicencia = Validaciones.validarLicencia();
+                    
                     torneo.getArbitros().add(new Arbitro(nombre, numeroLicencia));
+                    
                     control.editarTorneo(torneo);
                     break;
                 case "3": // Salimos y guardamos los cambios en el arbitro     
@@ -961,13 +962,7 @@ public class ProyectoAc_2ev {
 
         // Eliminar el torneo seleccionado de la lista de torneos en memoria.
         torneos.remove(eliminar);
-        control.eliminarTorneo(eliminar.getId_t());
-
-        // Eliminar el torneo de la base de datos (o almacenamiento persistente).
-        /*if (t.eliminarTorneo(eliminar)) {
-            // Confirmar que el torneo fue eliminado (opcional, agregar un mensaje si es necesario).
-            System.out.println("Torneo eliminado exitosamente.");
-        }*/
+        control.eliminarTorneo(eliminar.getId_t()); 
     }
 
     /**
@@ -1083,6 +1078,10 @@ public class ProyectoAc_2ev {
         // Calcula las plazas disponibles en el torneo seleccionado
         int plazas_disponibles = seleccion_torneo.getNum_max_jugadores() - seleccion_torneo.getInscritos().size();
 
+        if(plazas_disponibles == 0){
+            System.out.println("No hay plazas disponibles");
+            return;
+        }
         outerLoop:// Etiqueta para el bucle exterior
         do {
             // Muestra los jugadores que aún no están inscritos en el torneo

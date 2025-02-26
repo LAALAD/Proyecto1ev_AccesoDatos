@@ -22,7 +22,7 @@ public class Arbitro implements Serializable {
     @Basic
     private String nombre;
     @Basic
-    private int numeroLicencia;
+    private String numeroLicencia;
 
     //@ManyToMany(mappedBy = "arbitros", cascade = CascadeType.ALL) // cascade-Se propaga la eliminación, La propiedad 'arbitros' está en Torneo, así que 'mappedBy' la enlaza
     @ManyToMany(mappedBy = "arbitros", cascade = CascadeType.ALL)
@@ -40,7 +40,7 @@ public class Arbitro implements Serializable {
      * @param nombre Nombre del árbitro.
      * @param numeroLicencia Número de licencia del árbitro.
      */
-    public Arbitro(String nombre, int numeroLicencia) {
+    public Arbitro(String nombre, String numeroLicencia) {
         this.nombre = nombre;
         this.numeroLicencia = numeroLicencia;
     }
@@ -87,7 +87,7 @@ public class Arbitro implements Serializable {
      * 
      * @return Número de licencia del árbitro.
      */
-    public int getNumeroLicencia() {
+    public String getNumeroLicencia() {
         return numeroLicencia;
     }
 
@@ -96,7 +96,7 @@ public class Arbitro implements Serializable {
      * 
      * @param numeroLicencia Número de licencia a asignar.
      */
-    public void setNumeroLicencia(int numeroLicencia) {
+    public void setNumeroLicencia(String numeroLicencia) {
         this.numeroLicencia = numeroLicencia;
     }
 
