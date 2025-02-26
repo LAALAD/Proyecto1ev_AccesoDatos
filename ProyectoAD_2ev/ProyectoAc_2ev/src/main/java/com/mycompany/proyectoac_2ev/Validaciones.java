@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
+ * Clase que proporciona métodos de validación para entrada de datos del
+ * usuario. Incluye validaciones para enteros, fechas pasadas y futuras, y
+ * manejo de fechas bisiestas.
  *
  * @author DAM2_02
  */
@@ -41,6 +44,13 @@ public class Validaciones {
     }
 
     // Método que valida el día y mes de la fecha
+    /**
+     * Valida si una fecha ingresada por el usuario tiene un formato correcto
+     * (dd/MM/yyyy).
+     *
+     * @param fechaStr La fecha en formato de cadena de texto.
+     * @return `true` si la fecha es válida, `false` en caso contrario.
+     */
     public static boolean esFechaValida(String fechaStr) {
         // Separamos el día, mes y año
         String[] partesFecha = fechaStr.split("/");
@@ -78,6 +88,14 @@ public class Validaciones {
     }
 
     // Método auxiliar para validar el día según el mes y el año
+    /**
+     * Valida si el día ingresado es correcto según el mes y año.
+     *
+     * @param dia Día del mes.
+     * @param mes Mes del año.
+     * @param ano Año correspondiente.
+     * @return `true` si el día es válido, `false` en caso contrario.
+     */
     public static boolean esDiaValido(int dia, int mes, int ano) {
         // Definir los días máximos por mes
         int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -99,6 +117,12 @@ public class Validaciones {
     }
 
     // Método para verificar si un año es bisiesto
+    /**
+     * Determina si un año es bisiesto.
+     *
+     * @param ano Año a evaluar.
+     * @return `true` si el año es bisiesto, `false` en caso contrario.
+     */
     public static boolean esBisiesto(int ano) {
         if (ano % 4 == 0) {  // Verificamos si es divisible por 4
             if (ano % 100 == 0) {  // Verificamos si es divisible por 100
@@ -114,6 +138,11 @@ public class Validaciones {
     }
 
     // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
+    /**
+     * Solicita y valida una fecha pasada (anterior a la fecha actual).
+     *
+     * @return La fecha ingresada por el usuario en formato `Date`.
+     */
     public static Date validarFechaPasada() {
         // Declaramos una variable de tipo Date para almacenar la fecha que será validada
         Date fecha = null;
@@ -165,6 +194,11 @@ public class Validaciones {
     }
 
     // Método estático que solicita y valida una fecha de nacimiento introducida por el usuario
+    /**
+     * Solicita y valida una fecha futura (posterior a la fecha actual).
+     *
+     * @return La fecha ingresada por el usuario en formato `Date`.
+     */
     public static Date validarFechaFutura() {
         // Declaramos una variable de tipo Date para almacenar la fecha que será validada
         Date fecha = null;

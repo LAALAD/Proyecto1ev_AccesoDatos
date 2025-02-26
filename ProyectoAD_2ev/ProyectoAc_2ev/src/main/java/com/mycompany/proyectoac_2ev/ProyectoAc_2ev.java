@@ -19,8 +19,9 @@ import javax.persistence.Persistence;
 import logicaNegocio.*;
 
 /**
+ * Clase principal del proyecto ProyectoAc_2ev.
  *
- * @author Usuario
+ * Sirve como punto de entrada para la ejecución del programa.
  */
 public class ProyectoAc_2ev {
 
@@ -31,12 +32,27 @@ public class ProyectoAc_2ev {
 
     private static Scanner sc = new Scanner(System.in);
 
+    /**
+     * Método principal que inicia la aplicación.
+     *
+     * Crea una instancia de la clase `Principal` y la hace visible.
+     *
+     * @param args Argumentos de la línea de comandos (no utilizados en esta
+     * aplicación).
+     */
     public static void main(String[] args) {
         Principal p1 = new Principal();
         p1.setVisible(true);
 
     }
 
+    /**
+     * Inicia la API del sistema, ejecutando las entradas de prueba y mostrando
+     * el menú principal.
+     *
+     * Llama a los métodos `entradasPrueba()` y `menu()` para configurar y
+     * mostrar la interfaz del usuario.
+     */
     public static void iniciarApi() {
         entradasPrueba();
         menu();
@@ -121,6 +137,10 @@ public class ProyectoAc_2ev {
             juego.setVisible(true);
         }
     }*/
+    /**
+     * Muestra el menú de opciones para gestionar los jugador. Permite crear,
+     * eliminar, modificar, buscar, listar jugadores.
+     */
     public static void menuJugador() {
         String opcion = "";
         do {
@@ -282,6 +302,16 @@ public class ProyectoAc_2ev {
         control.crearJugador(jugadores.getLast());
     }
 
+    /**
+     * Solicita al usuario que ingrese datos personales y los almacena en un
+     * objeto `DatosPersonales`.
+     *
+     * Se solicitan el apellido, fecha de nacimiento, email y número de
+     * teléfono. La fecha debe ser válida y anterior a la fecha actual.
+     *
+     * @return Un objeto `DatosPersonales` con los datos ingresados por el
+     * usuario.
+     */
     private static DatosPersonales rellenarDatosPersonales() {
         System.out.println("Introduce el apellido: ");
         String apellido = sc.nextLine();
@@ -299,6 +329,18 @@ public class ProyectoAc_2ev {
     }
 
     //Metodo que guarda en la base de datos los datos personales del jugador
+    /**
+     * Asigna los datos personales ingresados a un jugador y los guarda en la
+     * base de datos.
+     *
+     * Se llama a `rellenarDatosPersonales()` para obtener los datos ingresados
+     * por el usuario y luego se asocian al jugador. La actualización del
+     * jugador se realiza automáticamente en la base de datos gracias a la
+     * configuración de `CascadeType`.
+     *
+     * @param jugador El objeto `Jugador` al que se le asignarán los datos
+     * personales.
+     */
     private static void guardarDatosPersonales(Jugador jugador) {
         DatosPersonales datosP = rellenarDatosPersonales();
         jugador.setDatosPersonales(datosP);
@@ -671,6 +713,14 @@ public class ProyectoAc_2ev {
         } while (true);
     }
 
+    /**
+     * Muestra el menú de gestión de árbitros y permite al usuario realizar
+     * distintas acciones.
+     *
+     * Este método proporciona opciones para crear, editar, eliminar y listar
+     * árbitros, interactuando con la base de datos según la selección del
+     * usuario.
+     */
     private static void menuArbitro() {
         String opcion = "";
         do {
@@ -703,6 +753,12 @@ public class ProyectoAc_2ev {
         } while (!opcion.equals("5")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
+    /**
+     * Crea un nuevo árbitro solicitando su nombre y número de licencia al
+     * usuario.
+     *
+     * Los datos ingresados se validan y se almacenan en la base de datos.
+     */
     private static void crearArbitro() {
 
         System.out.println("Introduce el nombre del arbitro: ");
@@ -715,6 +771,13 @@ public class ProyectoAc_2ev {
         control.crearArbitro(nuevo);
     }
 
+    /**
+     * Elimina un árbitro de la base de datos.
+     *
+     * Se muestra la lista de árbitros disponibles y se solicita al usuario que
+     * seleccione uno para eliminar. Si no hay árbitros registrados, se muestra
+     * un mensaje de error.
+     */
     private static void eliminarArbitro() {
         ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
         if (arbitros.isEmpty()) {
@@ -732,7 +795,17 @@ public class ProyectoAc_2ev {
         control.eliminarArbitro(eliminar.getId());
 
     }
-    private static Arbitro seleccionarArbitro(){       
+
+    /**
+     * Permite al usuario seleccionar un árbitro de la base de datos ingresando
+     * su ID.
+     *
+     * Se solicita un ID válido hasta que se encuentre un árbitro registrado con
+     * dicho ID.
+     *
+     * @return El objeto `Arbitro` seleccionado por el usuario.
+     */
+    private static Arbitro seleccionarArbitro() {
         int id_aux;
         // Bucle para solicitar un ID de jugador válido
         do {
@@ -743,16 +816,24 @@ public class ProyectoAc_2ev {
             // Buscar el jugador en la lista de jugadores
             for (Arbitro it : control.leerTodosArbitros()) {
                 // Si el ID coincide con algún jugador en la lista, devolver ese jugador
-                if (it.getId()== id_aux) {
+                if (it.getId() == id_aux) {
                     return it;// Arbitro encontrado, se devuelve el objeto
                 }
             }
             // Si no se encuentra el jugador con el ID proporcionado, se continuará el bucle
             System.out.println("Id no valido...");
         } while (true);  // El bucle continúa hasta que se ingresa un ID válido
-    
+
     }
-    
+
+    /**
+     * Permite modificar los datos de un árbitro registrado en la base de datos.
+     *
+     * Se muestra una lista de árbitros disponibles y el usuario puede
+     * seleccionar uno para modificar. Se le permite cambiar el nombre y el
+     * número de licencia del árbitro. Al finalizar, los cambios se guardan en
+     * la base de datos.
+     */
     private static void modificarArbitro() {
         ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
         if (arbitros.isEmpty()) {
@@ -795,6 +876,15 @@ public class ProyectoAc_2ev {
         } while (!opcion.equals("3")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
+    /**
+     * Imprime en la consola la lista de árbitros disponibles.
+     *
+     * Muestra los ID, nombres y números de licencia de todos los árbitros
+     * registrados. Si no hay árbitros disponibles, se muestra un mensaje
+     * informativo.
+     *
+     * @param arbitros Lista de árbitros a imprimir.
+     */
     private static void imprimirArbitros(ArrayList<Arbitro> arbitros) {
         if (arbitros.isEmpty()) {
             System.out.println("No hay arbitros disponibles");
@@ -810,6 +900,16 @@ public class ProyectoAc_2ev {
         }
     }
 
+    /**
+     * Permite la contratación de un árbitro para un torneo.
+     *
+     * El usuario puede seleccionar un árbitro ya registrado o agregar uno nuevo
+     * al torneo. Si el árbitro ya está contratado para el evento, se muestra un
+     * mensaje de advertencia. Los cambios en la lista de árbitros del torneo se
+     * guardan en la base de datos.
+     *
+     * @param torneo El torneo en el cual se va a contratar un árbitro.
+     */
     private static void contratarArbitro(Torneo torneo) {
         String opcion = "";
         do {
@@ -1217,6 +1317,16 @@ public class ProyectoAc_2ev {
         }
     }
 
+    /**
+     * Obtiene la lista de jugadores inscritos en un torneo.
+     *
+     * Este método recorre la lista de inscripciones de un torneo y extrae los
+     * jugadores que están inscritos en él.
+     *
+     * @param torneo El torneo del cual se quieren obtener los jugadores
+     * inscritos.
+     * @return Una lista de jugadores inscritos en el torneo.
+     */
     private static ArrayList<Jugador> jugadores_inscritos(Torneo torneo) {
         ArrayList<Jugador> salida = new ArrayList<>();
         for (TorneoXJugador inscrito : torneo.getInscritos()) {

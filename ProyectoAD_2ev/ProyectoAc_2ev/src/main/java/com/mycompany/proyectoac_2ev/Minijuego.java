@@ -1,4 +1,3 @@
-
 package com.mycompany.proyectoac_2ev;
 
 import java.awt.Color;
@@ -13,7 +12,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+/**
+ * Clase que representa un minijuego de memoria con cartas emparejadas.
+ *
+ * Se basa en una cuadrícula 4x4 donde el jugador debe voltear cartas y
+ * encontrar parejas. Implementa una lógica de comparación y verificación de
+ * victoria.
+ *
+ * @author DAM2_02
+ */
 public class Minijuego extends JFrame {
+
     private static final int NUM_CARTAS = 16; // Número total de cartas
     private ArrayList<JButton> cartas;      // Lista de botones para las cartas
     private ArrayList<String> cartasValores; // Valores de las cartas (para comparar)
@@ -21,6 +30,12 @@ public class Minijuego extends JFrame {
     private int turnos = 0;                 // Contador de turnos
     private boolean comparando = false;     // Para saber si estamos comparando dos cartas
 
+    /**
+     * Constructor de la clase Minijuego.
+     *
+     * Inicializa la ventana del juego, crea la cuadrícula de cartas y establece
+     * la lógica del juego.
+     */
     public Minijuego() {
         setTitle("Juego de Memoria");
         setSize(400, 400);
@@ -34,6 +49,10 @@ public class Minijuego extends JFrame {
     }
 
     // Inicializa las cartas con valores
+    /**
+     * Inicializa la lista de cartas con valores emparejados y las mezcla
+     * aleatoriamente.
+     */
     private void inicializarCartas() {
         String[] valores = {"A", "B", "C", "D", "E", "F", "G", "H"};
         // Duplica los valores para que haya dos de cada uno
@@ -45,6 +64,12 @@ public class Minijuego extends JFrame {
     }
 
     // Agrega las cartas (botones) al JFrame
+    /**
+     * Agrega las cartas como botones en la interfaz del juego.
+     *
+     * Cada botón representa una carta y contiene un evento de clic para voltear
+     * la carta.
+     */
     private void agregarCartas() {
         for (int i = 0; i < NUM_CARTAS; i++) {
             JButton carta = new JButton();
@@ -53,7 +78,9 @@ public class Minijuego extends JFrame {
             carta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (comparando) return;  // Evita que se haga clic mientras se comparan cartas
+                    if (comparando) {
+                        return;  // Evita que se haga clic mientras se comparan cartas
+                    }
                     mostrarCarta(carta);
                 }
             });
@@ -63,6 +90,11 @@ public class Minijuego extends JFrame {
     }
 
     // Muestra el valor de la carta (la voltea)
+    /**
+     * Muestra el valor de la carta al ser volteada.
+     *
+     * @param carta Botón de la carta que se va a voltear.
+     */
     private void mostrarCarta(JButton carta) {
         int indice = cartas.indexOf(carta);
         carta.setText(cartasValores.get(indice));
@@ -85,6 +117,10 @@ public class Minijuego extends JFrame {
     }
 
     // Verifica si las dos cartas volteadas son iguales
+    /**
+     * Verifica si las dos cartas volteadas son iguales. Si son iguales,
+     * permanecen descubiertas; si no, se vuelven a voltear.
+     */
     private void verificarPareja() {
         int indice1 = cartas.indexOf(carta1);
         int indice2 = cartas.indexOf(carta2);
@@ -110,6 +146,10 @@ public class Minijuego extends JFrame {
     }
 
     // Comprobar si el jugador ha ganado (todas las cartas descubiertas)
+    /**
+     * Comprueba si el jugador ha ganado la partida. Si todas las cartas han
+     * sido descubiertas, muestra un mensaje de victoria.
+     */
     private void comprobarVictoria() {
         for (JButton carta : cartas) {
             if (carta.isEnabled()) {
@@ -119,11 +159,14 @@ public class Minijuego extends JFrame {
         JOptionPane.showMessageDialog(this, "¡Ganaste en " + turnos + " turnos!");
     }
 
+    /**
+     * Método principal que inicia el juego de memoria.
+     *
+     * @param args Argumentos de la línea de comandos (no utilizados).
+     */
     public static void main(String[] args) {
         Minijuego juego = new Minijuego();
         juego.setVisible(true);
-        
+
     }
 }
-
-
