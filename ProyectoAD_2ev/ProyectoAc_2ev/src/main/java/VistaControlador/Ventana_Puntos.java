@@ -14,11 +14,22 @@ public class Ventana_Puntos extends javax.swing.JFrame {
      * Creates new form Ventana_Puntos
      */
     private static int turnos;
+    private  MenuMinijuegos mm;
+    public Ventana_Puntos(int turnos, MenuMinijuegos mm) {
+        initComponents();
+        this.mm = mm;
+        this.turnos = turnos;
+        msg.setText("¡GANASTE EN " + turnos + " TURNOS!");
+        
+    }
     public Ventana_Puntos(int turnos) {
         initComponents();
         this.turnos = turnos;
         msg.setText("¡GANASTE EN " + turnos + " TURNOS!");
+        mm.setVisible(true);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +42,7 @@ public class Ventana_Puntos extends javax.swing.JFrame {
 
         FONDO = new javax.swing.JPanel();
         msg = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btm_salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -44,17 +55,17 @@ public class Ventana_Puntos extends javax.swing.JFrame {
         msg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         msg.setText("texto ganador");
 
-        jButton1.setBackground(new java.awt.Color(246, 232, 198));
-        jButton1.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(218, 91, 4));
-        jButton1.setText("CONTINUAR");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setPreferredSize(new java.awt.Dimension(180, 50));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btm_salir.setBackground(new java.awt.Color(246, 232, 198));
+        btm_salir.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
+        btm_salir.setForeground(new java.awt.Color(218, 91, 4));
+        btm_salir.setText("SALIR");
+        btm_salir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btm_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btm_salir.setFocusPainted(false);
+        btm_salir.setPreferredSize(new java.awt.Dimension(180, 50));
+        btm_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btm_salirActionPerformed(evt);
             }
         });
 
@@ -68,7 +79,7 @@ public class Ventana_Puntos extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(FONDOLayout.createSequentialGroup()
                 .addGap(179, 179, 179)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btm_salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(185, Short.MAX_VALUE))
         );
         FONDOLayout.setVerticalGroup(
@@ -77,7 +88,7 @@ public class Ventana_Puntos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(msg, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btm_salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
@@ -102,11 +113,11 @@ public class Ventana_Puntos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Ventana_Gracias gracias = new Ventana_Gracias();
-        gracias.setVisible(true);
+    private void btm_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btm_salirActionPerformed
+
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        mm.setVisible(true);
+    }//GEN-LAST:event_btm_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,7 +156,7 @@ public class Ventana_Puntos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FONDO;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btm_salir;
     private javax.swing.JLabel msg;
     // End of variables declaration//GEN-END:variables
 }

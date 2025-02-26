@@ -33,10 +33,21 @@ public class Emparejados extends javax.swing.JFrame {
     private JButton carta1, carta2;           // Para almacenar las cartas que se están volteando
     private int turnos = 0;                   // Contador de turnos
     private boolean comparando = false;       // Para saber si estamos comparando dos cartas
+    
+    private MenuMinijuegos mm;
 
     public Emparejados(Torneo torneo) {
         initComponents();
         this.torneo = torneo;
+        cartas = new ArrayList<>();
+        cartasValores = new ArrayList<>();
+        inicializarCartas();
+        agregarCartas();
+    }
+    
+    public Emparejados(MenuMinijuegos mm) {
+        initComponents();
+        this.mm = mm;
         cartas = new ArrayList<>();
         cartasValores = new ArrayList<>();
         inicializarCartas();
@@ -160,7 +171,7 @@ public class Emparejados extends javax.swing.JFrame {
         }
         //JOptionPane.showMessageDialog(this, "¡Ganaste en " + turnos + " turnos!");
         
-        Ventana_Puntos puntos = new Ventana_Puntos(turnos);
+        Ventana_Puntos puntos = new Ventana_Puntos(turnos, mm);
         puntos.setVisible(true);
         this.dispose();
     }
@@ -525,6 +536,7 @@ public class Emparejados extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        mm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

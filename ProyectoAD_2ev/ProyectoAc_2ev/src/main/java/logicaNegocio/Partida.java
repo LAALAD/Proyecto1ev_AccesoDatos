@@ -296,13 +296,13 @@ public abstract class Partida {
             System.out.println("""
                                Nueva ronda iniciada
                                """);
-            System.out.println("==========>" + mazo.cartasRestantes());
+            //System.out.println("==========>" + mazo.cartasRestantes());
 
             // Verifica si hay suficientes cartas en el mazo, si no, lo repone y baraja
             //suficientes cartas son 2 cartas por jugador
             if (mazo.cartasRestantes() < jugadores.size() * 2) {//si no quedan cartas (minimo dos por jugador)
                 //Se introduce nueva baraja
-                System.out.println("==========>" + mazo.cartasRestantes());
+                //System.out.println("==========>" + mazo.cartasRestantes());
                 System.out.println("No quedan cartas en el mazo.");
                 System.out.println("Reponiendo y barajando la baraja...");
                 mazo = new Baraja();

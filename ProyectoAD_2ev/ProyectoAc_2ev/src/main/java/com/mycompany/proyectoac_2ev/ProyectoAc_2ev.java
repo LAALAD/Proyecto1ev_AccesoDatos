@@ -6,9 +6,6 @@ package com.mycompany.proyectoac_2ev;
 import VistaControlador.Principal;
 import VistaControlador.MenuMinijuegos;
 import VistaControlador.Ventana_Gracias;
-import static com.mycompany.proyectoac_2ev.Validaciones.validarFechaFutura;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -119,7 +116,6 @@ public class ProyectoAc_2ev {
                     } else {
                         Ventana_Gracias gracias = new Ventana_Gracias();
                         gracias.setVisible(true);
-                        //JOptionPane.showMessageDialog(null, "¡Gracias por utilizar nuestra aplicación!");
                     }
                     break;
                 default:
@@ -129,14 +125,7 @@ public class ProyectoAc_2ev {
         } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
-    /*private static void jugarMiniJuego() {
-        System.out.println("¿Desea ser BETA TESTER de nuestro proximo juego? (s/n)");
-        String respuesta = sc.nextLine();
-        if (respuesta.equals("s")) {
-            Minijuego juego = new Minijuego();
-            juego.setVisible(true);
-        }
-    }*/
+    
     /**
      * Muestra el menú de opciones para gestionar los jugador. Permite crear,
      * eliminar, modificar, buscar, listar jugadores.
@@ -315,14 +304,9 @@ public class ProyectoAc_2ev {
     private static DatosPersonales rellenarDatosPersonales() {
         System.out.println("Introduce el apellido: ");
         String apellido = sc.nextLine();
-
         Date fecha = Validaciones.validarFechaPasada();
-
-        System.out.println("Introduce un email: ");
-        String email = sc.nextLine();
-
-        System.out.println("Introduce el telefono: ");
-        String telefono = sc.nextLine();
+        String email = Validaciones.validarEmail();
+        String telefono = Validaciones.validarTelefono();
         DatosPersonales dp = new DatosPersonales(apellido, fecha, email, telefono);
         //control.crearDatosPersonales(dp);
         return dp;
@@ -781,7 +765,7 @@ public class ProyectoAc_2ev {
     private static void eliminarArbitro() {
         ArrayList<Arbitro> arbitros = control.leerTodosArbitros();
         if (arbitros.isEmpty()) {
-            System.out.println("No existen jugadores registrados");
+            System.out.println("No existen arbitros registrados");
             return;
         }
         imprimirArbitros(arbitros);

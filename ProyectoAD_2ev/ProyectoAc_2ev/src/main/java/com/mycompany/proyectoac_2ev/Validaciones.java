@@ -249,10 +249,41 @@ public class Validaciones {
         return fecha;
     }
 
-    /*public static boolean validarEmail(String email){
-        String regex ="";
-        if(email.matches(regex)){
-            return 
+    public static String validarEmail() {
+        String email = "";
+        String regex = "^[a-zA-Z0-9.-]+@[a-zA-Z.-]+.[a-zA-Z]{2,}$";
+        boolean esValido = false;
+
+        while (!esValido) {
+            System.out.println("Introduce un email: ");
+            email = sc.nextLine();
+            if (email.matches(regex)) {
+                esValido = true;
+            } else {
+                System.out.println("El formato del correo no es valido, introducelo otra vez");
+
+            }
         }
-    }*/
+
+        return email;
+    }
+    
+     public static String validarTelefono() {
+        String telefono = "";
+        String regex = "^[0-9]{9}$";
+        boolean esValido = false;
+
+        while (!esValido) {
+            System.out.println("Introduce tu numero de telefono: ");
+            telefono = sc.nextLine();
+            if (telefono.matches(regex)) {
+                esValido = true;
+            } else {
+                System.out.println("El numero de telefono debe tener 9 digitos solamente numericos");
+            }
+        }
+
+        return telefono;
+    }
+
 }

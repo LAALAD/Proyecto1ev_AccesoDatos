@@ -317,9 +317,38 @@ public class Torneo implements Serializable {
         }
 
         Collections.sort(participantes);
-        System.out.println(participantes);
         Collections.reverse(participantes);
-        System.out.println("reverse " + participantes);
+        //System.out.println(participantes);
+        //return "ID: " + id_j + " | NOMBRE: " + nombre + " | partidasGanadas=" + partidasGanadas + " | partidasJugadas=" + partidasJugadas;
+        System.out.println("Jugadores:");
+        /**
+         * for (Jugador participante : participantes) { System.out.println("|
+         * ID: " + participante.getId_j() + " |"); System.out.println("| NOMBRE:
+         * " + participante.getNombre() + " |"); System.out.println("| Partidas
+         * Ganadas: " + participante.getPartidasGanadas() + " |");
+         * System.out.println("| Partidas Jugadas: " +
+         * participante.getPartidasJugadas() + " |");
+         * System.out.println("----------------------------");
+         * System.out.println(""); }
+         */
+
+        /**
+         * %-18s → Deja espacio fijo de 18 caracteres para los títulos ("ID", "NOMBRE", etc.).
+            %-8d y %-8.1f → Aseguran que los valores (números y texto) ocupen 8 caracteres, manteniendo alineación.
+             Barras | siempre en la misma posición.
+             d int, s string y f float
+              % es el indicador de formato.
+              El signo - es para alinear el texto a la izquierda. Si no se incluye, se alinea a la derecha por defecto.
+         */
+        for (Jugador participante : participantes) {
+            System.out.println("----------------------------------");
+            System.out.printf("|  %-18s: %-8d |\n", "ID", participante.getId_j());
+            System.out.printf("|  %-18s: %-8s |\n", "NOMBRE", participante.getNombre());
+            System.out.printf("|  %-18s: %-8.1f |\n", "Partidas Ganadas", participante.getPartidasGanadas());
+            System.out.printf("|  %-18s: %-8.1f |\n", "Partidas Jugadas", participante.getPartidasJugadas());
+            System.out.println("----------------------------------");
+            System.out.println("");
+        }
 
         for (int i = 0; i < participantes.size(); i++) {
             Jugador participante = participantes.get(i);

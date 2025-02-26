@@ -39,7 +39,7 @@ public class MenuMinijuegos extends javax.swing.JFrame {
         btn_memoira = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btn_boton1 = new javax.swing.JButton();
+        btn_salir = new javax.swing.JButton();
         Menu = new javax.swing.JPanel();
         TextoLogin = new javax.swing.JLabel();
         PanelX = new javax.swing.JPanel();
@@ -101,18 +101,18 @@ public class MenuMinijuegos extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(35, 103, 114));
         jLabel3.setText("Boton escurridizo");
 
-        btn_boton1.setBackground(new java.awt.Color(218, 91, 4));
-        btn_boton1.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
-        btn_boton1.setForeground(new java.awt.Color(0, 0, 0));
-        btn_boton1.setText("SALIR");
-        btn_boton1.setAlignmentY(0.0F);
-        btn_boton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btn_boton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_boton1.setFocusPainted(false);
-        btn_boton1.setPreferredSize(new java.awt.Dimension(180, 50));
-        btn_boton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_salir.setBackground(new java.awt.Color(218, 91, 4));
+        btn_salir.setFont(new java.awt.Font("Bauhaus 93", 1, 24)); // NOI18N
+        btn_salir.setForeground(new java.awt.Color(0, 0, 0));
+        btn_salir.setText("SALIR");
+        btn_salir.setAlignmentY(0.0F);
+        btn_salir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_salir.setFocusPainted(false);
+        btn_salir.setPreferredSize(new java.awt.Dimension(180, 50));
+        btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_boton1ActionPerformed(evt);
+                btn_salirActionPerformed(evt);
             }
         });
 
@@ -202,7 +202,7 @@ public class MenuMinijuegos extends javax.swing.JFrame {
             .addGroup(MenuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TextoLogin)
-                .addGap(99, 99, 99)
+                .addGap(111, 111, 111)
                 .addComponent(PanelMenos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,7 +253,7 @@ public class MenuMinijuegos extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FondoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_boton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(200, 200, 200))
         );
         FondoLayout.setVerticalGroup(
@@ -278,7 +278,7 @@ public class MenuMinijuegos extends javax.swing.JFrame {
                             .addComponent(btn_memoira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_boton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(53, 53, 53)
-                .addComponent(btn_boton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
 
@@ -299,23 +299,25 @@ public class MenuMinijuegos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_botonActionPerformed
-
-        BotonEscurridizo bt = new BotonEscurridizo();
+        this.setVisible(false);
+        BotonEscurridizo bt = new BotonEscurridizo(this);
         bt.setVisible(true);
 
     }//GEN-LAST:event_btn_botonActionPerformed
 
     private void btn_memoiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_memoiraActionPerformed
-
-        Emparejados em = new Emparejados(null);
+        this.setVisible(false);
+        Emparejados em = new Emparejados(this);
         em.setVisible(true);
-
+       
 
     }//GEN-LAST:event_btn_memoiraActionPerformed
 
-    private void btn_boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_boton1ActionPerformed
+    private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btn_boton1ActionPerformed
+        Ventana_Gracias vn = new Ventana_Gracias();
+        vn.setVisible(true);
+    }//GEN-LAST:event_btn_salirActionPerformed
 
     private void TextoCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextoCerrarMouseClicked
         this.dispose();
@@ -404,8 +406,8 @@ public class MenuMinijuegos extends javax.swing.JFrame {
     private javax.swing.JLabel TextoCerrar;
     private javax.swing.JLabel TextoLogin;
     private javax.swing.JButton btn_boton;
-    private javax.swing.JButton btn_boton1;
     private javax.swing.JButton btn_memoira;
+    private javax.swing.JButton btn_salir;
     private javax.swing.JLabel img_button;
     private javax.swing.JLabel img_memoria;
     private javax.swing.JLabel jLabel1;
