@@ -26,7 +26,7 @@ public class Arbitro implements Serializable {
 
     //@ManyToMany(mappedBy = "arbitros", cascade = CascadeType.ALL) // cascade-Se propaga la eliminación, La propiedad 'arbitros' está en Torneo, así que 'mappedBy' la enlaza
     @ManyToMany(mappedBy = "arbitros", cascade = CascadeType.ALL)
-    private ArrayList<Torneo> torneos;
+    private ArrayList<Torneo> torneos = new ArrayList<>();
 
     /**
      * Constructor por defecto.

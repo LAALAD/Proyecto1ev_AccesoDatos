@@ -125,7 +125,6 @@ public class ProyectoAc_2ev {
         } while (!opcion.equals("6")); //Mientras seleccione un numero distinto de 4 seguir el bucle
     }
 
-    
     /**
      * Muestra el menú de opciones para gestionar los jugador. Permite crear,
      * eliminar, modificar, buscar, listar jugadores.
@@ -743,7 +742,7 @@ public class ProyectoAc_2ev {
      *
      * Los datos ingresados se validan y se almacenan en la base de datos.
      */
-    private static void crearArbitro() {
+    private static Arbitro crearArbitro() {
 
         System.out.println("Introduce el nombre del arbitro: ");
         String nombre = sc.nextLine();
@@ -753,6 +752,7 @@ public class ProyectoAc_2ev {
         Arbitro nuevo = new Arbitro(nombre.toUpperCase(), numeroLicencia);
 
         control.crearArbitro(nuevo);
+        return nuevo;
     }
 
     /**
@@ -790,9 +790,14 @@ public class ProyectoAc_2ev {
      * @return El objeto `Arbitro` seleccionado por el usuario.
      */
     private static Arbitro seleccionarArbitro() {
+
         int id_aux;
         // Bucle para solicitar un ID de jugador válido
         do {
+            if (control.leerTodosArbitros().isEmpty()) {
+                System.out.println("No hay arbitros registrados");
+                return null;
+            }
             // Solicitar al usuario que ingrese un ID de jugador
             System.out.println("Selecciona el id de un arbitro: ");
             id_aux = Validaciones.asignarEntero();// Obtener el ID ingresado por el usuario
@@ -907,26 +912,26 @@ public class ProyectoAc_2ev {
             switch (opcion) {
                 case "1":
                     Arbitro seleccionado = seleccionarArbitro();
-                    Boolean encontrado = false;
-                    for (Arbitro contratado : torneo.getArbitros()) {
-                        if (seleccionado.getId() == contratado.getId()) {
-                            System.out.println("El arbitro seleccionado ya está contratado para este evento");
-                            encontrado = true;
+                    if (seleccionado != null) {
+                        Boolean encontrado = false;
+                        for (Arbitro contratado : torneo.getArbitros()) {
+                            if (seleccionado.getId() == contratado.getId()) {
+                                System.out.println("El arbitro seleccionado ya está contratado para este evento");
+                                encontrado = true;
+                            }
                         }
-                    }
-                    if (!encontrado) {
-                        torneo.getArbitros().add(seleccionado);
-                        control.editarTorneo(torneo);
+                        if (!encontrado) {
+                            torneo.getArbitros().add(seleccionado);
+                            seleccionado.getTorneos().add(torneo);
+                            //control.editarArbitro(seleccionado);
+                            control.editarTorneo(torneo);
+                        }
                     }
                     break;
                 case "2":
-                    System.out.println("Introduce el nombre del arbitro: ");
-                    String nombre = sc.nextLine().toUpperCase();
-                    
-                    String numeroLicencia = Validaciones.validarLicencia();
-                    
-                    torneo.getArbitros().add(new Arbitro(nombre, numeroLicencia));
-                    
+                    Arbitro nuevo = crearArbitro();
+                    torneo.getArbitros().add(nuevo);
+                    nuevo.getTorneos().add(torneo);
                     control.editarTorneo(torneo);
                     break;
                 case "3": // Salimos y guardamos los cambios en el arbitro     
@@ -962,7 +967,7 @@ public class ProyectoAc_2ev {
 
         // Eliminar el torneo seleccionado de la lista de torneos en memoria.
         torneos.remove(eliminar);
-        control.eliminarTorneo(eliminar.getId_t()); 
+        control.eliminarTorneo(eliminar.getId_t());
     }
 
     /**
@@ -984,6 +989,7 @@ public class ProyectoAc_2ev {
         // Pedimos al usuario que seleccione el torneo que desea modificar
         System.out.println("Para el torneo a modificar: ");
         Torneo modif = seleccionarTorneo(noJugados());// Seleccionamos el torneo a modificar
+        imprimirArbitros(modif.getArbitros());
 
         String opcion = "";
         do {
@@ -1002,15 +1008,13 @@ public class ProyectoAc_2ev {
                     break;
                 case "1":
                     System.out.println("Introduce la nueva fecha del torneo: ");
-                    //modif.setFecha(asignarFecha());
-                    modif.setFecha(new Date());
+                    modif.setFecha(Validaciones.validarFechaFutura());
                     break;
                 case "2":
                     System.out.println("Introduce el nuevo numero maximo de jugadores del torneo: ");
                     modif.setNum_max_jugadores(Validaciones.asignarEntero());
                     break;
                 case "3": // Salimos y guardamos los cambios en el torneo
-                    //t.modificarTorneo(modif);
                     control.editarTorneo(modif);
                     break;
                 default:
@@ -1078,7 +1082,7 @@ public class ProyectoAc_2ev {
         // Calcula las plazas disponibles en el torneo seleccionado
         int plazas_disponibles = seleccion_torneo.getNum_max_jugadores() - seleccion_torneo.getInscritos().size();
 
-        if(plazas_disponibles == 0){
+        if (plazas_disponibles == 0) {
             System.out.println("No hay plazas disponibles");
             return;
         }
