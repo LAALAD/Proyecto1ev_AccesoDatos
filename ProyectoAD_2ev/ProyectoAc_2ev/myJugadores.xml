@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ListadoJugadores xmlns="myNameSpace">
+<MisDatos xmlns="myNameSpace">
     <jugadores>
         <jugador>
             <id>1</id>
-            <nombre>adriana</nombre>
+            <nombre>PAUL</nombre>
             <partidasGanadas>0.0</partidasGanadas>
             <partidasJugadas>0.0</partidasJugadas>
         </jugador>
         <jugador>
             <id>2</id>
-            <nombre>alba</nombre>
+            <nombre>ADRIANA</nombre>
+            <partidasGanadas>0.0</partidasGanadas>
+            <partidasJugadas>0.0</partidasJugadas>
+            <datosPersonales>
+                <apellido>ALONSO</apellido>
+                <fechaNacimiento>23/07/2000</fechaNacimiento>
+                <email>adriana@gmail.com</email>
+                <telefono>608752330</telefono>
+            </datosPersonales>
+        </jugador>
+        <jugador>
+            <id>3</id>
+            <nombre>JORGE</nombre>
             <partidasGanadas>0.0</partidasGanadas>
             <partidasJugadas>0.0</partidasJugadas>
         </jugador>
     </jugadores>
-</ListadoJugadores>
+</MisDatos>
